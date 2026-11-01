@@ -29,15 +29,15 @@ class DefaultSongs {
     SongModel(
       id: 3,
       name: 'Garuda Pancasila',
-      tempo: 96,
-      len: 84,
+      tempo: 100,
+      len: 82,
       category: SongCategory.nasional,
     ),
     SongModel(
       id: 4,
       name: 'Ibu Kita Kartini',
       tempo: 88,
-      len: 58,
+      len: 57,
       category: SongCategory.nasional,
     ),
 

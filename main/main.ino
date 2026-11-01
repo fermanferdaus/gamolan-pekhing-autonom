@@ -98,62 +98,80 @@ const Nada song_2[] PROGMEM = {
 };
 
 const Nada song_3[] PROGMEM = {
-  // 1. "Ga-ru-da pan-ca-si-la" (5 5 1 1 2 2 3)
-  { DO, 2 }, { DO, 2 }, { DO, 4 }, { DO, 4 }, { RE, 4 }, { RE, 4 }, { MI, 8 }, { DIAM, 2 },
-  // 2. "A-ku-lah pen-du-kung-mu" (3~4 5 1 2 3 4 2)
-  { MI, 2 }, { FA, 2 }, { SOL, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 }, { FA, 4 }, { RE, 8 }, { DIAM, 2 },
-  // 3. "Pat-ri-ot prok-la-ma-si" (5 5 2 2 3 3 4)
-  { DO, 2 }, { DO, 2 }, { RE, 4 }, { RE, 4 }, { MI, 4 }, { MI, 4 }, { FA, 8 }, { DIAM, 2 },
-  // 4. "Se-di-a ber-kor-ban un-tuk-mu" (3 2 1 5 5 5 6 7 1')
-  { MI, 4 }, { RE, 4 }, { DO, 4 }, { DIAM, 2 },
-  { SOL, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { SI, 4 }, { DO_T, 8 }, { DIAM, 4 },
-  // 5. "Pan-ca-si-la da-sar ne-ga-ra" (1 1 1 1 1 4 5 6 5)
-  { DO, 3 }, { DO, 1 }, { DO, 4 }, { DO, 4 }, { DO, 4 }, { FA, 4 }, { SOL, 3 }, { LA, 1 }, { SOL, 8 }, { DIAM, 4 },
-  // 6. "Rak-yat a-dil mak-mur sen-to-sa" (1 1 1 1 1 4 5 6 5)
-  { DO, 3 }, { DO, 1 }, { DO, 4 }, { DO, 4 }, { DO, 4 }, { FA, 4 }, { SOL, 3 }, { LA, 1 }, { SOL, 8 }, { DIAM, 4 },
-  // 7. "Pri-ba-di bang-sa-ku" (5 1° 5 4 3 2)
-  { SOL, 4 }, { DO_T, 4 }, { SOL, 4 }, { FA, 4 }, { MI, 4 }, { RE, 8 }, { DIAM, 4 },
-  // 8. "A-yo ma-ju ma-ju" (1 1 1 1 4 3)
-  { DO, 3 }, { DO, 1 }, { DO, 3 }, { DO, 1 }, { FA, 4 }, { MI, 8 }, { DIAM, 2 },
-  // 9. "A-yo ma-ju ma-ju" (1 1 1 1 2 3)
-  { DO, 3 }, { DO, 1 }, { DO, 3 }, { DO, 1 }, { RE, 4 }, { MI, 8 }, { DIAM, 2 },
-  // 10. "A-yo ma-ju ma-ju!" (1 1 6 5 7 1')
-  { DO, 2 }, { DO, 2 }, { LA, 2 }, { SOL, 2 }, { SI, 4 }, { DO_T, 10 }, { DIAM, 4 }
+  // Pickup (Beat 4): "Ga-ru" (5_ . 5_)
+  { DO, 3 }, { DO, 1 },
+  // Bar 1: "da Pan-ca-si" (1 1 2 2)
+  { DO, 4 }, { DO, 4 }, { RE, 4 }, { RE, 4 },
+  // Bar 2: "la - a-" (3 . 0 3 . 4)
+  { MI, 8 }, { DIAM, 4 }, { MI, 3 }, { FA, 1 },
+  // Bar 3: "ku-lah pen-du-kung" (5 1 . 2 3 4)
+  { SOL, 4 }, { DO, 3 }, { RE, 1 }, { MI, 4 }, { FA, 4 },
+  // Bar 4: "mu - Pa-tri-" (2 . 0 5_ . 5_)
+  { RE, 8 }, { DIAM, 4 }, { DO, 3 }, { DO, 1 },
+  // Bar 5: "ot prok-la-ma" (2 2 3 3)
+  { RE, 4 }, { RE, 4 }, { MI, 4 }, { MI, 4 },
+  // Bar 6: "si - se-di-" (4 . 0 3 . 2)
+  { FA, 8 }, { DIAM, 4 }, { MI, 3 }, { RE, 1 },
+  // Bar 7: "a ber-kor-ban un-tuk" (1 5_ . 5_ 5_ 6_ . 7_)
+  { DO, 4 }, { SOL, 3 }, { SOL, 1 }, { SOL, 4 }, { LA, 3 }, { SI, 1 },
+  // Bar 8: "mu - Pan-ca" (1' . 0 1 . 1)
+  { DO_T, 8 }, { DIAM, 4 }, { DO, 3 }, { DO, 1 },
+  // Bar 9: "si-la da-sar ne-ga" (1 . 6_ . 1 4 5 . 6)
+  { DO, 4 }, { DO, 3 }, { DO, 1 }, { FA, 4 }, { SOL, 3 }, { LA, 1 },
+  // Bar 10: "ra - Rak-yat" (5 . 0 1 . 1)
+  { SOL, 8 }, { DIAM, 4 }, { DO, 3 }, { DO, 1 },
+  // Bar 11: "a-dil mak-mur sen-to" (1 6_ . 1 4 5 . 6)
+  { DO, 4 }, { DO, 3 }, { DO, 1 }, { FA, 4 }, { SOL, 3 }, { LA, 1 },
+  // Bar 12: "sa - Pri-" (5 . 0 5)
+  { SOL, 8 }, { DIAM, 4 }, { SOL, 4 },
+  // Bar 13: "ba-di bang-sa" (6 . 5 4 3)
+  { LA, 6 }, { SOL, 2 }, { FA, 4 }, { MI, 4 },
+  // Bar 14: "ku - a yo-ma" (2 . 0 1 1 . 1)
+  { RE, 8 }, { DIAM, 2 }, { DO, 2 }, { DO, 3 }, { DO, 1 },
+  // Bar 15: "ju-ma-ju a-yo-ma" (1 . 6_ 5_ . 1 1 1)
+  { DO, 6 }, { LA, 2 }, { SOL, 3 }, { DO, 1 }, { DO, 2 }, { DO, 2 },
+  // Bar 16: "ju-ma-ju - a" (1 . 2 3 0 1)
+  { DO, 6 }, { RE, 2 }, { MI, 2 }, { DIAM, 2 }, { DO, 4 },
+  // Bar 17: "yo-ma-ju-ma" (1 6_ 5_ . 7_)
+  { DO, 4 }, { LA, 4 }, { SOL, 6 }, { SI, 2 },
+  // Bar 18: "ju!" (1 . . 0)
+  { DO, 12 }, { DIAM, 4 }
 };
 
 const Nada song_4[] PROGMEM = {
-  // "I-bu ki-ta" (1 . 2 3 4)
-  { DO, 3 }, { RE, 1 }, { MI, 4 }, { FA, 4 },
-  // "Kar-ti-ni" (5 . 3 1)
-  { SOL, 4 }, { MI, 2 }, { DO, 6 }, { DIAM, 2 },
-  // "pu-tri se-ja-" (6 . 1' 7 6)
-  { LA, 3 }, { DO_T, 1 }, { SI, 4 }, { LA, 4 },
-  // "-ti" (5)
-  { SOL, 6 }, { DIAM, 2 },
-  // "Pu-tri In-do-" (4 . 6 5 4)
-  { FA, 3 }, { LA, 1 }, { SOL, 4 }, { FA, 4 },
-  // "-ne-sia" (3 . 1 .)
-  { MI, 4 }, { DO, 4 },
-  // "ha-rum na-ma-" (2 . 4 3 2)
-  { RE, 3 }, { FA, 1 }, { MI, 4 }, { RE, 4 },
-  // "-nya" (1)
-  { DO, 6 }, { DIAM, 2 },
-  // "Wa-hai I-bu" (4 . 3 4 6)
-  { FA, 3 }, { MI, 1 }, { FA, 4 }, { LA, 4 },
-  // "ki-ta Kar-ti-ni" (5 6 5 3 1 3)
+  // Bar 1: "I-bu ki-ta" (1 . 2 3 4)
+  { DO, 6 }, { RE, 2 }, { MI, 4 }, { FA, 4 },
+  // Bar 2: "Kar-ti-ni" (5 . 3 1)
+  { SOL, 8 }, { MI, 4 }, { DO, 4 },
+  // Bar 3: "pu-tri se-ja-" (6 . 1' 7 6)
+  { LA, 6 }, { DO_T, 2 }, { SI, 4 }, { LA, 4 },
+  // Bar 4: "-ti" (5)
+  { SOL, 12 }, { DIAM, 4 },
+  // Bar 5: "Pu-tri In-do-" (4 . 6 5 4)
+  { FA, 6 }, { LA, 2 }, { SOL, 4 }, { FA, 4 },
+  // Bar 6: "-ne-sia" (3 . 1 .)
+  { MI, 8 }, { DO, 8 },
+  // Bar 7: "ha-rum na-ma-" (2 . 4 3 2)
+  { RE, 6 }, { FA, 2 }, { MI, 4 }, { RE, 4 },
+  // Bar 8: "-nya" (1)
+  { DO, 12 }, { DIAM, 4 },
+
+  // Bar 9: "Wa-hai I-bu" (4 . 3 4 6)
+  { FA, 6 }, { MI, 2 }, { FA, 4 }, { LA, 4 },
+  // Bar 10: "ki-ta Kar-ti-ni, Pu-" (5 6 5 3 1 3)
   { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { MI, 2 }, { DO, 4 }, { MI, 4 },
-  // "pu-tri yang mu-" (2 3 4 5)
+  // Bar 11: "-tri yang mu-li-" (2 3 4 5)
   { RE, 4 }, { MI, 4 }, { FA, 4 }, { SOL, 4 },
-  // "-li-a" (3)
-  { MI, 6 }, { DIAM, 2 },
-  // "Sung-guh be-sar" (4 . 3 4 6)
-  { FA, 3 }, { MI, 1 }, { FA, 4 }, { LA, 4 },
-  // "ci-ta-ci-ta-nya" (5 6 5 3 1 3)
+  // Bar 12: "-a" (3)
+  { MI, 12 }, { DIAM, 4 },
+  // Bar 13: "Sung-guh be-sar" (4 . 3 4 6)
+  { FA, 6 }, { MI, 2 }, { FA, 4 }, { LA, 4 },
+  // Bar 14: "ci-ta-ci-ta-nya, ba-" (5 6 5 3 1 3)
   { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { MI, 2 }, { DO, 4 }, { MI, 4 },
-  // "ba-gi In-do-" (2 . 4 3 2)
-  { RE, 3 }, { FA, 1 }, { MI, 4 }, { RE, 4 },
-  // "-ne-sia" (1)
-  { DO, 6 }, { DIAM, 2 }
+  // Bar 15: "-gi In-do-ne-" (2 4 3 2)
+  { RE, 4 }, { FA, 4 }, { MI, 4 }, { RE, 4 },
+  // Bar 16: "-sia" (1)
+  { DO, 12 }, { DIAM, 4 }
 };
 
 // --- 2. LAGU DAERAH ---
@@ -346,7 +364,7 @@ const char* const defaultSongCats[] = {
 };
 
 const int defaultSongTempos[] = {
-  96, 84, 80, 96, 88,
+  96, 84, 80, 100, 88,
   104, 108, 112, 96, 104,
   96, 100, 92, 88, 92,
   100, 100, 108, 108, 104
