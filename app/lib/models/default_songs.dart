@@ -15,8 +15,8 @@ class DefaultSongs {
     SongModel(
       id: 1,
       name: 'Tanah Airku',
-      tempo: 84,
-      len: 70,
+      tempo: 70,
+      len: 95,
       category: SongCategory.nasional,
     ),
     SongModel(

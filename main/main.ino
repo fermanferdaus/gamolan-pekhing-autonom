@@ -55,27 +55,51 @@ const Nada song_0[] PROGMEM = {
   { MI, 3 }, { RE, 1 }, { DO, 10 }, { DIAM, 2 }
 };
 
+// Tanah Airku (Ibu Sud, do=C, 4/4, tempo 70) — transcribed bar-exact dari partitur
+// (sekitarmusik.com, dikonfirmasi not.web.id). Birama 4/4 = 16 unit.
+// Not "3'"/"2'" (mi'/re' tinggi) di luar jangkauan 8 bilah (di atas do') dirender
+// satu oktaf turun ke tingkat solmisasi yang sama (mi=3, re=2).
 const Nada song_1[] PROGMEM = {
-  // "Ta-nah a-ir-ku ti-dak ku-lu-pa-kan"
-  { DO, 4 }, { MI, 2 }, { RE, 4 }, { DO, 2 }, { RE, 4 }, { MI, 4 }, { DO, 6 }, { DIAM, 2 },
-  // "Kan ter-ke-nang se-la-ma hi-dup-ku"
-  { DO, 4 }, { MI, 2 }, { RE, 4 }, { DO, 2 }, { FA, 6 }, { FA, 4 },
-  // "Biar-pun sa-ya per-gi ja-uh"
-  { MI, 4 }, { SOL, 2 }, { SOL, 4 }, { MI, 2 }, { RE, 4 }, { MI, 4 }, { DO, 4 }, { RE, 2 },
-  // "Ti-dak-kan hi-lang da-ri kal-bu"
-  { DO, 4 }, { RE, 2 }, { DO, 4 }, { RE, 2 }, { DO, 6 }, { DIAM, 2 },
-  // "Wa-lau-pun ba-nyak ne-ge-ri ku-ja-la-ni"
-  { MI, 4 }, { FA, 2 }, { SOL, 4 }, { MI, 2 }, { RE, 4 }, { MI, 4 }, { FA, 6 }, { FA, 4 },
-  // "Yang mas-yhur per-mai di-ka-ta o-rang"
-  { FA, 4 }, { SOL, 2 }, { LA, 4 }, { SOL, 2 }, { FA, 4 }, { MI, 4 }, { RE, 6 }, { DIAM, 2 },
-  // "Te-ta-pi kam-pung dan ru-mah-ku"
-  { SOL, 4 }, { SOL, 2 }, { DO_T, 4 }, { SI, 2 }, { LA, 4 }, { SI, 4 }, { DO_T, 4 }, { LA, 2 },
-  // "Di sa-na-lah ku ra-sa se-nang"
-  { SOL, 4 }, { FA, 2 }, { MI, 4 }, { SOL, 2 }, { RE, 6 }, { DIAM, 2 },
-  // "Ta-nah-ku tak ku-lu-pa-kan"
-  { DO, 4 }, { MI, 2 }, { RE, 4 }, { DO, 2 }, { FA, 6 }, { FA, 4 },
-  // "Eng-kau ku-bang-ga-kan"
-  { MI, 4 }, { SOL, 2 }, { RE, 4 }, { MI, 2 }, { DO, 8 }, { DIAM, 4 }
+  // Birama 1 (pickup): "Ta-nah-aa" (sol-mi-fa, tiga not seperdelapan)
+  { DIAM, 8 }, { DIAM, 2 }, { SOL, 2 }, { MI, 2 }, { FA, 2 },
+  // Birama 2: "AA-iiir-ku" (sol panjang + lompatan P4 ke do')
+  { SOL, 12 }, { DO_T, 4 },
+  // Birama 3: "TIIIIII-dak-ku-lu-pa" (mi' pegang, re'-do' & si-la sepasang ke-8)
+  { MI, 8 }, { RE, 2 }, { DO_T, 2 }, { SI, 2 }, { LA, 2 },
+  // Birama 4: "KAAAAN (...)" + pickup "kan-ter-ke" (sepasang ke-8)
+  { SOL, 8 }, { DIAM, 2 }, { SOL, 2 }, { DO_T, 2 }, { MI, 2 },
+  // Birama 5: "NAAANG-se-la-ma-hi-DUP" (re'.-do'-si-si-la-si)
+  { RE, 6 }, { DO_T, 2 }, { SI, 2 }, { SI, 2 }, { LA, 2 }, { SI, 2 },
+  // Birama 6: "KUUUUU (breath) do' do' Bi-ar" (ke-8: sisa + do', do'-do')
+  { DO_T, 8 }, { DIAM, 2 }, { DO_T, 2 }, { DO_T, 2 }, { DO_T, 2 },
+  // Birama 7: "pun-sa-YA-per-gi-ja" (si-la 4 ketuk, la-do'-si-la ke-8)
+  { SI, 4 }, { LA, 4 }, { LA, 2 }, { DO_T, 2 }, { SI, 2 }, { LA, 2 },
+  // Birama 8: "(uh) jauh" (la-si-la, "ja-uh" panjang)
+  { LA, 2 }, { SI, 2 }, { LA, 4 }, { DIAM, 2 }, { SOL, 2 }, { DO_T, 4 },
+  // Birama 9: "UHHH-(breath)-ti-da-'kan" (sol panjang + sperdelapan: 0-3 4-5)
+  { SOL, 8 }, { DIAM, 2 }, { MI, 2 }, { FA, 2 }, { SOL, 2 },
+  // Birama 10: "hi-LANG-da-ri-kal-bu" (si-la 4 ketuk + la-re & mi-fa ke-8)
+  { SI, 4 }, { LA, 4 }, { LA, 2 }, { RE, 2 }, { MI, 2 }, { FA, 2 },
+  // Birama 11: "BUUUU-(breath)-Ta" (mi panjang + pickup sol "Ta(nahku)")
+  { MI, 12 }, { DIAM, 2 }, { SOL, 2 },
+  // Birama 12: "TA-na-air-ku ... " (pengulangan A: tak-ku-lu-pa-kan)
+  { DIAM, 8 }, { DIAM, 2 }, { SOL, 2 }, { MI, 2 }, { FA, 2 },
+  // Birama 13: "AA-ir-ku ... tak"
+  { SOL, 12 }, { DO_T, 4 },
+  // Birama 14: "ku-lu-PA-kan en-gau"
+  { MI, 2 }, { RE, 2 }, { DO_T, 8 }, { SI, 2 }, { LA, 2 },
+  // Birama 15: "KAAAAN + pickup" (sama bentuk birama 4)
+  { SOL, 8 }, { DIAM, 2 }, { SOL, 2 }, { DO_T, 2 }, { MI, 2 },
+  // Birama 16: "TAA-na-air-ku" (akhir: do' panjang, birama utuh)
+  { RE, 6 }, { DO_T, 2 }, { SI, 2 }, { SI, 2 }, { LA, 2 }, { SI, 2 },
+  // Birama 17: "...KUUUU (breath) Wa"
+  { DO_T, 12 }, { DIAM, 2 }, { DO_T, 2 },
+  // Birama 18: "lau-pun-ba-nyak-ne-ge-ri"
+  { DO_T, 2 }, { DO_T, 2 }, { SI, 2 }, { LA, 2 }, { LA, 2 }, { LA, 2 }, { DO_T, 2 }, { SI, 2 },
+  // Birama 19: "ku-ja-la-ni"
+  { LA, 2 }, { SI, 2 }, { LA, 4 }, { DIAM, 2 }, { SOL, 2 }, { DO_T, 4 },
+  // Birama 20: volta 2 "KAAAAN" — akhir lagu, do' tenggang satu birama penuh
+  { DO_T, 16 }
 };
 
 const Nada song_2[] PROGMEM = {
@@ -364,7 +388,7 @@ const char* const defaultSongCats[] = {
 };
 
 const int defaultSongTempos[] = {
-  96, 84, 80, 100, 88,
+  96, 70, 80, 100, 88,
   104, 108, 112, 96, 104,
   96, 100, 92, 88, 92,
   100, 100, 108, 108, 104
