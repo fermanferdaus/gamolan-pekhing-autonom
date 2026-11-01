@@ -32,4 +32,21 @@ void main() {
       expect(inCat, 5, reason: 'Category ${cat.name} should have 5 songs');
     }
   });
+
+  test('National songs match firmware PROGMEM song sizes', () {
+    // (id, name, tempo, len) must equal main.ino song_N arrays & defaultSongTempos.
+    const firmware = {
+      0: ('Indonesia Raya', 96, 45),
+      1: ('Tanah Airku', 84, 70),
+      2: ('Bagimu Negeri', 80, 45),
+      3: ('Garuda Pancasila', 100, 82),
+      4: ('Ibu Kita Kartini', 88, 57),
+    };
+    firmware.forEach((id, meta) {
+      final song = DefaultSongs.list.firstWhere((s) => s.id == id);
+      expect(song.name, meta.$1);
+      expect(song.tempo, meta.$2, reason: '${meta.$1} tempo');
+      expect(song.len, meta.$3, reason: '${meta.$1} len');
+    });
+  });
 }

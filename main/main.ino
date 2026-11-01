@@ -79,22 +79,22 @@ const Nada song_1[] PROGMEM = {
 };
 
 const Nada song_2[] PROGMEM = {
-  // "Pa-da-mu ne-ge-ri"
-  { DO, 4 }, { MI, 4 }, { RE, 2 }, { DO, 2 }, { RE, 6 }, { DIAM, 2 },
-  // "ka-mi ber-jan-ji"
-  { MI, 4 }, { FA, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 6 }, { DIAM, 2 },
-  // "Pa-da-mu ne-ge-ri"
-  { DO, 4 }, { MI, 4 }, { RE, 2 }, { DO, 2 }, { RE, 6 }, { DIAM, 2 },
-  // "ka-mi ber-bak-ti"
-  { MI, 4 }, { FA, 4 }, { SOL, 4 }, { FA, 4 }, { MI, 6 }, { DIAM, 2 },
-  // "Pa-da-mu ne-ge-ri"
-  { SOL, 4 }, { DO_T, 4 }, { SI, 2 }, { LA, 2 }, { SOL, 6 }, { DIAM, 2 },
-  // "ka-mi meng-ab-di"
-  { FA, 4 }, { MI, 4 }, { RE, 2 }, { MI, 2 }, { FA, 6 }, { DIAM, 2 },
-  // "Ba-gi-mu ne-ge-ri"
-  { SOL, 4 }, { LA, 2 }, { SOL, 2 }, { FA, 4 }, { MI, 4 }, { RE, 6 }, { DIAM, 2 },
-  // "ji-wa ra-ga ka-mi"
-  { MI, 4 }, { FA, 4 }, { RE, 4 }, { RE, 2 }, { DO, 8 }, { DIAM, 4 }
+  // Birama 1: "Pa-da-mu ne-g'ri" (5_ 1 . 6_ 5_ 3_ 0)
+  { SOL, 4 }, { DO_T, 3 }, { LA, 1 }, { SOL, 4 }, { MI, 2 }, { DIAM, 2 },
+  // Birama 2: "ka-mi ber-jan-ji" (5_ . 5_ 1 . 2 3 -)
+  { SOL, 3 }, { SOL, 1 }, { DO, 3 }, { RE, 1 }, { MI, 8 },
+  // Birama 3: "Pa-da-mu ne-g'ri" (4 5 . 5 3 1 0)
+  { FA, 4 }, { SOL, 3 }, { SOL, 1 }, { MI, 4 }, { DO, 2 }, { DIAM, 2 },
+  // Birama 4: "ka-mi ber-bak-ti" (1 . 1 2 . 3 2 -)
+  { DO, 3 }, { DO, 1 }, { RE, 3 }, { MI, 1 }, { RE, 8 },
+  // Birama 5: "Pa-da-mu ne-g'ri"
+  { SOL, 4 }, { DO_T, 3 }, { LA, 1 }, { SOL, 4 }, { MI, 2 }, { DIAM, 2 },
+  // Birama 6: "ka-mi me-ngab-di"
+  { SOL, 3 }, { SOL, 1 }, { DO, 3 }, { RE, 1 }, { MI, 8 },
+  // Birama 7: "ba-gi-mu ne-g'ri" (4 5 . 5 3 1 0)
+  { FA, 4 }, { SOL, 3 }, { SOL, 1 }, { MI, 4 }, { DO, 2 }, { DIAM, 2 },
+  // Birama 8: "ji-wa-ra-ga-ka-mi"; triplet 2-3-4 dikuantisasi 1-2-1 (asli 1.33)
+  { RE, 1 }, { MI, 2 }, { FA, 1 }, { MI, 2 }, { RE, 2 }, { DO, 8 }
 };
 
 const Nada song_3[] PROGMEM = {

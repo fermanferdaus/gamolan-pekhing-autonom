@@ -23,7 +23,7 @@ class DefaultSongs {
       id: 2,
       name: 'Bagimu Negeri',
       tempo: 80,
-      len: 49,
+      len: 45,
       category: SongCategory.nasional,
     ),
     SongModel(
