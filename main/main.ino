@@ -57,102 +57,102 @@ const Nada song_0[] PROGMEM = {
 
 const Nada song_1[] PROGMEM = {
   // "Ta-nah a-ir-ku ti-dak ku-lu-pa-kan"
-  { DO, 6 }, { MI, 2 }, { RE, 6 }, { DO, 2 }, { RE, 4 }, { MI, 4 }, { DO, 8 },
+  { DO, 4 }, { MI, 2 }, { RE, 4 }, { DO, 2 }, { RE, 4 }, { MI, 4 }, { DO, 6 }, { DIAM, 2 },
   // "Kan ter-ke-nang se-la-ma hi-dup-ku"
-  { DO, 6 }, { MI, 2 }, { RE, 6 }, { DO, 2 }, { FA, 12 }, { FA, 4 },
+  { DO, 4 }, { MI, 2 }, { RE, 4 }, { DO, 2 }, { FA, 6 }, { FA, 4 },
   // "Biar-pun sa-ya per-gi ja-uh"
-  { MI, 6 }, { SOL, 2 }, { SOL, 6 }, { MI, 2 }, { RE, 4 }, { MI, 4 }, { DO, 6 }, { RE, 2 },
+  { MI, 4 }, { SOL, 2 }, { SOL, 4 }, { MI, 2 }, { RE, 4 }, { MI, 4 }, { DO, 4 }, { RE, 2 },
   // "Ti-dak-kan hi-lang da-ri kal-bu"
-  { DO, 6 }, { RE, 2 }, { DO, 6 }, { RE, 2 }, { DO, 12 }, { DIAM, 4 },
+  { DO, 4 }, { RE, 2 }, { DO, 4 }, { RE, 2 }, { DO, 6 }, { DIAM, 2 },
   // "Wa-lau-pun ba-nyak ne-ge-ri ku-ja-la-ni"
-  { MI, 6 }, { FA, 2 }, { SOL, 6 }, { MI, 2 }, { RE, 4 }, { MI, 4 }, { FA, 12 }, { FA, 4 },
+  { MI, 4 }, { FA, 2 }, { SOL, 4 }, { MI, 2 }, { RE, 4 }, { MI, 4 }, { FA, 6 }, { FA, 4 },
   // "Yang mas-yhur per-mai di-ka-ta o-rang"
-  { FA, 6 }, { SOL, 2 }, { LA, 6 }, { SOL, 2 }, { FA, 4 }, { MI, 4 }, { RE, 8 }, { DIAM, 4 },
+  { FA, 4 }, { SOL, 2 }, { LA, 4 }, { SOL, 2 }, { FA, 4 }, { MI, 4 }, { RE, 6 }, { DIAM, 2 },
   // "Te-ta-pi kam-pung dan ru-mah-ku"
-  { SOL, 6 }, { SOL, 2 }, { DO_T, 6 }, { SI, 2 }, { LA, 4 }, { SI, 4 }, { DO_T, 6 }, { LA, 2 },
+  { SOL, 4 }, { SOL, 2 }, { DO_T, 4 }, { SI, 2 }, { LA, 4 }, { SI, 4 }, { DO_T, 4 }, { LA, 2 },
   // "Di sa-na-lah ku ra-sa se-nang"
-  { SOL, 6 }, { FA, 2 }, { MI, 6 }, { SOL, 2 }, { RE, 12 }, { DIAM, 4 },
+  { SOL, 4 }, { FA, 2 }, { MI, 4 }, { SOL, 2 }, { RE, 6 }, { DIAM, 2 },
   // "Ta-nah-ku tak ku-lu-pa-kan"
-  { DO, 6 }, { MI, 2 }, { RE, 6 }, { DO, 2 }, { FA, 12 }, { FA, 4 },
+  { DO, 4 }, { MI, 2 }, { RE, 4 }, { DO, 2 }, { FA, 6 }, { FA, 4 },
   // "Eng-kau ku-bang-ga-kan"
-  { MI, 6 }, { SOL, 2 }, { RE, 6 }, { MI, 2 }, { DO, 12 }, { DIAM, 4 }
+  { MI, 4 }, { SOL, 2 }, { RE, 4 }, { MI, 2 }, { DO, 8 }, { DIAM, 4 }
 };
 
 const Nada song_2[] PROGMEM = {
   // "Pa-da-mu ne-ge-ri"
-  { DO, 4 }, { MI, 4 }, { RE, 2 }, { DO, 2 }, { RE, 8 },
+  { DO, 4 }, { MI, 4 }, { RE, 2 }, { DO, 2 }, { RE, 6 }, { DIAM, 2 },
   // "ka-mi ber-jan-ji"
-  { MI, 4 }, { FA, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 8 },
+  { MI, 4 }, { FA, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 6 }, { DIAM, 2 },
   // "Pa-da-mu ne-ge-ri"
-  { DO, 4 }, { MI, 4 }, { RE, 2 }, { DO, 2 }, { RE, 8 },
+  { DO, 4 }, { MI, 4 }, { RE, 2 }, { DO, 2 }, { RE, 6 }, { DIAM, 2 },
   // "ka-mi ber-bak-ti"
-  { MI, 4 }, { FA, 4 }, { SOL, 4 }, { FA, 4 }, { MI, 8 },
+  { MI, 4 }, { FA, 4 }, { SOL, 4 }, { FA, 4 }, { MI, 6 }, { DIAM, 2 },
   // "Pa-da-mu ne-ge-ri"
-  { SOL, 4 }, { DO_T, 4 }, { SI, 2 }, { LA, 2 }, { SOL, 8 },
+  { SOL, 4 }, { DO_T, 4 }, { SI, 2 }, { LA, 2 }, { SOL, 6 }, { DIAM, 2 },
   // "ka-mi meng-ab-di"
-  { FA, 4 }, { MI, 4 }, { RE, 2 }, { MI, 2 }, { FA, 8 },
+  { FA, 4 }, { MI, 4 }, { RE, 2 }, { MI, 2 }, { FA, 6 }, { DIAM, 2 },
   // "Ba-gi-mu ne-ge-ri"
-  { SOL, 4 }, { LA, 2 }, { SOL, 2 }, { FA, 4 }, { MI, 4 }, { RE, 8 },
+  { SOL, 4 }, { LA, 2 }, { SOL, 2 }, { FA, 4 }, { MI, 4 }, { RE, 6 }, { DIAM, 2 },
   // "ji-wa ra-ga ka-mi"
-  { MI, 4 }, { FA, 4 }, { RE, 6 }, { RE, 2 }, { DO, 12 }, { DIAM, 4 }
+  { MI, 4 }, { FA, 4 }, { RE, 4 }, { RE, 2 }, { DO, 8 }, { DIAM, 4 }
 };
 
 const Nada song_3[] PROGMEM = {
-  // "Ga-ru-da pan-ca-si-la"
-  { DO, 2 }, { DO, 2 }, { DO, 4 }, { DO, 4 }, { RE, 4 }, { RE, 4 }, { MI, 3 }, { RE, 1 }, { MI, 2 }, { FA, 2 }, { SOL, 6 },
-  // "a-ku-lah pen-du-kung-mu"
-  { LA, 6 }, { LA, 2 }, { SOL, 4 }, { FA, 2 }, { MI, 2 }, { RE, 8 },
-  // "pa-tri-ot pro-kla-ma-si"
-  { RE, 2 }, { RE, 2 }, { RE, 4 }, { RE, 4 }, { MI, 4 }, { MI, 4 }, { FA, 3 }, { MI, 1 }, { FA, 2 }, { SOL, 6 },
-  // "se-di-a ber-kor-ban un-tuk-mu"
-  { LA, 6 }, { LA, 2 }, { SI, 4 }, { LA, 2 }, { SI, 2 }, { DO_T, 8 },
-  // "Pan-ca-si-la da-sar ne-ga-ra"
-  { DO_T, 2 }, { DO_T, 2 }, { DO_T, 2 }, { DO_T, 2 }, { LA, 8 },
-  // "rak-yat a-dil mak-mur sen-to-sa"
-  { SI, 2 }, { SI, 2 }, { SI, 2 }, { SI, 2 }, { SOL, 8 },
-  // "pri-ba-di bang-sa-ku"
-  { LA, 2 }, { LA, 2 }, { LA, 2 }, { LA, 2 }, { FA, 8 },
-  { SOL, 2 }, { SOL, 2 }, { SOL, 2 }, { SOL, 2 }, { MI, 8 },
-  { RE, 2 }, { MI, 2 }, { FA, 2 }, { SOL, 2 }, { LA, 8 },
-  // "A-yo ma-ju ma-ju, a-yo ma-ju ma-ju, a-yo ma-ju ma-ju!"
-  { SOL, 4 }, { DO_T, 4 }, { SI, 2 }, { LA, 2 }, { SOL, 4 },
-  { FA, 4 }, { LA, 4 }, { SOL, 2 }, { FA, 2 }, { MI, 4 },
-  { RE, 4 }, { FA, 4 }, { MI, 2 }, { RE, 2 }, { DO, 8 }, { DIAM, 4 }
+  // "Ga-ru-da pan-ca-si-la" (5 5 1 1 2 2 3)
+  { SOL, 2 }, { SOL, 2 }, { DO, 2 }, { DO, 2 }, { RE, 2 }, { RE, 2 }, { MI, 4 },
+  // "A-ku-lah pen-du-kung-mu" (3 4 5 1 2 3 4 2)
+  { MI, 2 }, { FA, 2 }, { SOL, 2 }, { DO, 2 }, { RE, 2 }, { MI, 2 }, { FA, 2 }, { RE, 2 },
+  // "Pat-ri-ot prok-la-ma-si" (5 5 2 2 3 3 4)
+  { SOL, 2 }, { SOL, 2 }, { RE, 2 }, { RE, 2 }, { MI, 2 }, { MI, 2 }, { FA, 4 },
+  // "Se-di-a ber-kor-ban un-tuk-mu" (3 2 1 5 5 5 6 7 1')
+  { MI, 2 }, { RE, 2 }, { DO, 2 }, { SOL, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 1 }, { SI, 1 }, { DO_T, 4 },
+  // "Pan-ca-si-la da-sar ne-ga-ra" (1' 1' 1' 6 1' 4 5 6 5)
+  { DO_T, 2 }, { DO_T, 1 }, { DO_T, 1 }, { LA, 2 }, { DO_T, 2 }, { FA, 2 }, { SOL, 2 }, { LA, 2 }, { SOL, 4 },
+  // "Rak-yat a-dil mak-mur sen-to-sa" (1' 1' 1' 6 1' 4 5 6 5)
+  { DO_T, 2 }, { DO_T, 1 }, { DO_T, 1 }, { LA, 2 }, { DO_T, 2 }, { FA, 2 }, { SOL, 2 }, { LA, 2 }, { SOL, 4 },
+  // "Pri-ba-di bang-sa-ku" (5 6 5 4 3 2)
+  { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 4 }, { RE, 4 },
+  // "A-yo ma-ju ma-ju" (1' 1' 1' 1' 6 5)
+  { DO_T, 2 }, { DO_T, 2 }, { DO_T, 2 }, { DO_T, 2 }, { LA, 4 }, { SOL, 4 },
+  // "A-yo ma-ju ma-ju" (1 1 1 1 2 3)
+  { DO, 2 }, { DO, 2 }, { DO, 2 }, { DO, 2 }, { RE, 4 }, { MI, 4 },
+  // "A-yo ma-ju ma-ju!" (1 1 6 5 7 1')
+  { DO, 2 }, { DO, 2 }, { LA, 2 }, { SOL, 2 }, { SI, 4 }, { DO_T, 6 }, { DIAM, 2 }
 };
 
 const Nada song_4[] PROGMEM = {
   // "I-bu ki-ta" (1 . 2 3 4)
-  { DO, 6 }, { RE, 2 }, { MI, 4 }, { FA, 4 },
+  { DO, 3 }, { RE, 1 }, { MI, 4 }, { FA, 4 },
   // "Kar-ti-ni" (5 . 3 1)
-  { SOL, 6 }, { MI, 2 }, { DO, 8 },
+  { SOL, 4 }, { MI, 2 }, { DO, 6 }, { DIAM, 2 },
   // "pu-tri se-ja-" (6 . 1' 7 6)
-  { LA, 6 }, { DO_T, 2 }, { SI, 4 }, { LA, 4 },
-  // "-ti" (5 . . .)
-  { SOL, 12 }, { DIAM, 4 },
+  { LA, 3 }, { DO_T, 1 }, { SI, 4 }, { LA, 4 },
+  // "-ti" (5)
+  { SOL, 6 }, { DIAM, 2 },
   // "Pu-tri In-do-" (4 . 6 5 4)
-  { FA, 6 }, { LA, 2 }, { SOL, 4 }, { FA, 4 },
+  { FA, 3 }, { LA, 1 }, { SOL, 4 }, { FA, 4 },
   // "-ne-sia" (3 . 1 .)
-  { MI, 8 }, { DO, 8 },
+  { MI, 4 }, { DO, 4 },
   // "ha-rum na-ma-" (2 . 4 3 2)
-  { RE, 6 }, { FA, 2 }, { MI, 4 }, { RE, 4 },
-  // "-nya" (1 . . .)
-  { DO, 12 }, { DIAM, 4 },
+  { RE, 3 }, { FA, 1 }, { MI, 4 }, { RE, 4 },
+  // "-nya" (1)
+  { DO, 6 }, { DIAM, 2 },
   // "Wa-hai I-bu" (4 . 3 4 6)
-  { FA, 6 }, { MI, 2 }, { FA, 4 }, { LA, 4 },
+  { FA, 3 }, { MI, 1 }, { FA, 4 }, { LA, 4 },
   // "ki-ta Kar-ti-ni" (5 6 5 3 1 3)
   { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { MI, 2 }, { DO, 4 }, { MI, 4 },
   // "pu-tri yang mu-" (2 3 4 5)
   { RE, 4 }, { MI, 4 }, { FA, 4 }, { SOL, 4 },
-  // "-li-a" (3 . . .)
-  { MI, 12 }, { DIAM, 4 },
+  // "-li-a" (3)
+  { MI, 6 }, { DIAM, 2 },
   // "Sung-guh be-sar" (4 . 3 4 6)
-  { FA, 6 }, { MI, 2 }, { FA, 4 }, { LA, 4 },
+  { FA, 3 }, { MI, 1 }, { FA, 4 }, { LA, 4 },
   // "ci-ta-ci-ta-nya" (5 6 5 3 1 3)
   { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { MI, 2 }, { DO, 4 }, { MI, 4 },
   // "ba-gi In-do-" (2 . 4 3 2)
-  { RE, 6 }, { FA, 2 }, { MI, 4 }, { RE, 4 },
-  // "-ne-sia" (1 . . .)
-  { DO, 12 }, { DIAM, 4 }
+  { RE, 3 }, { FA, 1 }, { MI, 4 }, { RE, 4 },
+  // "-ne-sia" (1)
+  { DO, 6 }, { DIAM, 2 }
 };
 
 // --- 2. LAGU DAERAH ---
@@ -345,7 +345,7 @@ const char* const defaultSongCats[] = {
 };
 
 const int defaultSongTempos[] = {
-  104, 96, 88, 120, 100,
+  104, 104, 92, 124, 108,
   108, 112, 116, 100, 112,
   100, 108, 96, 92, 96,
   120, 120, 120, 120, 120
@@ -381,8 +381,8 @@ byte currentPlayingNada = DIAM;
 int manualHitPin = -1;
 unsigned long manualReleaseTime = 0;
 
-const int PULSE_MS = 45;        // ms relay nyala (pukul solenoid) — gamolan perkusif
-const int JEDA_MIN_MS = 30;     // ms jeda minimum antar nada
+const int PULSE_MS = 40;        // ms relay nyala (pukul solenoid) — gamolan perkusif
+const int JEDA_MIN_MS = 25;     // ms jeda minimum antar nada
 
 void semuaMati() {
   for (int i = 0; i < jumlahRelay; i++) {
