@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" fill="none">
+  <!-- Gamolan Pekhing - Alat Musik Tradisional 8 Bilah Bambu Lampung -->
+  <defs>
+    <!-- Gradien Kayu Dudukan (Rancak) -->
+    <linearGradient id="woodStand" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4A2612"/>
+      <stop offset="50%" stop-color="#2D1507"/>
+      <stop offset="100%" stop-color="#190A03"/>
+    </linearGradient>
+    <linearGradient id="woodTrim" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C5A059"/>
+      <stop offset="50%" stop-color="#FFE082"/>
+      <stop offset="100%" stop-color="#C5A059"/>
+    </linearGradient>
+
+    <!-- Gradien Bilah Bambu (Bilah Gamolan) -->
+    <linearGradient id="bambooKey" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C9983E"/>
+      <stop offset="25%" stop-color="#F2D17E"/>
+      <stop offset="60%" stop-color="#DEB55D"/>
+      <stop offset="100%" stop-color="#A87522"/>
+    </linearGradient>
+    <linearGradient id="bambooKeyAlt" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4A74E"/>
+      <stop offset="30%" stop-color="#FAE096"/>
+      <stop offset="70%" stop-color="#E8C36E"/>
+      <stop offset="100%" stop-color="#B8852B"/>
+    </linearGradient>
+
+    <!-- Bayangan -->
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Bayangan Tanah -->
+  <ellipse cx="300" cy="295" rx="260" ry="16" fill="#000000" opacity="0.4"/>
+
+  <!-- Rangka Kayu Bawah (Kaki Rancak) -->
+  <g filter="url(#softShadow)">
+    <!-- Kaki Kiri -->
+    <path d="M 50 250 L 80 290 L 110 290 L 90 250 Z" fill="url(#woodStand)"/>
+    <path d="M 60 285 L 105 285" stroke="url(#woodTrim)" stroke-width="3"/>
+    <!-- Kaki Kanan -->
+    <path d="M 510 250 L 490 290 L 520 290 L 550 250 Z" fill="url(#woodStand)"/>
+    <path d="M 495 285 L 540 285" stroke="url(#woodTrim)" stroke-width="3"/>
+
+    <!-- Balok Penyangga Depan -->
+    <rect x="55" y="240" width="490" height="22" rx="4" fill="url(#woodStand)"/>
+    <line x1="60" y1="243" x2="540" y2="243" stroke="url(#woodTrim)" stroke-width="2"/>
+    <line x1="60" y1="259" x2="540" y2="259" stroke="url(#woodTrim)" stroke-width="1.5"/>
+
+    <!-- Balok Penyangga Belakang (Tampak sedikit lebih tinggi) -->
+    <rect x="80" y="80" width="440" height="18" rx="3" fill="#200E05"/>
+
+    <!-- Bantalan Karet / Tali Penyangga Bilah (Cushion cord) -->
+    <rect x="75" y="98" width="450" height="6" rx="3" fill="#8B1E32"/>
+    <rect x="65" y="235" width="470" height="6" rx="3" fill="#8B1E32"/>
+  </g>
+
+  <!-- 8 BILAH BAMBU GAMOLAN PEKHING (Ukuran mengecil dari kiri ke kanan) -->
+  <!-- Bilah 1 (DO - 1) -->
+  <g filter="url(#softShadow)">
+    <rect x="72" y="86" width="44" height="162" rx="7" fill="url(#bambooKey)"/>
+    <!-- Serat Bambu -->
+    <line x1="84" y1="92" x2="84" y2="242" stroke="#B08328" stroke-width="1" opacity="0.6"/>
+    <line x1="102" y1="92" x2="102" y2="242" stroke="#FFF0B3" stroke-width="1" opacity="0.4"/>
+    <!-- Paku Penahan Atas & Bawah -->
+    <circle cx="94" cy="100" r="4.5" fill="#1C140A"/>
+    <circle cx="94" cy="100" r="2.5" fill="#D4AF37"/>
+    <circle cx="94" cy="236" r="4.5" fill="#1C140A"/>
+    <circle cx="94" cy="236" r="2.5" fill="#D4AF37"/>
+    <text x="94" y="172" fill="#2B1904" font-size="16" font-weight="900" text-anchor="middle" font-family="sans-serif">1</text>
+  </g>
+
+  <!-- Bilah 2 (RE - 2) -->
+  <g filter="url(#softShadow)">
+    <rect x="124" y="92" width="43" height="154" rx="7" fill="url(#bambooKeyAlt)"/>
+    <line x1="136" y1="98" x2="136" y2="240" stroke="#B08328" stroke-width="1" opacity="0.6"/>
+    <circle cx="145" cy="104" r="4.5" fill="#1C140A"/>
+    <circle cx="145" cy="104" r="2.5" fill="#D4AF37"/>
+    <circle cx="145" cy="234" r="4.5" fill="#1C140A"/>
+    <circle cx="145" cy="234" r="2.5" fill="#D4AF37"/>
+    <text x="145" y="172" fill="#2B1904" font-size="16" font-weight="900" text-anchor="middle" font-family="sans-serif">2</text>
+  </g>
+
+  <!-- Bilah 3 (MI - 3) -->
+  <g filter="url(#softShadow)">
+    <rect x="175" y="98" width="42" height="146" rx="7" fill="url(#bambooKey)"/>
+    <line x1="187" y1="104" x2="187" y2="238" stroke="#B08328" stroke-width="1" opacity="0.6"/>
+    <circle cx="196" cy="108" r="4.5" fill="#1C140A"/>
+    <circle cx="196" cy="108" r="2.5" fill="#D4AF37"/>
+    <circle cx="196" cy="232" r="4.5" fill="#1C140A"/>
+    <circle cx="196" cy="232" r="2.5" fill="#D4AF37"/>
+    <text x="196" y="172" fill="#2B1904" font-size="16" font-weight="900" text-anchor="middle" font-family="sans-serif">3</text>
+  </g>
+
+  <!-- Bilah 4 (FA - 4) -->
+  <g filter="url(#softShadow)">
+    <rect x="225" y="104" width="41" height="138" rx="7" fill="url(#bambooKeyAlt)"/>
+    <line x1="237" y1="110" x2="237" y2="236" stroke="#B08328" stroke-width="1" opacity="0.6"/>
+    <circle cx="245" cy="112" r="4.5" fill="#1C140A"/>
+    <circle cx="245" cy="112" r="2.5" fill="#D4AF37"/>
+    <circle cx="245" cy="230" r="4.5" fill="#1C140A"/>
+    <circle cx="245" cy="230" r="2.5" fill="#D4AF37"/>
+    <text x="245" y="172" fill="#2B1904" font-size="16" font-weight="900" text-anchor="middle" font-family="sans-serif">4</text>
+  </g>
+
+  <!-- Bilah 5 (SOL - 5) -->
+  <g filter="url(#softShadow)">
+    <rect x="274" y="110" width="40" height="130" rx="7" fill="url(#bambooKey)"/>
+    <line x1="286" y1="116" x2="286" y2="234" stroke="#B08328" stroke-width="1" opacity="0.6"/>
+    <circle cx="294" cy="116" r="4.5" fill="#1C140A"/>
+    <circle cx="294" cy="116" r="2.5" fill="#D4AF37"/>
+    <circle cx="294" cy="228" r="4.5" fill="#1C140A"/>
+    <circle cx="294" cy="228" r="2.5" fill="#D4AF37"/>
+    <text x="294" y="172" fill="#2B1904" font-size="16" font-weight="900" text-anchor="middle" font-family="sans-serif">5</text>
+  </g>
+
+  <!-- Bilah 6 (LA - 6) -->
+  <g filter="url(#softShadow)">
+    <rect x="322" y="116" width="39" height="122" rx="7" fill="url(#bambooKeyAlt)"/>
+    <line x1="334" y1="122" x2="334" y2="232" stroke="#B08328" stroke-width="1" opacity="0.6"/>
+    <circle cx="341" cy="120" r="4.5" fill="#1C140A"/>
+    <circle cx="341" cy="120" r="2.5" fill="#D4AF37"/>
+    <circle cx="341" cy="226" r="4.5" fill="#1C140A"/>
+    <circle cx="341" cy="226" r="2.5" fill="#D4AF37"/>
+    <text x="341" y="172" fill="#2B1904" font-size="16" font-weight="900" text-anchor="middle" font-family="sans-serif">6</text>
+  </g>
+
+  <!-- Bilah 7 (SI - 7) -->
+  <g filter="url(#softShadow)">
+    <rect x="369" y="122" width="38" height="114" rx="7" fill="url(#bambooKey)"/>
+    <line x1="381" y1="128" x2="381" y2="230" stroke="#B08328" stroke-width="1" opacity="0.6"/>
+    <circle cx="388" cy="124" r="4.5" fill="#1C140A"/>
+    <circle cx="388" cy="124" r="2.5" fill="#D4AF37"/>
+    <circle cx="388" cy="224" r="4.5" fill="#1C140A"/>
+    <circle cx="388" cy="224" r="2.5" fill="#D4AF37"/>
+    <text x="388" y="172" fill="#2B1904" font-size="16" font-weight="900" text-anchor="middle" font-family="sans-serif">7</text>
+  </g>
+
+  <!-- Bilah 8 (DO' - 8) -->
+  <g filter="url(#softShadow)">
+    <rect x="415" y="128" width="37" height="106" rx="7" fill="url(#bambooKeyAlt)"/>
+    <line x1="427" y1="134" x2="427" y2="228" stroke="#B08328" stroke-width="1" opacity="0.6"/>
+    <circle cx="433" cy="128" r="4.5" fill="#1C140A"/>
+    <circle cx="433" cy="128" r="2.5" fill="#D4AF37"/>
+    <circle cx="433" cy="222" r="4.5" fill="#1C140A"/>
+    <circle cx="433" cy="222" r="2.5" fill="#D4AF37"/>
+    <text x="433" y="172" fill="#2B1904" font-size="16" font-weight="900" text-anchor="middle" font-family="sans-serif">8</text>
+  </g>
+
+  <!-- Dua Stik Pemukul (Tabuh Gamolan) -->
+  <g filter="url(#softShadow)">
+    <!-- Tabuh 1 Kiri -->
+    <path d="M 470 70 L 495 190" stroke="#7A4B1A" stroke-width="6" stroke-linecap="round"/>
+    <ellipse cx="468" cy="65" rx="14" ry="10" transform="rotate(-15 468 65)" fill="url(#bambooKey)"/>
+    <ellipse cx="468" cy="65" rx="11" ry="7" transform="rotate(-15 468 65)" fill="#931B2A"/>
+
+    <!-- Tabuh 2 Kanan -->
+    <path d="M 525 90 L 510 210" stroke="#7A4B1A" stroke-width="6" stroke-linecap="round"/>
+    <ellipse cx="527" cy="85" rx="14" ry="10" transform="rotate(10 527 85)" fill="url(#bambooKey)"/>
+    <ellipse cx="527" cy="85" rx="11" ry="7" transform="rotate(10 527 85)" fill="#931B2A"/>
+  </g>
+</svg>

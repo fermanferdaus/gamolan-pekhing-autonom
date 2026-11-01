@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:wifi_iot/wifi_iot.dart';
 import '../models/song_model.dart';
 import '../models/default_songs.dart';
 
@@ -14,25 +14,22 @@ class GamolanService extends ChangeNotifier {
   factory GamolanService() => _instance;
   GamolanService._internal() {
     _songs = List.from(DefaultSongs.list);
-    _startAutoCheckTimer();
+    _startAutoProbeTimer();
   }
 
-  static const _wsAddress = '192.168.4.1:81';
-  static const _apSsid = 'GamolanPekhing';
+  static const String serverHost = '192.168.4.1';
+  static const int serverPort = 81;
   static const _platformChannel =
       MethodChannel('com.gamolan.gamolan_pekhing/wifi');
 
   WebSocketChannel? _channel;
   StreamSubscription? _subscription;
-  Timer? _connectTimer;
-  Timer? _autoCheckTimer;
+  Timer? _connectTimeoutTimer;
+  Timer? _autoProbeTimer;
 
   ConnectionStatus _status = ConnectionStatus.disconnected;
   ConnectionStatus get status => _status;
   bool get isConnected => _status == ConnectionStatus.connected;
-
-  String? _connectedSsid;
-  String? get connectedSsid => _connectedSsid;
 
   List<SongModel> _songs = [];
   List<SongModel> get songs => _songs;
@@ -60,39 +57,108 @@ class GamolanService extends ChangeNotifier {
   String? _lastMessage;
   String? get lastMessage => _lastMessage;
 
-  void _startAutoCheckTimer() {
-    _autoCheckTimer?.cancel();
-    _autoCheckTimer = Timer.periodic(const Duration(seconds: 3), (_) async {
+  void _startAutoProbeTimer() {
+    _autoProbeTimer?.cancel();
+    _autoProbeTimer = Timer.periodic(const Duration(seconds: 3), (_) async {
       if (_status == ConnectionStatus.disconnected) {
-        final connected = await isWifiConnectedToGamolan();
-        if (connected) {
+        final reachable = await probeEsp32();
+        if (reachable) {
           connectWebSocket();
         }
       }
     });
   }
 
-  Future<bool> isWifiConnectedToGamolan() async {
+  Future<bool> probeEsp32() async {
     try {
-      final ssid = await WiFiForIoTPlugin.getSSID();
-      if (ssid == null) return false;
-      final clean = ssid.replaceAll('"', '').trim();
-      return clean == _apSsid;
+      await bindProcessToWifi();
+      final socket = await Socket.connect(
+        serverHost,
+        serverPort,
+        timeout: const Duration(milliseconds: 700),
+      );
+      socket.destroy();
+      return true;
     } catch (_) {
       return false;
     }
   }
 
+  Future<void> bindProcessToWifi() async {
+    try {
+      await _platformChannel.invokeMethod('bindToWifi');
+    } catch (_) {}
+  }
+
   Future<void> openWifiManager() async {
     try {
       await _platformChannel.invokeMethod('openWifiManager');
-    } catch (_) {
-      try {
-        await WiFiForIoTPlugin.setEnabled(true, shouldOpenSettings: true);
-      } catch (e) {
-        debugPrint('[WiFi] Gagal membuka settings: $e');
-      }
+    } catch (_) {}
+  }
+
+  Future<bool> connectWithResult() async {
+    if (_status == ConnectionStatus.connected) return true;
+
+    _status = ConnectionStatus.connecting;
+    notifyListeners();
+
+    await bindProcessToWifi();
+
+    final reachable = await probeEsp32();
+    if (!reachable) {
+      _handleDisconnect();
+      return false;
     }
+
+    final completer = Completer<bool>();
+    try {
+      final wsUrl = Uri.parse('ws://$serverHost:$serverPort');
+      _channel = WebSocketChannel.connect(wsUrl);
+
+      _subscription = _channel!.stream.listen(
+        (data) {
+          if (_status != ConnectionStatus.connected) {
+            _status = ConnectionStatus.connected;
+            notifyListeners();
+            fetchSongList();
+            if (!completer.isCompleted) completer.complete(true);
+          }
+          _handleMessage(data.toString());
+        },
+        onError: (_) {
+          _handleDisconnect();
+          if (!completer.isCompleted) completer.complete(false);
+        },
+        onDone: () {
+          _handleDisconnect();
+          if (!completer.isCompleted) completer.complete(false);
+        },
+        cancelOnError: true,
+      );
+
+      _connectTimeoutTimer?.cancel();
+      _connectTimeoutTimer = Timer(const Duration(milliseconds: 400), () {
+        if (_status == ConnectionStatus.connecting) {
+          _sendRaw({'cmd': 'list'});
+        }
+      });
+
+      Timer(const Duration(seconds: 4), () {
+        if (!completer.isCompleted) {
+          if (_status == ConnectionStatus.connected) {
+            completer.complete(true);
+          } else {
+            _handleDisconnect();
+            completer.complete(false);
+          }
+        }
+      });
+    } catch (_) {
+      _handleDisconnect();
+      return false;
+    }
+
+    return completer.future;
   }
 
   void connectWebSocket() {
@@ -100,47 +166,15 @@ class GamolanService extends ChangeNotifier {
         _status == ConnectionStatus.connected) {
       return;
     }
-
-    _status = ConnectionStatus.connecting;
-    notifyListeners();
-
-    try {
-      final wsUrl = Uri.parse('ws://$_wsAddress');
-      _channel = WebSocketChannel.connect(wsUrl);
-
-      _subscription = _channel!.stream.listen(
-        (data) {
-          if (_status != ConnectionStatus.connected) {
-            _status = ConnectionStatus.connected;
-            _connectedSsid = _apSsid;
-            notifyListeners();
-            fetchSongList();
-          }
-          _handleMessage(data.toString());
-        },
-        onError: (_) => _handleDisconnect(),
-        onDone: () => _handleDisconnect(),
-        cancelOnError: true,
-      );
-
-      _connectTimer?.cancel();
-      _connectTimer = Timer(const Duration(milliseconds: 300), () {
-        if (_status == ConnectionStatus.connecting) {
-          _sendRaw({'cmd': 'list'});
-        }
-      });
-    } catch (_) {
-      _handleDisconnect();
-    }
+    connectWithResult();
   }
 
   void _handleDisconnect() {
-    _connectTimer?.cancel();
-    _connectTimer = null;
+    _connectTimeoutTimer?.cancel();
+    _connectTimeoutTimer = null;
     _status = ConnectionStatus.disconnected;
     _isPlaying = false;
     _activeNada = 0;
-    _connectedSsid = null;
     _subscription?.cancel();
     _subscription = null;
     _channel = null;
@@ -217,8 +251,8 @@ class GamolanService extends ChangeNotifier {
 
   @override
   void dispose() {
-    _autoCheckTimer?.cancel();
-    _connectTimer?.cancel();
+    _autoProbeTimer?.cancel();
+    _connectTimeoutTimer?.cancel();
     _subscription?.cancel();
     _channel?.sink.close();
     super.dispose();

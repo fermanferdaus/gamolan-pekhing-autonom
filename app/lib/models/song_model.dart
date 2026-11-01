@@ -1,12 +1,11 @@
 enum SongCategory {
-  nasional('Nasional', '🇮🇩'),
-  daerah('Daerah', '🎶'),
-  lampung('Lampung', '🏛️'),
-  lainnya('Lainnya', '🎵');
+  nasional('Lagu Nasional'),
+  daerah('Lagu Daerah'),
+  lampung('Tradisional Lampung'),
+  lainnya('Lainnya');
 
   final String label;
-  final String icon;
-  const SongCategory(this.label, this.icon);
+  const SongCategory(this.label);
 }
 
 class SongModel {

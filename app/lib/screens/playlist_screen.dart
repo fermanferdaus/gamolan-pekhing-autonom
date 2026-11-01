@@ -23,7 +23,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     super.initState();
     _tabController = TabController(length: _categories.length, vsync: this);
     _service.addListener(_onServiceUpdate);
-    _tryAutoConnect();
+    _service.connectWebSocket();
   }
 
   @override
@@ -37,15 +37,202 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     if (mounted) setState(() {});
   }
 
-  Future<void> _tryAutoConnect() async {
-    final alreadyConnected = await _service.isWifiConnectedToGamolan();
-    if (alreadyConnected) {
-      _service.connectWebSocket();
-    }
-  }
-
   List<SongModel> _songsForCategory(SongCategory cat) {
     return _service.songs.where((s) => s.category == cat).toList();
+  }
+
+  void _showWifiConnectModal() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: LampungTheme.bgMedium,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) {
+        bool isConnecting = false;
+        String? errorMessage;
+
+        return StatefulBuilder(
+          builder: (modalCtx, setModalState) {
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: LampungTheme.bgBorder,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/images/siger_crown.svg',
+                        height: 24,
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(
+                        'Sambungkan ke Gamolan',
+                        style: TextStyle(
+                          color: LampungTheme.textPrimary,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 14),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: LampungTheme.bgCard,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: LampungTheme.bgBorder),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Petunjuk Koneksi:',
+                          style: TextStyle(
+                            color: LampungTheme.gold,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        const Text(
+                          '1. Buka Pengaturan WiFi di HP Anda.\n'
+                          '2. Pilih dan sambungkan ke WiFi "GamolanPekhing" (tanpa password).\n'
+                          '3. Setelah tersambung, ketuk tombol "Hubungkan Sekarang".',
+                          style: TextStyle(
+                            color: LampungTheme.textSecondary,
+                            fontSize: 12,
+                            height: 1.4,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (errorMessage != null) ...[
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: LampungTheme.tapisDark,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                            color: LampungTheme.tapisRed.withValues(alpha: 0.5)),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.error_outline,
+                              color: LampungTheme.tapisRed, size: 18),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              errorMessage!,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          icon: const Icon(Icons.settings, size: 16),
+                          label: const Text('Buka WiFi HP'),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: LampungTheme.textSecondary,
+                            side: const BorderSide(color: LampungTheme.bgBorder),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          onPressed: () => _service.openWifiManager(),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          icon: isConnecting
+                              ? const SizedBox(
+                                  width: 16,
+                                  height: 16,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        LampungTheme.bgDark),
+                                  ),
+                                )
+                              : const Icon(Icons.link, size: 18),
+                          label: Text(
+                              isConnecting ? 'Mencoba...' : 'Hubungkan Sekarang'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: LampungTheme.gold,
+                            foregroundColor: LampungTheme.bgDark,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
+                          onPressed: isConnecting
+                              ? null
+                              : () async {
+                                  setModalState(() {
+                                    isConnecting = true;
+                                    errorMessage = null;
+                                  });
+                                  final ok = await _service.connectWithResult();
+                                  if (!mounted) return;
+                                  if (ok) {
+                                    if (ctx.mounted) Navigator.pop(ctx);
+                                    if (!mounted) return;
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        backgroundColor: Color(0xFF1B4D24),
+                                        content: Text(
+                                            'Berhasil terhubung ke Gamolan Pekhing!'),
+                                      ),
+                                    );
+                                  } else {
+                                    setModalState(() {
+                                      isConnecting = false;
+                                      errorMessage =
+                                          'Gagal terhubung. Pastikan HP sudah terhubung ke WiFi "GamolanPekhing".';
+                                    });
+                                  }
+                                },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   void _showDeleteDialog(SongModel song) {
@@ -106,34 +293,37 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   Widget _buildHeader() {
     return Container(
       padding: EdgeInsets.only(
-        top: MediaQuery.of(context).padding.top + 6,
+        top: MediaQuery.of(context).padding.top + 8,
         left: 16,
         right: 8,
-        bottom: 8,
+        bottom: 10,
       ),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [LampungTheme.tapisDark, LampungTheme.bgDark],
-        ),
-        border: Border(
+        color: LampungTheme.bgMedium,
+        border: const Border(
           bottom: BorderSide(
-            color: LampungTheme.gold.withValues(alpha: 0.15),
+            color: LampungTheme.bgBorder,
+            width: 1,
           ),
         ),
       ),
       child: Row(
         children: [
-          SvgPicture.asset(
-            'assets/images/siger.svg',
-            height: 26,
-            colorFilter: ColorFilter.mode(
-              LampungTheme.gold.withValues(alpha: 0.8),
-              BlendMode.srcIn,
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: LampungTheme.bgSurface,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: LampungTheme.gold.withValues(alpha: 0.3),
+              ),
+            ),
+            child: SvgPicture.asset(
+              'assets/images/siger_crown.svg',
+              height: 24,
             ),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 12),
           const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,25 +335,32 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                     fontWeight: FontWeight.w900,
                     fontSize: 16,
                     color: LampungTheme.gold,
-                    letterSpacing: 1.2,
+                    letterSpacing: 1.1,
                   ),
                 ),
+                SizedBox(height: 2),
                 Text(
                   'Musik Tradisional Lampung',
                   style: TextStyle(
-                    fontSize: 10,
-                    color: LampungTheme.textSecondary,
-                    letterSpacing: 0.4,
+                    fontSize: 11,
+                    color: LampungTheme.textMuted,
+                    letterSpacing: 0.3,
                   ),
                 ),
               ],
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.refresh, color: LampungTheme.gold, size: 22),
+            icon: const Icon(Icons.refresh_rounded,
+                color: LampungTheme.gold, size: 22),
             tooltip: 'Refresh Daftar Lagu',
-            onPressed:
-                _service.isConnected ? () => _service.fetchSongList() : null,
+            onPressed: () {
+              if (_service.isConnected) {
+                _service.fetchSongList();
+              } else {
+                _service.connectWebSocket();
+              }
+            },
           ),
         ],
       ),
@@ -172,35 +369,35 @@ class _PlaylistScreenState extends State<PlaylistScreen>
 
   Widget _buildConnectionStrip() {
     final status = _service.status;
-    final color = status == ConnectionStatus.connected
+    final isConnected = status == ConnectionStatus.connected;
+    final isConnecting = status == ConnectionStatus.connecting;
+
+    final color = isConnected
         ? const Color(0xFF4CAF50)
-        : (status == ConnectionStatus.connecting
-            ? const Color(0xFFFF9800)
-            : const Color(0xFFE57373));
+        : (isConnecting
+            ? const Color(0xFFFFB300)
+            : const Color(0xFFEF5350));
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+      decoration: const BoxDecoration(
         color: LampungTheme.bgMedium,
         border: Border(
-          bottom: BorderSide(
-            color: LampungTheme.goldDark.withValues(alpha: 0.2),
-            width: 0.8,
-          ),
+          bottom: BorderSide(color: LampungTheme.bgBorder, width: 0.6),
         ),
       ),
       child: Row(
         children: [
           Container(
-            width: 7,
-            height: 7,
+            width: 8,
+            height: 8,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: color,
               boxShadow: [
                 BoxShadow(
-                  color: color.withValues(alpha: 0.6),
-                  blurRadius: 4,
+                  color: color.withValues(alpha: 0.5),
+                  blurRadius: 5,
                   spreadRadius: 1,
                 ),
               ],
@@ -209,29 +406,27 @@ class _PlaylistScreenState extends State<PlaylistScreen>
           const SizedBox(width: 8),
           Expanded(
             child: Text(
-              status == ConnectionStatus.connected
+              isConnected
                   ? 'Terhubung ke Gamolan Pekhing'
-                  : (status == ConnectionStatus.connecting
+                  : (isConnecting
                       ? 'Menghubungkan ke Gamolan...'
                       : 'Belum terhubung ke alat'),
               style: TextStyle(
                 color: color,
                 fontSize: 11,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
-          if (status == ConnectionStatus.connected)
+          if (isConnected)
             GestureDetector(
               onTap: () => _service.disconnect(),
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(6),
                   border: Border.all(
-                    color: LampungTheme.tapisRed.withValues(alpha: 0.5),
-                  ),
+                      color: LampungTheme.tapisRed.withValues(alpha: 0.6)),
                 ),
                 child: const Text(
                   'Putus',
@@ -243,17 +438,17 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                 ),
               ),
             )
-          else if (status == ConnectionStatus.disconnected)
+          else
             GestureDetector(
-              onTap: () => _service.openWifiManager(),
+              onTap: _showWifiConnectModal,
               child: Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
                     colors: [LampungTheme.goldLight, LampungTheme.gold],
                   ),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
                       color: LampungTheme.gold.withValues(alpha: 0.3),
@@ -284,6 +479,19 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   }
 
   Widget _buildCategoryTabs() {
+    IconData getIcon(SongCategory cat) {
+      switch (cat) {
+        case SongCategory.nasional:
+          return Icons.flag_rounded;
+        case SongCategory.daerah:
+          return Icons.landscape_rounded;
+        case SongCategory.lampung:
+          return Icons.auto_awesome_rounded;
+        case SongCategory.lainnya:
+          return Icons.queue_music_rounded;
+      }
+    }
+
     return Container(
       color: LampungTheme.bgMedium,
       child: TabBar(
@@ -297,15 +505,15 @@ class _PlaylistScreenState extends State<PlaylistScreen>
         labelStyle:
             const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
         unselectedLabelStyle: const TextStyle(fontSize: 12),
-        padding: const EdgeInsets.symmetric(horizontal: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         tabs: _categories.map((c) {
           final count = _songsForCategory(c).length;
           return Tab(
-            height: 38,
+            height: 40,
             child: Row(
               children: [
-                Text(c.icon, style: const TextStyle(fontSize: 13)),
-                const SizedBox(width: 5),
+                Icon(getIcon(c), size: 14),
+                const SizedBox(width: 6),
                 Text(c.label),
                 if (count > 0) ...[
                   const SizedBox(width: 6),
@@ -345,12 +553,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
               mainAxisSize: MainAxisSize.min,
               children: [
                 SvgPicture.asset(
-                  'assets/images/pucuk_rebung.svg',
-                  height: 48,
-                  colorFilter: ColorFilter.mode(
-                    LampungTheme.gold.withValues(alpha: 0.15),
-                    BlendMode.srcIn,
-                  ),
+                  'assets/images/gamolan_instrument.svg',
+                  height: 90,
                 ),
                 const SizedBox(height: 12),
                 Text(
@@ -365,28 +569,29 @@ class _PlaylistScreenState extends State<PlaylistScreen>
           );
         }
         return ListView.builder(
-          padding: const EdgeInsets.fromLTRB(12, 10, 12, 16),
+          padding: const EdgeInsets.fromLTRB(14, 12, 14, 20),
           itemCount: songs.length,
-          itemBuilder: (context, index) => _buildSongCard(songs[index]),
+          itemBuilder: (context, index) =>
+              _buildSongCard(songs[index], index + 1),
         );
       }).toList(),
     );
   }
 
-  Widget _buildSongCard(SongModel song) {
+  Widget _buildSongCard(SongModel song, int indexNumber) {
     final isPlaying =
         _service.isPlaying && _service.playingSongId == song.id;
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: isPlaying ? LampungTheme.tapisDark : LampungTheme.bgCard,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(14),
         border: Border.all(
           color: isPlaying
-              ? LampungTheme.gold.withValues(alpha: 0.7)
-              : LampungTheme.goldDark.withValues(alpha: 0.15),
-          width: isPlaying ? 1.5 : 1.0,
+              ? LampungTheme.gold
+              : LampungTheme.bgBorder,
+          width: isPlaying ? 1.6 : 1.0,
         ),
         boxShadow: [
           if (isPlaying)
@@ -397,8 +602,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             )
           else
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.2),
-              blurRadius: 4,
+              color: Colors.black.withValues(alpha: 0.25),
+              blurRadius: 5,
               offset: const Offset(0, 2),
             ),
         ],
@@ -406,7 +611,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(14),
           onTap: () {
             if (isPlaying) {
               _service.stopPlayback();
@@ -416,42 +621,37 @@ class _PlaylistScreenState extends State<PlaylistScreen>
           },
           onLongPress: song.id >= 20 ? () => _showDeleteDialog(song) : null,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             child: Row(
               children: [
                 Container(
-                  width: 42,
-                  height: 42,
+                  width: 36,
+                  height: 36,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: isPlaying
-                          ? [LampungTheme.goldLight, LampungTheme.gold]
-                          : [LampungTheme.bgSurface, LampungTheme.bgMedium],
-                    ),
+                    color: isPlaying
+                        ? LampungTheme.gold
+                        : LampungTheme.bgSurface,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
                       color: isPlaying
                           ? LampungTheme.goldLight
-                          : LampungTheme.goldDark.withValues(alpha: 0.3),
+                          : LampungTheme.bgBorder,
                     ),
                   ),
-                  child: Icon(
-                    isPlaying
-                        ? Icons.volume_up_rounded
-                        : (song.category == SongCategory.lampung
-                            ? Icons.stars_rounded
-                            : Icons.music_note_rounded),
-                    color: isPlaying
-                        ? LampungTheme.bgDark
-                        : (song.category == SongCategory.lampung
-                            ? LampungTheme.gold
-                            : LampungTheme.textSecondary),
-                    size: 22,
+                  child: Center(
+                    child: Text(
+                      '$indexNumber',
+                      style: TextStyle(
+                        color: isPlaying
+                            ? LampungTheme.bgDark
+                            : LampungTheme.textGold,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
                   ),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: 14),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -468,7 +668,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 3),
+                      const SizedBox(height: 4),
                       Row(
                         children: [
                           Container(
@@ -477,13 +677,17 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                             decoration: BoxDecoration(
                               color: LampungTheme.bgSurface,
                               borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                color: LampungTheme.bgBorder,
+                                width: 0.6,
+                              ),
                             ),
                             child: Text(
                               '${song.tempo} BPM',
                               style: const TextStyle(
                                 color: LampungTheme.gold,
                                 fontSize: 10,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
@@ -500,9 +704,9 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                             const Text(
                               '• Gamolan Asli',
                               style: TextStyle(
-                                color: Color(0xFFC5A059),
+                                color: LampungTheme.goldBronze,
                                 fontSize: 10,
-                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
@@ -519,7 +723,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                     color: isPlaying
                         ? LampungTheme.tapisRed
                         : LampungTheme.gold,
-                    size: 36,
+                    size: 38,
                   ),
                   onPressed: () {
                     if (isPlaying) {
@@ -551,29 +755,28 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     return Container(
       decoration: BoxDecoration(
         color: LampungTheme.bgMedium,
-        border: Border(
+        border: const Border(
           top: BorderSide(
-            color: LampungTheme.gold.withValues(alpha: 0.3),
+            color: LampungTheme.gold,
             width: 1,
           ),
         ),
         boxShadow: const [
           BoxShadow(
-            color: Colors.black45,
+            color: Colors.black54,
             blurRadius: 8,
-            offset: Offset(0, -2),
+            offset: Offset(0, -3),
           ),
         ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Progress bar at the VERY TOP of the bar - always visible, never blocked!
           LinearProgressIndicator(
             value: progress,
             backgroundColor: LampungTheme.bgSurface,
             valueColor: const AlwaysStoppedAnimation<Color>(LampungTheme.gold),
-            minHeight: 3,
+            minHeight: 3.5,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(14, 8, 14, 14),

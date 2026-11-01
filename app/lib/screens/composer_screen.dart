@@ -132,19 +132,18 @@ class _ComposerScreenState extends State<ComposerScreen> {
         title: Row(
           children: [
             SvgPicture.asset(
-              'assets/images/siger.svg',
-              height: 20,
-              colorFilter: ColorFilter.mode(
-                LampungTheme.gold.withValues(alpha: 0.6),
-                BlendMode.srcIn,
-              ),
+              'assets/images/siger_crown.svg',
+              height: 22,
             ),
             const SizedBox(width: 10),
-            const Text('Buat Lagu',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: LampungTheme.textPrimary)),
+            const Text(
+              'Buat Lagu Gamolan',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: LampungTheme.gold,
+              ),
+            ),
           ],
         ),
         backgroundColor: LampungTheme.bgMedium,
@@ -229,8 +228,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
                               items: SongCategory.values
                                   .map((c) => DropdownMenuItem(
                                         value: c,
-                                        child: Text(
-                                            '${c.icon} ${c.label}'),
+                                        child: Text(c.label),
                                       ))
                                   .toList(),
                               onChanged: (v) {

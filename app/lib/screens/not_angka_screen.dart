@@ -80,20 +80,17 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
               child: Row(
                 children: [
                   SvgPicture.asset(
-                    'assets/images/siger.svg',
-                    height: 22,
-                    colorFilter: ColorFilter.mode(
-                      LampungTheme.gold.withValues(alpha: 0.7),
-                      BlendMode.srcIn,
-                    ),
+                    'assets/images/siger_crown.svg',
+                    height: 24,
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 10),
                   const Text(
                     'Gamolan Pekhing',
                     style: TextStyle(
-                      color: LampungTheme.textPrimary,
+                      color: LampungTheme.gold,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      letterSpacing: 0.5,
                     ),
                   ),
                   const Spacer(),
