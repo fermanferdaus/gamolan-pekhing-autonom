@@ -98,26 +98,27 @@ const Nada song_2[] PROGMEM = {
 };
 
 const Nada song_3[] PROGMEM = {
-  // "Ga-ru-da pan-ca-si-la" (5 5 1 1 2 2 3)
-  { SOL, 2 }, { SOL, 2 }, { DO, 2 }, { DO, 2 }, { RE, 2 }, { RE, 2 }, { MI, 4 },
-  // "A-ku-lah pen-du-kung-mu" (3 4 5 1 2 3 4 2)
-  { MI, 2 }, { FA, 2 }, { SOL, 2 }, { DO, 2 }, { RE, 2 }, { MI, 2 }, { FA, 2 }, { RE, 2 },
-  // "Pat-ri-ot prok-la-ma-si" (5 5 2 2 3 3 4)
-  { SOL, 2 }, { SOL, 2 }, { RE, 2 }, { RE, 2 }, { MI, 2 }, { MI, 2 }, { FA, 4 },
-  // "Se-di-a ber-kor-ban un-tuk-mu" (3 2 1 5 5 5 6 7 1')
-  { MI, 2 }, { RE, 2 }, { DO, 2 }, { SOL, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 1 }, { SI, 1 }, { DO_T, 4 },
-  // "Pan-ca-si-la da-sar ne-ga-ra" (1' 1' 1' 6 1' 4 5 6 5)
-  { DO_T, 2 }, { DO_T, 1 }, { DO_T, 1 }, { LA, 2 }, { DO_T, 2 }, { FA, 2 }, { SOL, 2 }, { LA, 2 }, { SOL, 4 },
-  // "Rak-yat a-dil mak-mur sen-to-sa" (1' 1' 1' 6 1' 4 5 6 5)
-  { DO_T, 2 }, { DO_T, 1 }, { DO_T, 1 }, { LA, 2 }, { DO_T, 2 }, { FA, 2 }, { SOL, 2 }, { LA, 2 }, { SOL, 4 },
-  // "Pri-ba-di bang-sa-ku" (5 6 5 4 3 2)
-  { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 4 }, { RE, 4 },
-  // "A-yo ma-ju ma-ju" (1' 1' 1' 1' 6 5)
-  { DO_T, 2 }, { DO_T, 2 }, { DO_T, 2 }, { DO_T, 2 }, { LA, 4 }, { SOL, 4 },
-  // "A-yo ma-ju ma-ju" (1 1 1 1 2 3)
-  { DO, 2 }, { DO, 2 }, { DO, 2 }, { DO, 2 }, { RE, 4 }, { MI, 4 },
-  // "A-yo ma-ju ma-ju!" (1 1 6 5 7 1')
-  { DO, 2 }, { DO, 2 }, { LA, 2 }, { SOL, 2 }, { SI, 4 }, { DO_T, 6 }, { DIAM, 2 }
+  // 1. "Ga-ru-da pan-ca-si-la" (5 5 1 1 2 2 3)
+  { DO, 2 }, { DO, 2 }, { DO, 4 }, { DO, 4 }, { RE, 4 }, { RE, 4 }, { MI, 8 }, { DIAM, 2 },
+  // 2. "A-ku-lah pen-du-kung-mu" (3~4 5 1 2 3 4 2)
+  { MI, 2 }, { FA, 2 }, { SOL, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 }, { FA, 4 }, { RE, 8 }, { DIAM, 2 },
+  // 3. "Pat-ri-ot prok-la-ma-si" (5 5 2 2 3 3 4)
+  { DO, 2 }, { DO, 2 }, { RE, 4 }, { RE, 4 }, { MI, 4 }, { MI, 4 }, { FA, 8 }, { DIAM, 2 },
+  // 4. "Se-di-a ber-kor-ban un-tuk-mu" (3 2 1 5 5 5 6 7 1')
+  { MI, 4 }, { RE, 4 }, { DO, 4 }, { DIAM, 2 },
+  { SOL, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { SI, 4 }, { DO_T, 8 }, { DIAM, 4 },
+  // 5. "Pan-ca-si-la da-sar ne-ga-ra" (1 1 1 1 1 4 5 6 5)
+  { DO, 3 }, { DO, 1 }, { DO, 4 }, { DO, 4 }, { DO, 4 }, { FA, 4 }, { SOL, 3 }, { LA, 1 }, { SOL, 8 }, { DIAM, 4 },
+  // 6. "Rak-yat a-dil mak-mur sen-to-sa" (1 1 1 1 1 4 5 6 5)
+  { DO, 3 }, { DO, 1 }, { DO, 4 }, { DO, 4 }, { DO, 4 }, { FA, 4 }, { SOL, 3 }, { LA, 1 }, { SOL, 8 }, { DIAM, 4 },
+  // 7. "Pri-ba-di bang-sa-ku" (5 1° 5 4 3 2)
+  { SOL, 4 }, { DO_T, 4 }, { SOL, 4 }, { FA, 4 }, { MI, 4 }, { RE, 8 }, { DIAM, 4 },
+  // 8. "A-yo ma-ju ma-ju" (1 1 1 1 4 3)
+  { DO, 3 }, { DO, 1 }, { DO, 3 }, { DO, 1 }, { FA, 4 }, { MI, 8 }, { DIAM, 2 },
+  // 9. "A-yo ma-ju ma-ju" (1 1 1 1 2 3)
+  { DO, 3 }, { DO, 1 }, { DO, 3 }, { DO, 1 }, { RE, 4 }, { MI, 8 }, { DIAM, 2 },
+  // 10. "A-yo ma-ju ma-ju!" (1 1 6 5 7 1')
+  { DO, 2 }, { DO, 2 }, { LA, 2 }, { SOL, 2 }, { SI, 4 }, { DO_T, 10 }, { DIAM, 4 }
 };
 
 const Nada song_4[] PROGMEM = {
@@ -345,10 +346,10 @@ const char* const defaultSongCats[] = {
 };
 
 const int defaultSongTempos[] = {
-  104, 104, 92, 124, 108,
-  108, 112, 116, 100, 112,
-  100, 108, 96, 92, 96,
-  120, 120, 120, 120, 120
+  96, 84, 80, 96, 88,
+  104, 108, 112, 96, 104,
+  96, 100, 92, 88, 92,
+  100, 100, 108, 108, 104
 };
 
 const int NUM_DEFAULT_SONGS = 20;
