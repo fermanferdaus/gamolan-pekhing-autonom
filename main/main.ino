@@ -121,22 +121,38 @@ const Nada song_3[] PROGMEM = {
 };
 
 const Nada song_4[] PROGMEM = {
-  // "I-bu ki-ta Kar-ti-ni"
-  { DO, 2 }, { RE, 2 }, { MI, 6 }, { SOL, 2 }, { MI, 4 }, { DO, 4 },
-  // "pu-tri se-ja-ti"
-  { RE, 4 }, { FA, 4 }, { MI, 2 }, { RE, 2 }, { DO, 8 },
-  // "pu-tri In-do-ne-sia"
-  { DO, 2 }, { RE, 2 }, { MI, 6 }, { SOL, 2 }, { MI, 4 }, { DO, 4 },
-  // "ha-rum na-ma-nya"
-  { RE, 4 }, { FA, 4 }, { MI, 2 }, { RE, 2 }, { DO, 8 },
-  // "Wa-hai I-bu Kar-ti-ni"
-  { FA, 6 }, { LA, 2 }, { SOL, 4 }, { FA, 2 }, { MI, 2 }, { DO, 8 },
-  // "pu-tri yang mu-li-a"
-  { RE, 4 }, { FA, 4 }, { MI, 2 }, { RE, 2 }, { FA, 4 }, { MI, 8 },
-  // "Sung-guh be-sar ci-ta-ci-ta-nya"
-  { FA, 6 }, { LA, 2 }, { SOL, 4 }, { FA, 2 }, { MI, 2 }, { DO, 8 },
-  // "ba-gi In-do-ne-sia"
-  { RE, 4 }, { FA, 4 }, { MI, 4 }, { RE, 4 }, { DO, 12 }, { DIAM, 4 }
+  // "I-bu ki-ta" (1 . 2 3 4)
+  { DO, 6 }, { RE, 2 }, { MI, 4 }, { FA, 4 },
+  // "Kar-ti-ni" (5 . 3 1)
+  { SOL, 6 }, { MI, 2 }, { DO, 8 },
+  // "pu-tri se-ja-" (6 . 1' 7 6)
+  { LA, 6 }, { DO_T, 2 }, { SI, 4 }, { LA, 4 },
+  // "-ti" (5 . . .)
+  { SOL, 12 }, { DIAM, 4 },
+  // "Pu-tri In-do-" (4 . 6 5 4)
+  { FA, 6 }, { LA, 2 }, { SOL, 4 }, { FA, 4 },
+  // "-ne-sia" (3 . 1 .)
+  { MI, 8 }, { DO, 8 },
+  // "ha-rum na-ma-" (2 . 4 3 2)
+  { RE, 6 }, { FA, 2 }, { MI, 4 }, { RE, 4 },
+  // "-nya" (1 . . .)
+  { DO, 12 }, { DIAM, 4 },
+  // "Wa-hai I-bu" (4 . 3 4 6)
+  { FA, 6 }, { MI, 2 }, { FA, 4 }, { LA, 4 },
+  // "ki-ta Kar-ti-ni" (5 6 5 3 1 3)
+  { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { MI, 2 }, { DO, 4 }, { MI, 4 },
+  // "pu-tri yang mu-" (2 3 4 5)
+  { RE, 4 }, { MI, 4 }, { FA, 4 }, { SOL, 4 },
+  // "-li-a" (3 . . .)
+  { MI, 12 }, { DIAM, 4 },
+  // "Sung-guh be-sar" (4 . 3 4 6)
+  { FA, 6 }, { MI, 2 }, { FA, 4 }, { LA, 4 },
+  // "ci-ta-ci-ta-nya" (5 6 5 3 1 3)
+  { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { MI, 2 }, { DO, 4 }, { MI, 4 },
+  // "ba-gi In-do-" (2 . 4 3 2)
+  { RE, 6 }, { FA, 2 }, { MI, 4 }, { RE, 4 },
+  // "-ne-sia" (1 . . .)
+  { DO, 12 }, { DIAM, 4 }
 };
 
 // --- 2. LAGU DAERAH ---
@@ -329,7 +345,7 @@ const char* const defaultSongCats[] = {
 };
 
 const int defaultSongTempos[] = {
-  104, 96, 88, 120, 108,
+  104, 96, 88, 120, 100,
   108, 112, 116, 100, 112,
   100, 108, 96, 92, 96,
   120, 120, 120, 120, 120

@@ -36,8 +36,8 @@ class DefaultSongs {
     SongModel(
       id: 4,
       name: 'Ibu Kita Kartini',
-      tempo: 108,
-      len: 44,
+      tempo: 100,
+      len: 51,
       category: SongCategory.nasional,
     ),
 
