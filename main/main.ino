@@ -243,14 +243,44 @@ const Nada song_7[] PROGMEM = {
   { RE, 4 }, { MI, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 }, { MI, 4 }, { DO, 8 }
 };
 
+// Apuse (Papua, 4/4, Moderato tempo 96) — transcribed bar-exact dari partitur kanonik.
+// Not angka: 1' dirender ke DO_T (bilah 8), 2' ke RE (bilah 2), 4/ (fi) ke FA (bilah 4).
+// Birama 4/4 = 16 unit (1=1/16, 2=1/8, 4=1/4, 8=1/2, 16=1 bar utuh).
 const Nada song_8[] PROGMEM = {
-  { DO, 4 }, { MI, 4 }, { MI, 4 }, { MI, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 }, { DO, 4 },
-  { RE, 4 }, { FA, 4 }, { FA, 4 }, { FA, 4 }, { LA, 4 }, { FA, 4 }, { MI, 4 }, { RE, 4 },
-  { MI, 4 }, { SOL, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { SOL, 4 }, { MI, 4 }, { DIAM, 4 },
-  { SOL, 4 }, { MI, 4 }, { RE, 4 }, { MI, 4 }, { DO, 8 }, { DO, 4 }, { DIAM, 4 },
-  { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { DO_T, 4 }, { DO_T, 4 }, { LA, 4 }, { SOL, 4 }, { DIAM, 4 },
-  { LA, 4 }, { SOL, 4 }, { MI, 4 }, { SOL, 4 }, { RE, 8 }, { RE, 4 }, { DIAM, 4 },
-  { SOL, 4 }, { MI, 4 }, { RE, 4 }, { MI, 4 }, { DO, 8 }, { DO, 4 }, { DIAM, 4 }
+  // --- BAIT 1 ---
+  // Birama 1: "A-pu-se" (| 2 5 7 . |)
+  { RE, 4 }, { SOL, 4 }, { SI, 8 },
+  // Birama 2: "ko-kon-da-o" (| _6 7_ 6 5 . |)
+  { LA, 2 }, { SI, 2 }, { LA, 4 }, { SOL, 8 },
+  // Birama 3: "ya-ra-be" (| 2 5 7 . |)
+  { RE, 4 }, { SOL, 4 }, { SI, 8 },
+  // Birama 4: "so-ren do-re-ri" (| _7 6_ _7 1'_ 6 . |)
+  { SI, 2 }, { LA, 2 }, { SI, 2 }, { DO_T, 2 }, { LA, 8 },
+  // Birama 5: "Wuf-len-so" (| 2 4/ 6 . |)
+  { RE, 4 }, { FA, 4 }, { LA, 8 },
+  // Birama 6: "ba-ni-ne-ma" (| 1' _2' 1'_ 7 . |)
+  { DO_T, 4 }, { RE, 2 }, { DO_T, 2 }, { SI, 8 },
+  // Birama 7: "ba-ki-pa-se" (| _6 7_ 6 5 . |)
+  { LA, 2 }, { SI, 2 }, { LA, 4 }, { SOL, 8 },
+
+  // --- BAIT 2 ---
+  // Birama 8: "A-pu-se" (| 2 5 7 . |)
+  { RE, 4 }, { SOL, 4 }, { SI, 8 },
+  // Birama 9: "ko-kon-da-o" (| _6 7_ 6 5 . |)
+  { LA, 2 }, { SI, 2 }, { LA, 4 }, { SOL, 8 },
+  // Birama 10: "ya-ra-be" (| 2 5 7 . |)
+  { RE, 4 }, { SOL, 4 }, { SI, 8 },
+  // Birama 11: "so-ren do-re-ri" (| _7 6_ _7 1'_ 6 . |)
+  { SI, 2 }, { LA, 2 }, { SI, 2 }, { DO_T, 2 }, { LA, 8 },
+  // Birama 12: "Wuf-len-so" (| 2 4/ 6 . |)
+  { RE, 4 }, { FA, 4 }, { LA, 8 },
+  // Birama 13: "ba-ni-ne-ma" (| 1' _2' 1'_ 7 . |)
+  { DO_T, 4 }, { RE, 2 }, { DO_T, 2 }, { SI, 8 },
+  // Birama 14: "ba-ki-pa-se" (| _6 7_ 6 5 . |)
+  { LA, 2 }, { SI, 2 }, { LA, 4 }, { SOL, 8 },
+
+  // Birama 15: Akhir / rest
+  { DIAM, 16 }
 };
 
 const Nada song_9[] PROGMEM = {

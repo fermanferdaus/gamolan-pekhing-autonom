@@ -33,7 +33,7 @@ void main() {
     }
   });
 
-  test('National songs match firmware PROGMEM song sizes', () {
+  test('Default songs match firmware PROGMEM song sizes', () {
     // (id, name, tempo, len) must equal main.ino song_N arrays & defaultSongTempos.
     const firmware = {
       0: ('Indonesia Raya', 96, 45),
@@ -41,6 +41,7 @@ void main() {
       2: ('Bagimu Negeri', 80, 45),
       3: ('Garuda Pancasila', 100, 82),
       4: ('Ibu Kita Kartini', 88, 57),
+      8: ('Apuse', 96, 53),
     };
     firmware.forEach((id, meta) {
       final song = DefaultSongs.list.firstWhere((s) => s.id == id);
