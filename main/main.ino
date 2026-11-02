@@ -224,40 +224,41 @@ const Nada song_5[] PROGMEM = {
   { SOL, 4 }, { MI, 4 }, { RE, 4 }, { MI, 4 }, { DO, 8 }, { DO, 4 }, { DIAM, 4 }
 };
 
-// Ampar-Ampar Pisang (Kalimantan Selatan, 4/4, Moderato tempo 108) — transcribed bar-exact dari partitur kanonik.
-// Not angka: 1 4 4 3 4 5 / 1 1 5 5 4 5 6 / 6/ 5 5 6 4 4 / 5 5 4 3 4 (2 bait lengkap).
-// Nada 6/ (A#/Bb) dirender ke bilah 7 (SI) sebagai nada terdekat di atas 6 (LA).
-// Birama 4/4 = 16 unit (1=1/16, 2=1/8, 4=1/4, 8=1/2, 16=1 bar utuh).
+// Ampar-Ampar Pisang (Kalimantan Selatan, 4/4, Allegretto moderato tempo 105) — transcribed bar-exact dari partitur koor Bayu Nerviadi (Suara I).
+// Not angka Voice I: 1 | 3 3 2 3 4 2 2 | 4 4 3 4 5 . | 6 6 4 4 5 3 3 | 4 4 3 4 3 . (2 bait lengkap).
+// Seluruh not diatonis alami (1-6 / DO-LA), tanpa nada mol/fals. Birama 4/4 = 16 unit (1=1/16, 2=1/8, 4=1/4, 8=1/2, 16=1 bar utuh).
 const Nada song_6[] PROGMEM = {
   // --- BAIT 1 ---
-  // Birama 1: "Am-par am-par pi-sang" (| 1 4 4 3 4 5 |)
-  { DO, 2 }, { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 4 }, { SOL, 4 },
-  // Birama 2: "Pi-sang-ku ba-lum ma-sak" (| 1 1 5 5 4 5 6 |)
-  { DO, 2 }, { DO, 2 }, { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { SOL, 2 }, { LA, 4 },
-  // Birama 3: "Ma-sak bi-gi di hu-" (| 6/ 5 5 6 4 4 |)
-  { SI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { FA, 4 }, { FA, 4 },
-  // Birama 4: "-rung ba-ri ba-ri" (| 5 5 4 3 4 |)
-  { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { FA, 8 },
-  // Birama 5: "Ma-sak bi-gi di hu-" (| 6/ 5 5 6 4 4 |)
-  { SI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { FA, 4 }, { FA, 4 },
-  // Birama 6: "-rung ba-ri ba-ri" (| 5 5 4 3 4 |)
-  { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { FA, 8 },
+  // Birama 1: Intro / pickup "Am-" (| 0 0 _0 1_ |)
+  { DIAM, 14 }, { DO, 2 },
+  // Birama 2: "-par am-par pi-sang, pi-sang-" (| _3 3_ _2 3_ 4 _2 2_ |)
+  { MI, 2 }, { MI, 2 }, { RE, 2 }, { MI, 2 }, { FA, 4 }, { RE, 2 }, { RE, 2 },
+  // Birama 3: "-ku ba-lum ma-sak," (| _4 4_ _3 4_ 5 . |)
+  { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 2 }, { SOL, 8 },
+  // Birama 4: "ma-sak sa-bi-gi di-hu-" (| _6 6_ _4 4_ 5 _3 3_ |)
+  { LA, 2 }, { LA, 2 }, { FA, 2 }, { FA, 2 }, { SOL, 4 }, { MI, 2 }, { MI, 2 },
+  // Birama 5: "rung ba-ri-ba-ri." (| _4 4_ _3 4_ 3 . |)
+  { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 2 }, { MI, 8 },
+  // Birama 6: "Ma-sak sa-bi-gi di-hu-" (| _6 6_ _4 4_ 5 _3 3_ |)
+  { LA, 2 }, { LA, 2 }, { FA, 2 }, { FA, 2 }, { SOL, 4 }, { MI, 2 }, { MI, 2 },
+  // Birama 7: "rung ba-ri-ba-ri. Am-" (| _4 4_ _3 4_ 3 _0 1_ |)
+  { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 2 }, { MI, 4 }, { DIAM, 2 }, { DO, 2 },
 
   // --- BAIT 2 ---
-  // Birama 7: "Am-par am-par pi-sang" (| 1 4 4 3 4 5 |)
-  { DO, 2 }, { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 4 }, { SOL, 4 },
-  // Birama 8: "Pi-sang-ku ba-lum ma-sak" (| 1 1 5 5 4 5 6 |)
-  { DO, 2 }, { DO, 2 }, { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { SOL, 2 }, { LA, 4 },
-  // Birama 9: "Ma-sak bi-gi di hu-" (| 6/ 5 5 6 4 4 |)
-  { SI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { FA, 4 }, { FA, 4 },
-  // Birama 10: "-rung ba-ri ba-ri" (| 5 5 4 3 4 |)
-  { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { FA, 8 },
-  // Birama 11: "Ma-sak bi-gi di hu-" (| 6/ 5 5 6 4 4 |)
-  { SI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { FA, 4 }, { FA, 4 },
-  // Birama 12: "-rung ba-ri ba-ri" (| 5 5 4 3 4 |)
-  { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { FA, 8 },
+  // Birama 8: "-par am-par pi-sang, pi-sang-" (| _3 3_ _2 3_ 4 _2 2_ |)
+  { MI, 2 }, { MI, 2 }, { RE, 2 }, { MI, 2 }, { FA, 4 }, { RE, 2 }, { RE, 2 },
+  // Birama 9: "-ku ba-lum ma-sak," (| _4 4_ _3 4_ 5 . |)
+  { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 2 }, { SOL, 8 },
+  // Birama 10: "ma-sak sa-bi-gi di-hu-" (| _6 6_ _4 4_ 5 _3 3_ |)
+  { LA, 2 }, { LA, 2 }, { FA, 2 }, { FA, 2 }, { SOL, 4 }, { MI, 2 }, { MI, 2 },
+  // Birama 11: "rung ba-ri-ba-ri." (| _4 4_ _3 4_ 3 . |)
+  { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 2 }, { MI, 8 },
+  // Birama 12: "Ma-sak sa-bi-gi di-hu-" (| _6 6_ _4 4_ 5 _3 3_ |)
+  { LA, 2 }, { LA, 2 }, { FA, 2 }, { FA, 2 }, { SOL, 4 }, { MI, 2 }, { MI, 2 },
+  // Birama 13: "rung ba-ri-ba-ri." (| _4 4_ _3 4_ 3 . |)
+  { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 2 }, { MI, 8 },
 
-  // Birama 13: Akhir / rest
+  // Birama 14: Akhir / rest
   { DIAM, 16 }
 };
 
@@ -526,7 +527,7 @@ const char* const defaultSongCats[] = {
 
 const int defaultSongTempos[] = {
   96, 80, 80, 100, 88,
-  104, 108, 112, 96, 104,
+  104, 105, 112, 96, 104,
   96, 100, 92, 88, 92,
   100, 100, 108, 108, 104
 };
