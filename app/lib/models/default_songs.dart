@@ -53,7 +53,7 @@ class DefaultSongs {
       id: 6,
       name: 'Ampar-Ampar Pisang',
       tempo: 108,
-      len: 65,
+      len: 75,
       category: SongCategory.daerah,
     ),
     SongModel(
