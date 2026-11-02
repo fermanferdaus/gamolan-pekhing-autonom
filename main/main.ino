@@ -234,13 +234,47 @@ const Nada song_6[] PROGMEM = {
   { SOL, 4 }, { MI, 4 }, { FA, 4 }, { RE, 4 }, { DO, 8 }, { DO, 4 }, { DIAM, 4 }
 };
 
+// Gundhul Pacul (Jawa Tengah, 4/4, Moderato tempo 112) — transcribed bar-exact dari partitur kanonik.
+// Not angka: nada 1' adalah DO_T (bilah 8); bagian "gembelengan" menggunakan 8 7 (DO_T SI).
+// Birama 4/4 = 16 unit (1=1/16, 2=1/8, 4=1/4, 6=3/8, 8=1/2, 12=3/4, 16=1 bar utuh).
 const Nada song_7[] PROGMEM = {
-  { SOL, 4 }, { MI, 4 }, { SOL, 4 }, { MI, 4 }, { LA, 4 }, { SOL, 4 }, { MI, 4 }, { DIAM, 4 },
-  { SOL, 4 }, { MI, 4 }, { SOL, 4 }, { MI, 4 }, { LA, 4 }, { SOL, 4 }, { MI, 4 }, { DIAM, 4 },
-  { RE, 4 }, { MI, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 8 },
-  { RE, 4 }, { MI, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 8 },
-  { SOL, 4 }, { MI, 4 }, { SOL, 4 }, { MI, 4 }, { LA, 4 }, { SOL, 4 }, { MI, 4 }, { DIAM, 4 },
-  { RE, 4 }, { MI, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 }, { MI, 4 }, { DO, 8 }
+  // Birama 1: Intro / pickup "Gundhul" (| 0 0 0 1 |)
+  { DIAM, 12 }, { DO, 4 },
+  // Birama 2: "-gudhul pa-cul-" (| 3 ._1_ 3 4 |)
+  { MI, 6 }, { DO, 2 }, { MI, 4 }, { FA, 4 },
+  // Birama 3: "cul gem-" (| 5 5 0 7 |)
+  { SOL, 4 }, { SOL, 4 }, { DIAM, 4 }, { SI, 4 },
+  // Birama 4: "-be-leng-an," (| 1' 7 1' 7 | -> 8 7 8 7)
+  { DO_T, 4 }, { SI, 4 }, { DO_T, 4 }, { SI, 4 },
+  // Birama 5: "Nyung-" (| 5 . 0 1 |)
+  { SOL, 8 }, { DIAM, 4 }, { DO, 4 },
+
+  // Birama 6: "-nyunggi wa-kul-" (| 3 ._1_ 3 4 |)
+  { MI, 6 }, { DO, 2 }, { MI, 4 }, { FA, 4 },
+  // Birama 7: "kul gem-" (| 5 5 0 7 |)
+  { SOL, 4 }, { SOL, 4 }, { DIAM, 4 }, { SI, 4 },
+  // Birama 8: "-be-leng-an," (| 1' 7 1' 7 | -> 8 7 8 7)
+  { DO_T, 4 }, { SI, 4 }, { DO_T, 4 }, { SI, 4 },
+  // Birama 9: "Wa-" (| 5 . 1 . |)
+  { SOL, 8 }, { DO, 8 },
+
+  // Birama 10: "kul ngglim-" (| 3 . 5 . |)
+  { MI, 8 }, { SOL, 8 },
+  // Birama 11: "pang se-ga-ne" (| 4 4 5 4 |)
+  { FA, 4 }, { FA, 4 }, { SOL, 4 }, { FA, 4 },
+  // Birama 12: "da-di sak la-" (| 3 1 4 3 |)
+  { MI, 4 }, { DO, 4 }, { FA, 4 }, { MI, 4 },
+  // Birama 13: "tar, Wa-" (| 1 . 0 1 |)
+  { DO, 8 }, { DIAM, 4 }, { DO, 4 },
+
+  // Birama 14: "kul ngglim-" (| 3 . 5 . |)
+  { MI, 8 }, { SOL, 8 },
+  // Birama 15: "pang se-ga-ne" (| 4 4 5 4 |)
+  { FA, 4 }, { FA, 4 }, { SOL, 4 }, { FA, 4 },
+  // Birama 16: "da-di sak la-" (| 3 1 4 3 |)
+  { MI, 4 }, { DO, 4 }, { FA, 4 }, { MI, 4 },
+  // Birama 17: Ending "tar" (| 1 . . . ||)
+  { DO, 12 }, { DIAM, 4 }
 };
 
 // Apuse (Papua, 4/4, Moderato tempo 96) — transcribed bar-exact dari partitur kanonik.

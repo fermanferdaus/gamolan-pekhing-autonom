@@ -60,7 +60,7 @@ class DefaultSongs {
       id: 7,
       name: 'Gundul-Gundul Pacul',
       tempo: 112,
-      len: 45,
+      len: 56,
       category: SongCategory.daerah,
     ),
     SongModel(
