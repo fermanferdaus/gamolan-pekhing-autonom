@@ -225,7 +225,8 @@ const Nada song_5[] PROGMEM = {
 };
 
 // Ampar-Ampar Pisang (Kalimantan Selatan, 4/4, Moderato tempo 108) — transcribed bar-exact dari partitur kanonik.
-// Not angka: 1 4 4 3 4 5 / 1 1 5 5 4 5 6 / 6 6 5 5 6 4 4 5 5 4 3 4 (nada 7\ dirender ke 6/LA agar resonan & tidak cempreng).
+// Not angka: 1 4 4 3 4 5 / 1 1 5 5 4 5 6 / 6/ 5 5 6 4 4 / 5 5 4 3 4 (2 bait lengkap).
+// Nada 6/ (A#/Bb) dirender ke bilah 7 (SI) sebagai nada terdekat di atas 6 (LA).
 // Birama 4/4 = 16 unit (1=1/16, 2=1/8, 4=1/4, 8=1/2, 16=1 bar utuh).
 const Nada song_6[] PROGMEM = {
   // --- BAIT 1 ---
@@ -233,12 +234,12 @@ const Nada song_6[] PROGMEM = {
   { DO, 2 }, { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 4 }, { SOL, 4 },
   // Birama 2: "Pi-sang-ku ba-lum ma-sak" (| 1 1 5 5 4 5 6 |)
   { DO, 2 }, { DO, 2 }, { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { SOL, 2 }, { LA, 4 },
-  // Birama 3: "Ma-sak sa-bi-gi di hu-" (| 6 6 5 5 6 4 4 |)
-  { LA, 2 }, { LA, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 4 }, { FA, 2 }, { FA, 2 },
+  // Birama 3: "Ma-sak bi-gi di hu-" (| 6/ 5 5 6 4 4 |)
+  { SI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { FA, 4 }, { FA, 4 },
   // Birama 4: "-rung ba-ri ba-ri" (| 5 5 4 3 4 |)
   { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { FA, 8 },
-  // Birama 5: "Ma-sak sa-bi-gi di hu-" (| 6 6 5 5 6 4 4 |)
-  { LA, 2 }, { LA, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 4 }, { FA, 2 }, { FA, 2 },
+  // Birama 5: "Ma-sak bi-gi di hu-" (| 6/ 5 5 6 4 4 |)
+  { SI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { FA, 4 }, { FA, 4 },
   // Birama 6: "-rung ba-ri ba-ri" (| 5 5 4 3 4 |)
   { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { FA, 8 },
 
@@ -247,12 +248,12 @@ const Nada song_6[] PROGMEM = {
   { DO, 2 }, { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 4 }, { SOL, 4 },
   // Birama 8: "Pi-sang-ku ba-lum ma-sak" (| 1 1 5 5 4 5 6 |)
   { DO, 2 }, { DO, 2 }, { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { SOL, 2 }, { LA, 4 },
-  // Birama 9: "Ma-sak sa-bi-gi di hu-" (| 6 6 5 5 6 4 4 |)
-  { LA, 2 }, { LA, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 4 }, { FA, 2 }, { FA, 2 },
+  // Birama 9: "Ma-sak bi-gi di hu-" (| 6/ 5 5 6 4 4 |)
+  { SI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { FA, 4 }, { FA, 4 },
   // Birama 10: "-rung ba-ri ba-ri" (| 5 5 4 3 4 |)
   { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { FA, 8 },
-  // Birama 11: "Ma-sak sa-bi-gi di hu-" (| 6 6 5 5 6 4 4 |)
-  { LA, 2 }, { LA, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 4 }, { FA, 2 }, { FA, 2 },
+  // Birama 11: "Ma-sak bi-gi di hu-" (| 6/ 5 5 6 4 4 |)
+  { SI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { FA, 4 }, { FA, 4 },
   // Birama 12: "-rung ba-ri ba-ri" (| 5 5 4 3 4 |)
   { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { FA, 8 },
 

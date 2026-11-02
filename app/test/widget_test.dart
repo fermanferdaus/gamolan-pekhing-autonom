@@ -41,7 +41,7 @@ void main() {
       2: ('Bagimu Negeri', 80, 45),
       3: ('Garuda Pancasila', 100, 82),
       4: ('Ibu Kita Kartini', 88, 57),
-      6: ('Ampar-Ampar Pisang', 108, 75),
+      6: ('Ampar-Ampar Pisang', 108, 71),
       7: ('Gundul-Gundul Pacul', 112, 56),
       8: ('Apuse', 96, 53),
       9: ('Suwe Ora Jamu', 104, 54),
