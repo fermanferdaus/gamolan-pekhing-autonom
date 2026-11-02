@@ -224,14 +224,40 @@ const Nada song_5[] PROGMEM = {
   { SOL, 4 }, { MI, 4 }, { RE, 4 }, { MI, 4 }, { DO, 8 }, { DO, 4 }, { DIAM, 4 }
 };
 
+// Ampar-Ampar Pisang (Kalimantan Selatan, 4/4, Moderato tempo 108) — transcribed bar-exact dari partitur kanonik.
+// Not angka: 1 4 4 3 4 5 / 1 1 5 5 4 5 6 / 7 7 5 5 6 4 4 5 5 4 3 4 (2 bait lengkap).
+// Birama 4/4 = 16 unit (1=1/16, 2=1/8, 4=1/4, 8=1/2, 16=1 bar utuh).
 const Nada song_6[] PROGMEM = {
-  { DO, 4 }, { DO, 2 }, { DO, 2 }, { RE, 4 }, { MI, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 }, { DO, 4 },
-  { RE, 4 }, { RE, 2 }, { RE, 2 }, { MI, 4 }, { FA, 4 }, { SOL, 4 }, { FA, 4 }, { MI, 4 }, { RE, 4 },
-  { DO, 4 }, { DO, 2 }, { DO, 2 }, { RE, 4 }, { MI, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 }, { DO, 4 },
-  { SOL, 4 }, { MI, 4 }, { FA, 4 }, { RE, 4 }, { DO, 8 }, { DO, 4 }, { DIAM, 4 },
-  { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 }, { DO, 4 }, { DIAM, 4 },
-  { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { SOL, 4 }, { MI, 4 }, { FA, 4 }, { RE, 4 }, { DIAM, 4 },
-  { SOL, 4 }, { MI, 4 }, { FA, 4 }, { RE, 4 }, { DO, 8 }, { DO, 4 }, { DIAM, 4 }
+  // --- BAIT 1 ---
+  // Birama 1: "Am-par am-par pi-sang" (| 1 4 4 3 4 5 |)
+  { DO, 2 }, { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 4 }, { SOL, 4 },
+  // Birama 2: "Pi-sang-ku ba-lum ma-sak" (| 1 1 5 5 4 5 6 |)
+  { DO, 2 }, { DO, 2 }, { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { SOL, 2 }, { LA, 4 },
+  // Birama 3: "Ma-sak sa-bi-gi di hu-" (| 7 7 5 5 6 4 4 |)
+  { SI, 2 }, { SI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 4 }, { FA, 2 }, { FA, 2 },
+  // Birama 4: "-rung ba-ri ba-ri" (| 5 5 4 3 4 |)
+  { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { FA, 8 },
+  // Birama 5: "Ma-sak sa-bi-gi di hu-" (| 7 7 5 5 6 4 4 |)
+  { SI, 2 }, { SI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 4 }, { FA, 2 }, { FA, 2 },
+  // Birama 6: "-rung ba-ri ba-ri" (| 5 5 4 3 4 |)
+  { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { FA, 8 },
+
+  // --- BAIT 2 ---
+  // Birama 7: "Am-par am-par pi-sang" (| 1 4 4 3 4 5 |)
+  { DO, 2 }, { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 4 }, { SOL, 4 },
+  // Birama 8: "Pi-sang-ku ba-lum ma-sak" (| 1 1 5 5 4 5 6 |)
+  { DO, 2 }, { DO, 2 }, { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { SOL, 2 }, { LA, 4 },
+  // Birama 9: "Ma-sak sa-bi-gi di hu-" (| 7 7 5 5 6 4 4 |)
+  { SI, 2 }, { SI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 4 }, { FA, 2 }, { FA, 2 },
+  // Birama 10: "-rung ba-ri ba-ri" (| 5 5 4 3 4 |)
+  { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { FA, 8 },
+  // Birama 11: "Ma-sak sa-bi-gi di hu-" (| 7 7 5 5 6 4 4 |)
+  { SI, 2 }, { SI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 4 }, { FA, 2 }, { FA, 2 },
+  // Birama 12: "-rung ba-ri ba-ri" (| 5 5 4 3 4 |)
+  { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { FA, 8 },
+
+  // Birama 13: Akhir / rest
+  { DIAM, 16 }
 };
 
 // Gundhul Pacul (Jawa Tengah, 4/4, Moderato tempo 112) — transcribed bar-exact dari partitur kanonik.
