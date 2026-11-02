@@ -37,7 +37,7 @@ void main() {
     // (id, name, tempo, len) must equal main.ino song_N arrays & defaultSongTempos.
     const firmware = {
       0: ('Indonesia Raya', 96, 45),
-      1: ('Tanah Airku', 70, 95),
+      1: ('Tanah Airku', 80, 110),
       2: ('Bagimu Negeri', 80, 45),
       3: ('Garuda Pancasila', 100, 82),
       4: ('Ibu Kita Kartini', 88, 57),
