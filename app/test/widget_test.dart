@@ -42,6 +42,7 @@ void main() {
       3: ('Garuda Pancasila', 100, 82),
       4: ('Ibu Kita Kartini', 88, 57),
       8: ('Apuse', 96, 53),
+      9: ('Suwe Ora Jamu', 104, 54),
     };
     firmware.forEach((id, meta) {
       final song = DefaultSongs.list.firstWhere((s) => s.id == id);

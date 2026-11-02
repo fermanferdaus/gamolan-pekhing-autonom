@@ -74,7 +74,7 @@ class DefaultSongs {
       id: 9,
       name: 'Suwe Ora Jamu',
       tempo: 104,
-      len: 44,
+      len: 54,
       category: SongCategory.daerah,
     ),
 
