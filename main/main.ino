@@ -56,24 +56,24 @@ const Nada song_0[] PROGMEM = {
 };
 
 // Tanah Airku (Ibu Sud, do=C, 4/4, Andante tempo 80) — transcribed bar-exact dari partitur kanonik
-// Dede Suwanda (sahabatkuseni.com). Birama 4/4 = 16 unit (1=1/16, 2=1/8, 4=1/4, 6=3/8, 8=1/2, 10=5/8, 12=3/4, 14=7/8).
-// Rentang nada gamolan 8 bilah: 1 (DO) sampai 8 (DO_T); nada 1' (do) dirender ke DO (rendah) agar resonan
-// dan tidak cempreng di bilah tertinggi. Nada 2', 3', 4' dirender ke bilah solmisasi RE, MI, FA.
+// Dede Suwanda (sahabatkuseni.com) & latihan not angka kanonik. Birama 4/4 = 16 unit.
+// Rentang nada gamolan 8 bilah: 1 (DO) sampai 8 (DO_T); nada 1' adalah DO_T (bilah 8),
+// nada oktaf tinggi (2', 3', 4') dirender ke bilah solmisasi RE, MI, FA.
 // Mencakup 2 bait lengkap (Bait 1 & Bait 2) dengan transisi prima volta di birama 13 dan ending birama 25.
 const Nada song_1[] PROGMEM = {
   // --- BAIT 1 ---
   // Birama 1: Intro / pickup "Ta-nah a-" (| 0 0 _0 5_ _3 4_ |)
   { DIAM, 8 }, { DIAM, 2 }, { SOL, 2 }, { MI, 2 }, { FA, 2 },
   // Birama 2: "-ir - ku ti-dak ku-lu-pa-" (| 5 ._1'_ =3'_2'=1' _7 6_ |)
-  { SOL, 6 }, { DO, 2 }, { MI, 2 }, { RE, 1 }, { DO, 1 }, { SI, 2 }, { LA, 2 },
+  { SOL, 6 }, { DO_T, 2 }, { MI, 2 }, { RE, 1 }, { DO_T, 1 }, { SI, 2 }, { LA, 2 },
   // Birama 3: "-kan. Kan ter-ke-" (| 5 . ._5_ _1' 3'_ |)
-  { SOL, 10 }, { SOL, 2 }, { DO, 2 }, { MI, 2 },
+  { SOL, 10 }, { SOL, 2 }, { DO_T, 2 }, { MI, 2 },
   // Birama 4: "-nang se-la-ma hi-dup-" (| 2' ._1'_ _7 7_ _6 7_ |)
-  { RE, 6 }, { DO, 2 }, { SI, 2 }, { SI, 2 }, { LA, 2 }, { SI, 2 },
+  { RE, 6 }, { DO_T, 2 }, { SI, 2 }, { SI, 2 }, { LA, 2 }, { SI, 2 },
   // Birama 5: "-ku. Bi-ar-pun" (| 1' . ._1'_ _1' 7_ |)
-  { DO, 10 }, { DO, 2 }, { DO, 2 }, { SI, 2 },
+  { DO_T, 10 }, { DO_T, 2 }, { DO_T, 2 }, { SI, 2 },
   // Birama 6: "sa-ya per-gi ja-" (| 6 6 ._1'_ _7 6_ |)
-  { LA, 4 }, { LA, 6 }, { DO, 2 }, { SI, 2 }, { LA, 2 },
+  { LA, 4 }, { LA, 6 }, { DO_T, 2 }, { SI, 2 }, { LA, 2 },
   // Birama 7: "-uh. Ti-dak-kan" (| 5 . ._3_ _4 5_ |)
   { SOL, 10 }, { MI, 2 }, { FA, 2 }, { SOL, 2 },
   // Birama 8: "hi-lang da-ri kal-" (| 7 6 ._2_ _3 4_ |)
@@ -81,25 +81,25 @@ const Nada song_1[] PROGMEM = {
   // Birama 9: "-bu. Ta-" (| 3 . . ._5_ |)
   { MI, 14 }, { SOL, 2 },
   // Birama 10: "-nah-ku yang ku-" (| 1' ._7_ 6 ._6_ |)
-  { DO, 6 }, { SI, 2 }, { LA, 6 }, { LA, 2 },
+  { DO_T, 6 }, { SI, 2 }, { LA, 6 }, { LA, 2 },
   // Birama 11: "-cin-ta-i, Eng-" (| 2' ._3'_ 4' 6 |)
   { RE, 6 }, { MI, 2 }, { FA, 4 }, { LA, 4 },
   // Birama 12: "-kau ku-har-ga-" (| 5 1' 7 2' |)
-  { SOL, 4 }, { DO, 4 }, { SI, 4 }, { RE, 4 },
+  { SOL, 4 }, { DO_T, 4 }, { SI, 4 }, { RE, 4 },
   // Birama 13: Prima Volta / transisi: "-i. Wa-lau-pun ba-" (| 1' . _0 5_ _3 4_ |)
-  { DO, 8 }, { DIAM, 2 }, { SOL, 2 }, { MI, 2 }, { FA, 2 },
+  { DO_T, 8 }, { DIAM, 2 }, { SOL, 2 }, { MI, 2 }, { FA, 2 },
 
   // --- BAIT 2 ---
   // Birama 14: "-nyak ne-ge-ri ku-ja-la-" (| 5 ._1'_ =3'_2'=1' _7 6_ |)
-  { SOL, 6 }, { DO, 2 }, { MI, 2 }, { RE, 1 }, { DO, 1 }, { SI, 2 }, { LA, 2 },
+  { SOL, 6 }, { DO_T, 2 }, { MI, 2 }, { RE, 1 }, { DO_T, 1 }, { SI, 2 }, { LA, 2 },
   // Birama 15: "-ni. Yang mas-yhur per-" (| 5 . ._5_ _1' 3'_ |)
-  { SOL, 10 }, { SOL, 2 }, { DO, 2 }, { MI, 2 },
+  { SOL, 10 }, { SOL, 2 }, { DO_T, 2 }, { MI, 2 },
   // Birama 16: "-mai di-ka-ta o-" (| 2' ._1'_ _7 7_ _6 7_ |)
-  { RE, 6 }, { DO, 2 }, { SI, 2 }, { SI, 2 }, { LA, 2 }, { SI, 2 },
+  { RE, 6 }, { DO_T, 2 }, { SI, 2 }, { SI, 2 }, { LA, 2 }, { SI, 2 },
   // Birama 17: "-rang. Te-ta-pi" (| 1' . ._1'_ _1' 7_ |)
-  { DO, 10 }, { DO, 2 }, { DO, 2 }, { SI, 2 },
+  { DO_T, 10 }, { DO_T, 2 }, { DO_T, 2 }, { SI, 2 },
   // Birama 18: "kam-pung dan ru-mah-ku" (| 6 6 ._1'_ _7 6_ |)
-  { LA, 4 }, { LA, 6 }, { DO, 2 }, { SI, 2 }, { LA, 2 },
+  { LA, 4 }, { LA, 6 }, { DO_T, 2 }, { SI, 2 }, { LA, 2 },
   // Birama 19: "Di-sa-na-lah ku" (| 5 . ._3_ _4 5_ |)
   { SOL, 10 }, { MI, 2 }, { FA, 2 }, { SOL, 2 },
   // Birama 20: "ra-sa se-" (| 7 6 ._2_ _3 4_ |)
@@ -107,13 +107,13 @@ const Nada song_1[] PROGMEM = {
   // Birama 21: "-nang. Ta-" (| 3 . . ._5_ |)
   { MI, 14 }, { SOL, 2 },
   // Birama 22: "-nah-ku tak ku-" (| 1' ._7_ 6 ._6_ |)
-  { DO, 6 }, { SI, 2 }, { LA, 6 }, { LA, 2 },
+  { DO_T, 6 }, { SI, 2 }, { LA, 6 }, { LA, 2 },
   // Birama 23: "-lu-pa-kan, Eng-" (| 2' ._3'_ 4' 6 |)
   { RE, 6 }, { MI, 2 }, { FA, 4 }, { LA, 4 },
   // Birama 24: "-kau ku-bang-ga-kan" (| 5 1' 7 2' |)
-  { SOL, 4 }, { DO, 4 }, { SI, 4 }, { RE, 4 },
+  { SOL, 4 }, { DO_T, 4 }, { SI, 4 }, { RE, 4 },
   // Birama 25: Seconda Volta / akhir "-kan" (| 1' . . 0 ||)
-  { DO, 12 }, { DIAM, 4 }
+  { DO_T, 12 }, { DIAM, 4 }
 };
 
 const Nada song_2[] PROGMEM = {
