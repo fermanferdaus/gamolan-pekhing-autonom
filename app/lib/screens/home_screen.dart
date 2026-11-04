@@ -30,6 +30,55 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: _pages[_currentIndex],
+      floatingActionButton: SizedBox(
+        width: 58,
+        height: 58,
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+            border: Border.all(
+              color: LampungTheme.accentBlueLight,
+              width: 2.5,
+            ),
+            boxShadow: const [
+              BoxShadow(
+                color: LampungTheme.deepBlue,
+                offset: Offset(2, 3),
+                blurRadius: 0,
+              ),
+            ],
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              customBorder: const CircleBorder(),
+              onTap: _openNotAngka,
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.piano_rounded,
+                    color: LampungTheme.primaryBlue,
+                    size: 24,
+                  ),
+                  Text(
+                    'BILAH',
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      color: LampungTheme.primaryBlue,
+                      fontSize: 8,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 0.8,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           color: LampungTheme.primaryBlue,
@@ -39,76 +88,27 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 1.5,
             ),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: LampungTheme.deepBlue,
-              offset: Offset(0, -2),
-              blurRadius: 0,
-            ),
-          ],
         ),
-        child: SafeArea(
-          top: false,
+        child: BottomAppBar(
+          color: LampungTheme.primaryBlue,
+          shape: const CircularNotchedRectangle(),
+          notchMargin: 8,
+          elevation: 0,
           child: SizedBox(
-            height: 60,
+            height: 56,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(
-                  child: _buildNavItem(
-                    index: 0,
-                    icon: Icons.queue_music_rounded,
-                    label: 'Daftar Lagu',
-                  ),
+                _buildNavItem(
+                  index: 0,
+                  icon: Icons.queue_music_rounded,
+                  label: 'Daftar Lagu',
                 ),
-                GestureDetector(
-                  onTap: _openNotAngka,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 7),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(999),
-                      border: Border.all(
-                        color: LampungTheme.accentBlueLight,
-                        width: 1.5,
-                      ),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: LampungTheme.deepBlue,
-                          offset: Offset(2, 2),
-                          blurRadius: 0,
-                        ),
-                      ],
-                    ),
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.piano_rounded,
-                          color: LampungTheme.primaryBlue,
-                          size: 16,
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          'BILAH',
-                          style: TextStyle(
-                            fontFamily: 'monospace',
-                            color: LampungTheme.primaryBlue,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 0.8,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: _buildNavItem(
-                    index: 1,
-                    icon: Icons.tune_rounded,
-                    label: 'Komposer',
-                  ),
+                const SizedBox(width: 56),
+                _buildNavItem(
+                  index: 1,
+                  icon: Icons.tune_rounded,
+                  label: 'Komposer',
                 ),
               ],
             ),
@@ -125,13 +125,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }) {
     final isSelected = _currentIndex == index;
     return InkWell(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(999),
       onTap: () {
         setState(() {
           _currentIndex = index;
         });
       },
-      child: Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -140,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
               color: isSelected
                   ? Colors.white
                   : LampungTheme.accentBlueLight.withValues(alpha: 0.7),
-              size: 20,
+              size: 22,
             ),
             const SizedBox(height: 2),
             Text(
@@ -149,12 +150,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: isSelected
                     ? Colors.white
                     : LampungTheme.accentBlueLight.withValues(alpha: 0.7),
-                fontSize: 10,
+                fontSize: 11,
                 fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
-                letterSpacing: 0.2,
+                letterSpacing: 0.3,
               ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),

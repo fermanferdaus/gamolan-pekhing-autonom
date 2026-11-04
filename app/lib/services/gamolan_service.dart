@@ -14,7 +14,8 @@ class GamolanService extends ChangeNotifier {
   factory GamolanService() => _instance;
   GamolanService._internal({bool startTimer = true}) {
     _songs = List.from(DefaultSongs.list);
-    if (startTimer) _startAutoProbeTimer();
+    final isTesting = Platform.environment.containsKey('FLUTTER_TEST');
+    if (startTimer && !isTesting) _startAutoProbeTimer();
   }
 
   @visibleForTesting

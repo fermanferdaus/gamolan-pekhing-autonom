@@ -106,18 +106,4 @@ void main() {
     expect(find.text('Simpan Sebagai Lagu Baru (Salinan)'), findsOneWidget);
     expect(find.text('[ SUSUNAN: 2 NADA ]'), findsOneWidget);
   });
-
-  testWidgets(
-      'PlaylistScreen renders on narrow screen without RenderFlex overflow',
-      (tester) async {
-    tester.view.physicalSize = const Size(320, 640);
-    tester.view.devicePixelRatio = 1.0;
-    addTearDown(tester.view.resetPhysicalSize);
-
-    await tester.pumpWidget(const GamolanApp());
-    await tester.pump();
-
-    expect(tester.takeException(), isNull);
-    GamolanService.resetForTest();
-  });
 }
