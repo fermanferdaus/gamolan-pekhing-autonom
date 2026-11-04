@@ -909,7 +909,10 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 4),
-                      Row(
+                      Wrap(
+                        spacing: 6,
+                        runSpacing: 2,
+                        crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
                           Text(
                             '[ ${song.tempo} BPM ]',
@@ -920,7 +923,6 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(width: 6),
                           Text(
                             '[ ${song.len} NADA ]',
                             style: const TextStyle(
@@ -930,7 +932,6 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const SizedBox(width: 6),
                           Text(
                             song.isDefault
                                 ? '[ ${song.category.name.toUpperCase()} ]'

@@ -50,20 +50,21 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SafeArea(
           top: false,
           child: SizedBox(
-            height: 62,
+            height: 60,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildNavItem(
-                  index: 0,
-                  icon: Icons.queue_music_rounded,
-                  label: 'Daftar Lagu',
+                Expanded(
+                  child: _buildNavItem(
+                    index: 0,
+                    icon: Icons.queue_music_rounded,
+                    label: 'Daftar Lagu',
+                  ),
                 ),
                 GestureDetector(
                   onTap: _openNotAngka,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 14, vertical: 8),
+                        horizontal: 12, vertical: 7),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(999),
@@ -85,11 +86,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         Icon(
                           Icons.piano_rounded,
                           color: LampungTheme.primaryBlue,
-                          size: 18,
+                          size: 16,
                         ),
-                        SizedBox(width: 6),
+                        SizedBox(width: 5),
                         Text(
-                          'BILAH VIRTUAL',
+                          'BILAH',
                           style: TextStyle(
                             fontFamily: 'monospace',
                             color: LampungTheme.primaryBlue,
@@ -102,10 +103,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                _buildNavItem(
-                  index: 1,
-                  icon: Icons.tune_rounded,
-                  label: 'Komposer',
+                Expanded(
+                  child: _buildNavItem(
+                    index: 1,
+                    icon: Icons.tune_rounded,
+                    label: 'Komposer',
+                  ),
                 ),
               ],
             ),
@@ -128,8 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
           _currentIndex = index;
         });
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+      child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -138,19 +140,21 @@ class _HomeScreenState extends State<HomeScreen> {
               color: isSelected
                   ? Colors.white
                   : LampungTheme.accentBlueLight.withValues(alpha: 0.7),
-              size: 22,
+              size: 20,
             ),
-            const SizedBox(height: 3),
+            const SizedBox(height: 2),
             Text(
               label,
               style: TextStyle(
                 color: isSelected
                     ? Colors.white
                     : LampungTheme.accentBlueLight.withValues(alpha: 0.7),
-                fontSize: 11,
+                fontSize: 10,
                 fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
-                letterSpacing: 0.3,
+                letterSpacing: 0.2,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),

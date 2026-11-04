@@ -224,31 +224,33 @@ class _ComposerScreenState extends State<ComposerScreen> {
               ),
             ),
             const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  isEditing ? '[ MODE SUNTING ]' : '[ KOMPOSER MUSIK ]',
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 9,
-                    color: LampungTheme.accentBlueLight,
-                    letterSpacing: 1.5,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    isEditing ? '[ MODE SUNTING ]' : '[ KOMPOSER MUSIK ]',
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 9,
+                      color: LampungTheme.accentBlueLight,
+                      letterSpacing: 1.5,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  isEditing ? 'EDIT LAGU' : 'BUAT LAGU GAMOLAN',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 15,
-                    color: Colors.white,
-                    letterSpacing: 0.5,
+                  const SizedBox(height: 2),
+                  Text(
+                    isEditing ? 'EDIT LAGU' : 'BUAT LAGU GAMOLAN',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 15,
+                      color: Colors.white,
+                      letterSpacing: 0.5,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

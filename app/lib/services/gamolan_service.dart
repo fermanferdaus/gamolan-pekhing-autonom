@@ -10,11 +10,26 @@ import '../models/default_songs.dart';
 enum ConnectionStatus { disconnected, connecting, connected }
 
 class GamolanService extends ChangeNotifier {
-  static final GamolanService _instance = GamolanService._internal();
+  static GamolanService _instance = GamolanService._internal();
   factory GamolanService() => _instance;
-  GamolanService._internal() {
+  GamolanService._internal({bool startTimer = true}) {
     _songs = List.from(DefaultSongs.list);
-    _startAutoProbeTimer();
+    if (startTimer) _startAutoProbeTimer();
+  }
+
+  @visibleForTesting
+  static void resetForTest() {
+    _instance.cancelTimers();
+    _instance._subscription?.cancel();
+    _instance._channel?.sink.close();
+    _instance = GamolanService._internal(startTimer: false);
+  }
+
+  void cancelTimers() {
+    _autoProbeTimer?.cancel();
+    _autoProbeTimer = null;
+    _connectTimeoutTimer?.cancel();
+    _connectTimeoutTimer = null;
   }
 
   static const String serverHost = '192.168.4.1';
@@ -298,8 +313,7 @@ class GamolanService extends ChangeNotifier {
 
   @override
   void dispose() {
-    _autoProbeTimer?.cancel();
-    _connectTimeoutTimer?.cancel();
+    cancelTimers();
     _subscription?.cancel();
     _channel?.sink.close();
     super.dispose();
