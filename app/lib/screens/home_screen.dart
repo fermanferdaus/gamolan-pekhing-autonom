@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: LampungTheme.slate50,
       body: _pages[_currentIndex],
       floatingActionButton: SizedBox(
         width: 58,
@@ -48,9 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: LampungTheme.primaryBlue,
+            color: Colors.white,
             border: Border.all(
-              color: Colors.white,
+              color: LampungTheme.accentBlueLight,
               width: 2.5,
             ),
             boxShadow: const [
@@ -71,13 +71,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Icon(
                     Icons.music_note_rounded,
-                    color: Colors.white,
+                    color: LampungTheme.primaryBlue,
                     size: 26,
                   ),
                   Text(
                     'NOT',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: LampungTheme.primaryBlue,
                       fontSize: 8,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 0.8,
@@ -93,16 +93,16 @@ class _HomeScreenState extends State<HomeScreen> {
           const LoweredCenterDockedFabLocation(offsetY: 18.0),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
-          color: Colors.white,
+          color: LampungTheme.primaryBlue,
           border: Border(
             top: BorderSide(
-              color: LampungTheme.slate200,
-              width: 1,
+              color: LampungTheme.darkBlue,
+              width: 1.5,
             ),
           ),
         ),
         child: BottomAppBar(
-          color: Colors.white,
+          color: LampungTheme.primaryBlue,
           shape: const CircularNotchedRectangle(),
           notchMargin: 8,
           elevation: 0,
@@ -151,8 +151,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Icon(
               icon,
               color: isSelected
-                  ? LampungTheme.primaryBlue
-                  : LampungTheme.slate400,
+                  ? Colors.white
+                  : LampungTheme.accentBlueLight.withValues(alpha: 0.7),
               size: 22,
             ),
             const SizedBox(height: 2),
@@ -160,8 +160,8 @@ class _HomeScreenState extends State<HomeScreen> {
               label,
               style: TextStyle(
                 color: isSelected
-                    ? LampungTheme.primaryBlue
-                    : LampungTheme.slate500,
+                    ? Colors.white
+                    : LampungTheme.accentBlueLight.withValues(alpha: 0.7),
                 fontSize: 11,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),

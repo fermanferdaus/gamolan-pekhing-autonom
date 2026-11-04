@@ -329,11 +329,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
         bottom: 12,
       ),
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: LampungTheme.primaryBlue,
         border: Border(
           bottom: BorderSide(
-            color: LampungTheme.slate200,
-            width: 1,
+            color: LampungTheme.darkBlue,
+            width: 1.5,
           ),
         ),
       ),
@@ -342,10 +342,10 @@ class _PlaylistScreenState extends State<PlaylistScreen>
           Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: LampungTheme.blue50,
+              color: LampungTheme.darkBlue,
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: LampungTheme.accentBlueLight,
+                color: LampungTheme.accentBlueLight.withValues(alpha: 0.3),
               ),
             ),
             child: SvgPicture.asset(
@@ -365,7 +365,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                     fontFamily: 'monospace',
                     fontWeight: FontWeight.bold,
                     fontSize: 9,
-                    color: LampungTheme.secondaryBlue,
+                    color: LampungTheme.accentBlueLight,
                     letterSpacing: 1.5,
                   ),
                 ),
@@ -375,7 +375,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 16,
-                    color: LampungTheme.primaryBlue,
+                    color: Colors.white,
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -384,7 +384,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
           ),
           IconButton(
             icon: const Icon(Icons.refresh_rounded,
-                color: LampungTheme.primaryBlue, size: 22),
+                color: Colors.white, size: 22),
             tooltip: 'Refresh Daftar Lagu',
             onPressed: () {
               if (_service.isConnected) {
@@ -776,11 +776,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
 
     return Container(
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: LampungTheme.primaryBlue,
         border: Border(
           top: BorderSide(
-            color: LampungTheme.primaryBlue,
-            width: 2,
+            color: LampungTheme.deepBlue,
+            width: 1.5,
           ),
         ),
       ),
@@ -789,8 +789,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
         children: [
           LinearProgressIndicator(
             value: progress,
-            backgroundColor: LampungTheme.blue50,
-            valueColor: const AlwaysStoppedAnimation<Color>(LampungTheme.primaryBlue),
+            backgroundColor: LampungTheme.darkBlue,
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
             minHeight: 3.5,
           ),
           Padding(
@@ -801,10 +801,10 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: LampungTheme.primaryBlue,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                      color: LampungTheme.accentBlueHighlight,
+                      color: LampungTheme.accentBlueLight,
                       width: 1.5,
                     ),
                     boxShadow: const [
@@ -821,7 +821,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                       style: const TextStyle(
                         fontFamily: 'monospace',
                         fontWeight: FontWeight.w900,
-                        color: Colors.white,
+                        color: LampungTheme.primaryBlue,
                         fontSize: 13,
                       ),
                     ),
@@ -838,7 +838,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                             ? _service.playingSongName
                             : 'Memainkan Lagu...',
                         style: const TextStyle(
-                          color: LampungTheme.primaryBlue,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 13,
                         ),
@@ -849,7 +849,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                         '[ NADA ${_service.currentNote + 1} / ${_service.totalNotes} ]',
                         style: const TextStyle(
                           fontFamily: 'monospace',
-                          color: LampungTheme.slate500,
+                          color: LampungTheme.accentBlueLight,
                           fontSize: 10,
                           fontWeight: FontWeight.bold,
                         ),
@@ -859,7 +859,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                 ),
                 IconButton(
                   icon: const Icon(Icons.stop_circle_rounded,
-                      color: LampungTheme.statusDanger, size: 32),
+                      color: Colors.white, size: 32),
                   onPressed: () => _service.stopPlayback(),
                 ),
               ],

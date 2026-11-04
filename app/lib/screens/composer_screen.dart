@@ -161,9 +161,11 @@ class _ComposerScreenState extends State<ComposerScreen> {
             Container(
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
-                color: LampungTheme.blue50,
+                color: LampungTheme.darkBlue,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: LampungTheme.accentBlueLight),
+                border: Border.all(
+                  color: LampungTheme.accentBlueLight.withValues(alpha: 0.3),
+                ),
               ),
               child: SvgPicture.asset(
                 'assets/images/siger_crown.svg',
@@ -181,7 +183,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
                     fontFamily: 'monospace',
                     fontWeight: FontWeight.bold,
                     fontSize: 9,
-                    color: LampungTheme.secondaryBlue,
+                    color: LampungTheme.accentBlueLight,
                     letterSpacing: 1.5,
                   ),
                 ),
@@ -191,7 +193,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 15,
-                    color: LampungTheme.primaryBlue,
+                    color: Colors.white,
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -199,17 +201,17 @@ class _ComposerScreenState extends State<ComposerScreen> {
             ),
           ],
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: LampungTheme.primaryBlue,
         elevation: 0,
         bottom: const PreferredSize(
           preferredSize: Size.fromHeight(1),
-          child: Divider(height: 1, color: LampungTheme.slate200),
+          child: Divider(height: 1, color: LampungTheme.darkBlue),
         ),
         actions: [
           if (_notes.isNotEmpty)
             IconButton(
               icon:
-                  const Icon(Icons.delete_sweep, color: LampungTheme.primaryBlue),
+                  const Icon(Icons.delete_sweep, color: Colors.white),
               tooltip: 'Hapus Semua',
               onPressed: _clearAllNotes,
             ),

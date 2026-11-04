@@ -63,18 +63,18 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: LampungTheme.slate50,
       body: SafeArea(
         child: Column(
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: const BoxDecoration(
-                color: Colors.white,
+                color: LampungTheme.primaryBlue,
                 border: Border(
                   bottom: BorderSide(
-                    color: LampungTheme.slate200,
-                    width: 1,
+                    color: LampungTheme.darkBlue,
+                    width: 1.5,
                   ),
                 ),
               ),
@@ -83,9 +83,11 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                   Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: LampungTheme.blue50,
+                      color: LampungTheme.darkBlue,
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: LampungTheme.accentBlueLight),
+                      border: Border.all(
+                        color: LampungTheme.accentBlueLight.withValues(alpha: 0.3),
+                      ),
                     ),
                     child: SvgPicture.asset(
                       'assets/images/siger_crown.svg',
@@ -101,7 +103,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                         '[ VIRTUAL GAMOLAN ]',
                         style: TextStyle(
                           fontFamily: 'monospace',
-                          color: LampungTheme.secondaryBlue,
+                          color: LampungTheme.accentBlueLight,
                           fontSize: 9,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.2,
@@ -110,7 +112,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                       Text(
                         'GAMOLAN PEKHING',
                         style: TextStyle(
-                          color: LampungTheme.primaryBlue,
+                          color: Colors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w900,
                           letterSpacing: 0.5,
@@ -123,13 +125,11 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
-                      color: _service.isConnected
-                          ? LampungTheme.blue50
-                          : const Color(0xFFFEF2F2),
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(999),
                       border: Border.all(
                         color: _service.isConnected
-                            ? LampungTheme.primaryBlue
+                            ? LampungTheme.accentBlueLight
                             : LampungTheme.statusDanger,
                         width: 1,
                       ),
@@ -156,7 +156,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                   const SizedBox(width: 10),
                   IconButton(
                     icon: const Icon(Icons.fullscreen_exit,
-                        color: LampungTheme.primaryBlue),
+                        color: Colors.white),
                     tooltip: 'Kembali',
                     onPressed: () => Navigator.of(context).pop(),
                   ),
@@ -169,16 +169,16 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                 padding: const EdgeInsets.symmetric(
                     horizontal: 12, vertical: 14),
                 decoration: BoxDecoration(
-                  color: LampungTheme.blue50,
+                  color: LampungTheme.secondaryBlue,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: LampungTheme.accentBlueLight,
-                    width: 1.5,
+                    color: LampungTheme.darkBlue,
+                    width: 2.0,
                   ),
                   boxShadow: const [
                     BoxShadow(
-                      color: Color(0x1F1D4ED8),
-                      offset: Offset(3, 3),
+                      color: LampungTheme.deepBlue,
+                      offset: Offset(4, 4),
                       blurRadius: 0,
                     ),
                   ],
@@ -223,8 +223,8 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                                         ],
                                   border: Border.all(
                                     color: isHit
-                                        ? LampungTheme.accentBlueHighlight
-                                        : LampungTheme.primaryBlue,
+                                        ? Colors.white
+                                        : LampungTheme.accentBlueHighlight,
                                     width: isHit ? 2.0 : 1.5,
                                   ),
                                 ),
