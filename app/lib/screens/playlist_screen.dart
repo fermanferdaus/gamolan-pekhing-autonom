@@ -82,8 +82,9 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                           border: Border.all(color: LampungTheme.accentBlueLight),
                         ),
                         child: SvgPicture.asset(
-                          'assets/images/siger_crown.svg',
-                          height: 20,
+                          'assets/images/gamolan_logo.svg',
+                          height: 24,
+                          width: 24,
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -474,7 +475,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(6),
+            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               color: LampungTheme.darkBlue,
               borderRadius: BorderRadius.circular(10),
@@ -483,8 +484,9 @@ class _PlaylistScreenState extends State<PlaylistScreen>
               ),
             ),
             child: SvgPicture.asset(
-              'assets/images/siger_crown.svg',
-              height: 24,
+              'assets/images/gamolan_logo.svg',
+              height: 28,
+              width: 28,
             ),
           ),
           const SizedBox(width: 12),
@@ -604,11 +606,22 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             : '[ OFFLINE ] Belum terhubung');
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-      decoration: const BoxDecoration(
-        color: LampungTheme.secondaryBlue,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: isConnected
+            ? const Color(0xFFF0FDF4)
+            : (isConnecting
+                ? const Color(0xFFFEFCE8)
+                : const Color(0xFFF8FAFC)),
         border: Border(
-          bottom: BorderSide(color: LampungTheme.darkBlue, width: 1),
+          bottom: BorderSide(
+            color: isConnected
+                ? const Color(0xFF86EFAC)
+                : (isConnecting
+                    ? const Color(0xFFFDE047)
+                    : const Color(0xFFE2E8F0)),
+            width: 1.2,
+          ),
         ),
       ),
       child: Row(
@@ -619,20 +632,26 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: isConnected
-                  ? const Color(0xFF86EFAC)
-                  : (isConnecting ? const Color(0xFFFDE047) : const Color(0xFFFCA5A5)),
+                  ? LampungTheme.statusSuccess
+                  : (isConnecting
+                      ? const Color(0xFFEAB308)
+                      : LampungTheme.statusDanger),
             ),
           ),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
               statusText,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'monospace',
-                color: Colors.white,
+                color: isConnected
+                    ? const Color(0xFF15803D)
+                    : (isConnecting
+                        ? const Color(0xFFA16207)
+                        : LampungTheme.slate600),
                 fontSize: 11,
                 fontWeight: FontWeight.bold,
-                letterSpacing: 0.3,
+                letterSpacing: 0.2,
               ),
             ),
           ),
@@ -640,14 +659,16 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             GestureDetector(
               onTap: () => _service.disconnect(),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(999),
+                  border: Border.all(color: LampungTheme.statusDanger),
                   boxShadow: const [
                     BoxShadow(
-                      color: LampungTheme.deepBlue,
-                      offset: Offset(1, 2),
+                      color: Color(0x22DC2626),
+                      offset: Offset(1, 1),
                       blurRadius: 0,
                     ),
                   ],
@@ -666,14 +687,15 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             GestureDetector(
               onTap: _showWifiConnectModal,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: LampungTheme.primaryBlue,
                   borderRadius: BorderRadius.circular(999),
                   boxShadow: const [
                     BoxShadow(
                       color: LampungTheme.deepBlue,
-                      offset: Offset(1, 2),
+                      offset: Offset(1, 1),
                       blurRadius: 0,
                     ),
                   ],
@@ -681,12 +703,12 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.wifi, size: 12, color: LampungTheme.secondaryBlue),
+                    Icon(Icons.wifi, size: 12, color: Colors.white),
                     SizedBox(width: 4),
                     Text(
-                      'Sambungkan',
+                      'Hubungkan',
                       style: TextStyle(
-                        color: LampungTheme.secondaryBlue,
+                        color: Colors.white,
                         fontSize: 11,
                         fontWeight: FontWeight.bold,
                       ),
@@ -773,9 +795,18 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SvgPicture.asset(
-                  'assets/images/gamolan_instrument.svg',
-                  height: 80,
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: LampungTheme.blue50,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: LampungTheme.accentBlueLight),
+                  ),
+                  child: SvgPicture.asset(
+                    'assets/images/gamolan_logo.svg',
+                    height: 56,
+                    width: 56,
+                  ),
                 ),
                 const SizedBox(height: 12),
                 Text(
@@ -899,18 +930,22 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          if (song.category == SongCategory.lampung) ...[
-                            const SizedBox(width: 6),
-                            const Text(
-                              '[ ASLI ]',
-                              style: TextStyle(
-                                fontFamily: 'monospace',
-                                color: LampungTheme.secondaryBlue,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          const SizedBox(width: 6),
+                          Text(
+                            song.isDefault
+                                ? '[ ${song.category.name.toUpperCase()} ]'
+                                : '[ KUSTOM ]',
+                            style: TextStyle(
+                              fontFamily: 'monospace',
+                              color: song.isDefault
+                                  ? (song.category == SongCategory.lampung
+                                      ? LampungTheme.secondaryBlue
+                                      : LampungTheme.slate500)
+                                  : LampungTheme.statusSuccess,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
                             ),
-                          ],
+                          ),
                         ],
                       ),
                     ],

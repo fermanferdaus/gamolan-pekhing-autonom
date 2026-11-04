@@ -4,18 +4,6 @@ import 'composer_screen.dart';
 import 'not_angka_screen.dart';
 import '../theme/lampung_theme.dart';
 
-class LoweredCenterDockedFabLocation extends FloatingActionButtonLocation {
-  final double offsetY;
-  const LoweredCenterDockedFabLocation({this.offsetY = 16.0});
-
-  @override
-  Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
-    final Offset standard =
-        FloatingActionButtonLocation.centerDocked.getOffset(scaffoldGeometry);
-    return Offset(standard.dx, standard.dy + offsetY);
-  }
-}
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -40,57 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LampungTheme.slate50,
+      backgroundColor: Colors.white,
       body: _pages[_currentIndex],
-      floatingActionButton: SizedBox(
-        width: 58,
-        height: 58,
-        child: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-            border: Border.all(
-              color: LampungTheme.accentBlueLight,
-              width: 2.5,
-            ),
-            boxShadow: const [
-              BoxShadow(
-                color: LampungTheme.deepBlue,
-                offset: Offset(2, 3),
-                blurRadius: 0,
-              ),
-            ],
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              customBorder: const CircleBorder(),
-              onTap: _openNotAngka,
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.music_note_rounded,
-                    color: LampungTheme.primaryBlue,
-                    size: 26,
-                  ),
-                  Text(
-                    'NOT',
-                    style: TextStyle(
-                      color: LampungTheme.primaryBlue,
-                      fontSize: 8,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 0.8,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation:
-          const LoweredCenterDockedFabLocation(offsetY: 18.0),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           color: LampungTheme.primaryBlue,
@@ -100,27 +39,73 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 1.5,
             ),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: LampungTheme.deepBlue,
+              offset: Offset(0, -2),
+              blurRadius: 0,
+            ),
+          ],
         ),
-        child: BottomAppBar(
-          color: LampungTheme.primaryBlue,
-          shape: const CircularNotchedRectangle(),
-          notchMargin: 8,
-          elevation: 0,
+        child: SafeArea(
+          top: false,
           child: SizedBox(
-            height: 56,
+            height: 62,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildNavItem(
                   index: 0,
                   icon: Icons.queue_music_rounded,
                   label: 'Daftar Lagu',
                 ),
-                const SizedBox(width: 56),
+                GestureDetector(
+                  onTap: _openNotAngka,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(999),
+                      border: Border.all(
+                        color: LampungTheme.accentBlueLight,
+                        width: 1.5,
+                      ),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: LampungTheme.deepBlue,
+                          offset: Offset(2, 2),
+                          blurRadius: 0,
+                        ),
+                      ],
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.piano_rounded,
+                          color: LampungTheme.primaryBlue,
+                          size: 18,
+                        ),
+                        SizedBox(width: 6),
+                        Text(
+                          'BILAH VIRTUAL',
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            color: LampungTheme.primaryBlue,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 0.8,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 _buildNavItem(
                   index: 1,
-                  icon: Icons.music_note_outlined,
-                  label: 'Buat Lagu',
+                  icon: Icons.tune_rounded,
+                  label: 'Komposer',
                 ),
               ],
             ),
@@ -137,14 +122,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }) {
     final isSelected = _currentIndex == index;
     return InkWell(
-      borderRadius: BorderRadius.circular(999),
+      borderRadius: BorderRadius.circular(12),
       onTap: () {
         setState(() {
           _currentIndex = index;
         });
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -155,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   : LampungTheme.accentBlueLight.withValues(alpha: 0.7),
               size: 22,
             ),
-            const SizedBox(height: 2),
+            const SizedBox(height: 3),
             Text(
               label,
               style: TextStyle(
@@ -163,7 +148,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? Colors.white
                     : LampungTheme.accentBlueLight.withValues(alpha: 0.7),
                 fontSize: 11,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
+                letterSpacing: 0.3,
               ),
             ),
           ],

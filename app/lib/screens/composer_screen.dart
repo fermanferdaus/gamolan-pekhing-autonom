@@ -218,8 +218,9 @@ class _ComposerScreenState extends State<ComposerScreen> {
                 ),
               ),
               child: SvgPicture.asset(
-                'assets/images/siger_crown.svg',
-                height: 20,
+                'assets/images/gamolan_logo.svg',
+                height: 24,
+                width: 24,
               ),
             ),
             const SizedBox(width: 10),

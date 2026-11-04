@@ -90,8 +90,9 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                       ),
                     ),
                     child: SvgPicture.asset(
-                      'assets/images/siger_crown.svg',
-                      height: 18,
+                      'assets/images/gamolan_logo.svg',
+                      height: 22,
+                      width: 22,
                     ),
                   ),
                   const SizedBox(width: 10),
