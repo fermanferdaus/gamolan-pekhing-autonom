@@ -154,16 +154,16 @@ class _ComposerScreenState extends State<ComposerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LampungTheme.slate50,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Row(
           children: [
             Container(
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
-                color: LampungTheme.slate900,
+                color: LampungTheme.blue50,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: LampungTheme.slate800),
+                border: Border.all(color: LampungTheme.accentBlueLight),
               ),
               child: SvgPicture.asset(
                 'assets/images/siger_crown.svg',
@@ -181,7 +181,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
                     fontFamily: 'monospace',
                     fontWeight: FontWeight.bold,
                     fontSize: 9,
-                    color: LampungTheme.primaryBlue,
+                    color: LampungTheme.secondaryBlue,
                     letterSpacing: 1.5,
                   ),
                 ),
@@ -191,7 +191,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 15,
-                    color: Colors.white,
+                    color: LampungTheme.primaryBlue,
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -199,17 +199,17 @@ class _ComposerScreenState extends State<ComposerScreen> {
             ),
           ],
         ),
-        backgroundColor: LampungTheme.slate950,
+        backgroundColor: Colors.white,
         elevation: 0,
         bottom: const PreferredSize(
           preferredSize: Size.fromHeight(1),
-          child: Divider(height: 1, color: LampungTheme.slate800),
+          child: Divider(height: 1, color: LampungTheme.slate200),
         ),
         actions: [
           if (_notes.isNotEmpty)
             IconButton(
               icon:
-                  const Icon(Icons.delete_sweep, color: LampungTheme.statusDanger),
+                  const Icon(Icons.delete_sweep, color: LampungTheme.primaryBlue),
               tooltip: 'Hapus Semua',
               onPressed: _clearAllNotes,
             ),
@@ -433,7 +433,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: LampungTheme.slate200),
+                    border: Border.all(color: LampungTheme.accentBlueLight),
                     boxShadow: const [
                       BoxShadow(
                         color: Color(0x1F1D4ED8),
@@ -455,7 +455,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
                             style: const TextStyle(
                               fontSize: 19,
                               fontWeight: FontWeight.w900,
-                              color: LampungTheme.slate900,
+                              color: LampungTheme.primaryBlue,
                             ),
                           ),
                           Text(
@@ -464,7 +464,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
                               fontFamily: 'monospace',
                               fontSize: 10,
                               fontWeight: FontWeight.bold,
-                              color: LampungTheme.primaryBlue,
+                              color: LampungTheme.secondaryBlue,
                             ),
                           ),
                         ],
@@ -480,19 +480,19 @@ class _ComposerScreenState extends State<ComposerScreen> {
               height: 42,
               child: OutlinedButton.icon(
                 icon: const Icon(Icons.pause,
-                    color: LampungTheme.slate600, size: 18),
+                    color: LampungTheme.primaryBlue, size: 18),
                 label: const Text(
                   'Istirahat / Diam (0)',
                   style: TextStyle(
                     fontFamily: 'monospace',
-                    color: LampungTheme.slate700,
+                    color: LampungTheme.primaryBlue,
                     fontWeight: FontWeight.bold,
                     fontSize: 12,
                   ),
                 ),
                 style: OutlinedButton.styleFrom(
                   backgroundColor: Colors.white,
-                  side: const BorderSide(color: LampungTheme.slate300),
+                  side: const BorderSide(color: LampungTheme.accentBlueLight),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(999),
                   ),

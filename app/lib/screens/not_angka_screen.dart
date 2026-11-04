@@ -63,17 +63,17 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LampungTheme.slate950,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: const BoxDecoration(
-                color: LampungTheme.slate950,
+                color: Colors.white,
                 border: Border(
                   bottom: BorderSide(
-                    color: LampungTheme.slate800,
+                    color: LampungTheme.slate200,
                     width: 1,
                   ),
                 ),
@@ -83,9 +83,9 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                   Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: LampungTheme.slate900,
+                      color: LampungTheme.blue50,
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: LampungTheme.slate800),
+                      border: Border.all(color: LampungTheme.accentBlueLight),
                     ),
                     child: SvgPicture.asset(
                       'assets/images/siger_crown.svg',
@@ -101,7 +101,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                         '[ VIRTUAL GAMOLAN ]',
                         style: TextStyle(
                           fontFamily: 'monospace',
-                          color: LampungTheme.primaryBlue,
+                          color: LampungTheme.secondaryBlue,
                           fontSize: 9,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.2,
@@ -110,7 +110,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                       Text(
                         'GAMOLAN PEKHING',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: LampungTheme.primaryBlue,
                           fontSize: 14,
                           fontWeight: FontWeight.w900,
                           letterSpacing: 0.5,
@@ -124,19 +124,19 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: _service.isConnected
-                          ? const Color(0xFF14532D)
-                          : const Color(0xFF7F1D1D),
+                          ? LampungTheme.blue50
+                          : const Color(0xFFFEF2F2),
                       borderRadius: BorderRadius.circular(999),
                       border: Border.all(
                         color: _service.isConnected
-                            ? LampungTheme.statusSuccess
+                            ? LampungTheme.primaryBlue
                             : LampungTheme.statusDanger,
                         width: 1,
                       ),
                       boxShadow: const [
                         BoxShadow(
-                          color: LampungTheme.slate950,
-                          offset: Offset(1, 2),
+                          color: LampungTheme.deepBlue,
+                          offset: Offset(1, 1),
                           blurRadius: 0,
                         ),
                       ],
@@ -146,8 +146,8 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                       style: TextStyle(
                         fontFamily: 'monospace',
                         color: _service.isConnected
-                            ? const Color(0xFF86EFAC)
-                            : const Color(0xFFFCA5A5),
+                            ? LampungTheme.primaryBlue
+                            : LampungTheme.statusDanger,
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
                       ),
@@ -156,7 +156,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                   const SizedBox(width: 10),
                   IconButton(
                     icon: const Icon(Icons.fullscreen_exit,
-                        color: LampungTheme.slate400),
+                        color: LampungTheme.primaryBlue),
                     tooltip: 'Kembali',
                     onPressed: () => Navigator.of(context).pop(),
                   ),
@@ -169,15 +169,16 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                 padding: const EdgeInsets.symmetric(
                     horizontal: 12, vertical: 14),
                 decoration: BoxDecoration(
-                  color: LampungTheme.slate900,
+                  color: LampungTheme.blue50,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: LampungTheme.slate800,
+                    color: LampungTheme.accentBlueLight,
+                    width: 1.5,
                   ),
                   boxShadow: const [
                     BoxShadow(
-                      color: LampungTheme.deepBlue,
-                      offset: Offset(4, 4),
+                      color: Color(0x1F1D4ED8),
+                      offset: Offset(3, 3),
                       blurRadius: 0,
                     ),
                   ],
@@ -212,7 +213,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                                       ? LampungTheme.primaryBlue
                                       : Colors.white,
                                   boxShadow: isHit
-                                      ? [] // Shadow tertelan saat ditekan!
+                                      ? []
                                       : const [
                                           BoxShadow(
                                             color: LampungTheme.deepBlue,
@@ -223,7 +224,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                                   border: Border.all(
                                     color: isHit
                                         ? LampungTheme.accentBlueHighlight
-                                        : LampungTheme.slate300,
+                                        : LampungTheme.primaryBlue,
                                     width: isHit ? 2.0 : 1.5,
                                   ),
                                 ),
@@ -253,7 +254,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                                               fontWeight: FontWeight.w900,
                                               color: isHit
                                                   ? Colors.white
-                                                  : LampungTheme.slate900,
+                                                  : LampungTheme.primaryBlue,
                                             ),
                                           ),
                                           const SizedBox(height: 2),
@@ -265,7 +266,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                                               fontWeight: FontWeight.w900,
                                               color: isHit
                                                   ? LampungTheme.accentBlueLight
-                                                  : LampungTheme.primaryBlue,
+                                                  : LampungTheme.secondaryBlue,
                                             ),
                                           ),
                                         ],
@@ -324,7 +325,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
       height: 7,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: isHit ? LampungTheme.darkBlue : LampungTheme.slate300,
+        color: isHit ? LampungTheme.darkBlue : LampungTheme.accentBlueLight,
       ),
     );
   }

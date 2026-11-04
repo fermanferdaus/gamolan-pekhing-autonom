@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LampungTheme.slate50,
+      backgroundColor: Colors.white,
       body: _pages[_currentIndex],
       floatingActionButton: SizedBox(
         width: 58,
@@ -50,13 +50,13 @@ class _HomeScreenState extends State<HomeScreen> {
             shape: BoxShape.circle,
             color: LampungTheme.primaryBlue,
             border: Border.all(
-              color: LampungTheme.slate200,
-              width: 2,
+              color: Colors.white,
+              width: 2.5,
             ),
             boxShadow: const [
               BoxShadow(
                 color: LampungTheme.deepBlue,
-                offset: Offset(3, 4),
+                offset: Offset(2, 3),
                 blurRadius: 0,
               ),
             ],
@@ -93,15 +93,16 @@ class _HomeScreenState extends State<HomeScreen> {
           const LoweredCenterDockedFabLocation(offsetY: 18.0),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
+          color: Colors.white,
           border: Border(
             top: BorderSide(
-              color: LampungTheme.slate800,
+              color: LampungTheme.slate200,
               width: 1,
             ),
           ),
         ),
         child: BottomAppBar(
-          color: LampungTheme.slate950,
+          color: Colors.white,
           shape: const CircularNotchedRectangle(),
           notchMargin: 8,
           elevation: 0,
@@ -149,14 +150,18 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Icon(
               icon,
-              color: isSelected ? LampungTheme.accentBlueHighlight : LampungTheme.slate400,
+              color: isSelected
+                  ? LampungTheme.primaryBlue
+                  : LampungTheme.slate400,
               size: 22,
             ),
             const SizedBox(height: 2),
             Text(
               label,
               style: TextStyle(
-                color: isSelected ? Colors.white : LampungTheme.slate400,
+                color: isSelected
+                    ? LampungTheme.primaryBlue
+                    : LampungTheme.slate500,
                 fontSize: 11,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
