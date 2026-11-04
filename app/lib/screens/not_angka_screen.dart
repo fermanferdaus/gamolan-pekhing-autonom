@@ -35,11 +35,13 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   }
 
   @override
   void dispose() {
     _hitTimer?.cancel();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -66,22 +68,36 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
           children: [
-            _buildTopBar(),
-            Expanded(child: _buildGamolanRancak()),
+            _buildTopBar(context),
+            Expanded(child: _buildGamolanRancak(context)),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildTopBar() {
+  Widget _buildTopBar(BuildContext context) {
+    final media = MediaQuery.paddingOf(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      width: double.infinity,
+      padding: EdgeInsets.fromLTRB(
+        media.left > 0 ? media.left + 8 : 16,
+        media.top > 0 ? media.top + 4 : 8,
+        media.right > 0 ? media.right + 8 : 16,
+        8,
+      ),
       decoration: const BoxDecoration(
         color: LampungTheme.primaryBlue,
         border: Border(
@@ -208,9 +224,15 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
     );
   }
 
-  Widget _buildGamolanRancak() {
+  Widget _buildGamolanRancak(BuildContext context) {
+    final media = MediaQuery.paddingOf(context);
     return Container(
-      margin: const EdgeInsets.fromLTRB(14, 8, 14, 10),
+      margin: EdgeInsets.fromLTRB(
+        media.left > 0 ? media.left + 8 : 14,
+        8,
+        media.right > 0 ? media.right + 8 : 14,
+        media.bottom > 0 ? media.bottom + 6 : 10,
+      ),
       decoration: BoxDecoration(
         color: LampungTheme.darkBlue,
         borderRadius: BorderRadius.circular(18),

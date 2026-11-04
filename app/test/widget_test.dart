@@ -161,4 +161,27 @@ void main() {
     expect(tester.takeException(), isNull);
     GamolanService.resetForTest();
   });
+
+  testWidgets('NotAngkaScreen renders full-bleed with display notch insets',
+      (tester) async {
+    tester.view.physicalSize = const Size(840, 390);
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.padding = const FakeViewPadding(left: 48, top: 24, right: 32, bottom: 16);
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+      tester.view.resetPadding();
+    });
+
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: NotAngkaScreen(),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text('DO'), findsOneWidget);
+    expect(find.text('GAMOLAN PEKHING'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+    GamolanService.resetForTest();
+  });
 }
