@@ -610,12 +610,30 @@ void sendSongList(uint8_t clientNum = 255) {
 
 void loadSongMetadata() {
   totalSongs = 0;
+
+  bool isDel[NUM_DEFAULT_SONGS];
+  for (int i = 0; i < NUM_DEFAULT_SONGS; i++) isDel[i] = false;
+  if (LittleFS.exists("/deleted_defaults.json")) {
+    File fDel = LittleFS.open("/deleted_defaults.json", "r");
+    if (fDel) {
+      JsonDocument docDel;
+      if (!deserializeJson(docDel, fDel)) {
+        for (JsonVariant v : docDel.as<JsonArray>()) {
+          int d = v | -1;
+          if (d >= 0 && d < NUM_DEFAULT_SONGS) isDel[d] = true;
+        }
+      }
+      fDel.close();
+    }
+  }
+
   for (int i = 0; i < NUM_DEFAULT_SONGS; i++) {
-    songList[i].id = i;
-    songList[i].name = defaultSongNames[i];
-    songList[i].category = defaultSongCats[i];
-    songList[i].tempo = defaultSongTempos[i];
-    songList[i].noteCount = defaultSongLengths[i];
+    if (isDel[i]) continue;
+    songList[totalSongs].id = i;
+    songList[totalSongs].name = defaultSongNames[i];
+    songList[totalSongs].category = defaultSongCats[i];
+    songList[totalSongs].tempo = defaultSongTempos[i];
+    songList[totalSongs].noteCount = defaultSongLengths[i];
     totalSongs++;
   }
 
@@ -893,18 +911,129 @@ void handleWebSocketMessage(uint8_t num, uint8_t * payload, size_t length) {
     sendAck(num, true, "Lagu berhasil disimpan");
     sendSongList();
 
-  } else if (strcmp(cmd, "del") == 0) {
+  } else if (strcmp(cmd, "get_notes") == 0) {
     int id = doc["id"] | -1;
-    if (id < NUM_DEFAULT_SONGS) {
-      sendAck(num, false, "Tidak bisa menghapus lagu bawaan");
+    if (loadSongNotes(id)) {
+      JsonDocument resp;
+      resp["t"] = "song_detail";
+      resp["id"] = id;
+      resp["tempo"] = activeSongTempo;
+      for (int i = 0; i < totalSongs; i++) {
+        if (songList[i].id == id) {
+          resp["name"] = songList[i].name;
+          resp["cat"] = songList[i].category;
+          break;
+        }
+      }
+      JsonArray arr = resp["notes"].to<JsonArray>();
+      for (int i = 0; i < activeSongNoteCount; i++) {
+        JsonArray n = arr.add<JsonArray>();
+        n.add(currentNotes[i].nada);
+        n.add(currentNotes[i].panjang);
+      }
+      String out;
+      serializeJson(resp, out);
+      webSocket.sendTXT(num, out);
+    } else {
+      sendAck(num, false, "Lagu tidak ditemukan");
+    }
+
+  } else if (strcmp(cmd, "edit") == 0) {
+    int id = doc["id"] | -1;
+    const char* name = doc["name"] | "Lagu";
+    const char* cat = doc["cat"] | "lainnya";
+    int tempo = doc["tempo"] | 120;
+    JsonArray notesArr = doc["notes"].as<JsonArray>();
+
+    if (notesArr.size() == 0 || notesArr.size() > MAX_NOTES) {
+      sendAck(num, false, "Jumlah nada tidak valid");
       return;
     }
 
-    String path = "/song_" + String(id) + ".bin";
-    if (LittleFS.exists(path)) LittleFS.remove(path);
+    int targetId = id;
+    if (targetId < NUM_DEFAULT_SONGS) {
+      targetId = NUM_DEFAULT_SONGS;
+      for (int i = 0; i < totalSongs; i++) {
+        if (songList[i].id >= targetId) targetId = songList[i].id + 1;
+      }
+    }
+
+    String path = "/song_" + String(targetId) + ".bin";
+    File f = LittleFS.open(path, "w");
+    if (!f) {
+      sendAck(num, false, "Gagal menulis flash");
+      return;
+    }
+
+    f.write((uint8_t)notesArr.size());
+    for (JsonVariant v : notesArr) {
+      byte n = v[0] | 0;
+      byte d = v[1] | 4;
+      f.write(n);
+      f.write(d);
+    }
+    f.close();
 
     int foundIdx = -1;
-    for (int i = NUM_DEFAULT_SONGS; i < totalSongs; i++) {
+    for (int i = 0; i < totalSongs; i++) {
+      if (songList[i].id == targetId) {
+        foundIdx = i;
+        break;
+      }
+    }
+
+    if (foundIdx != -1) {
+      songList[foundIdx].name = String(name);
+      songList[foundIdx].category = String(cat);
+      songList[foundIdx].tempo = tempo;
+      songList[foundIdx].noteCount = notesArr.size();
+    } else if (totalSongs < MAX_SONGS) {
+      songList[totalSongs].id = targetId;
+      songList[totalSongs].name = String(name);
+      songList[totalSongs].category = String(cat);
+      songList[totalSongs].tempo = tempo;
+      songList[totalSongs].noteCount = notesArr.size();
+      totalSongs++;
+    }
+    saveSongMetadata();
+
+    sendAck(num, true, "Lagu berhasil diperbarui");
+    sendSongList();
+
+  } else if (strcmp(cmd, "del") == 0) {
+    int id = doc["id"] | -1;
+    if (id < 0) {
+      sendAck(num, false, "ID tidak valid");
+      return;
+    }
+
+    if (id < NUM_DEFAULT_SONGS) {
+      JsonDocument docDel;
+      if (LittleFS.exists("/deleted_defaults.json")) {
+        File fDel = LittleFS.open("/deleted_defaults.json", "r");
+        if (fDel) {
+          deserializeJson(docDel, fDel);
+          fDel.close();
+        }
+      }
+      JsonArray arrDel = docDel.to<JsonArray>();
+      bool already = false;
+      for (JsonVariant v : arrDel) {
+        if ((v | -1) == id) { already = true; break; }
+      }
+      if (!already) arrDel.add(id);
+      File fDelW = LittleFS.open("/deleted_defaults.json", "w");
+      if (fDelW) {
+        serializeJson(docDel, fDelW);
+        fDelW.close();
+      }
+    } else {
+      String path = "/song_" + String(id) + ".bin";
+      if (LittleFS.exists(path)) LittleFS.remove(path);
+    }
+
+    int foundIdx = -1;
+    for (int i = 0; i < totalSongs; i++) {
       if (songList[i].id == id) {
         foundIdx = i;
         break;
@@ -919,7 +1048,15 @@ void handleWebSocketMessage(uint8_t num, uint8_t * payload, size_t length) {
       saveSongMetadata();
     }
 
-    sendAck(num, true, "Lagu dihapus");
+    sendAck(num, true, "Lagu berhasil dihapus");
+    sendSongList();
+
+  } else if (strcmp(cmd, "reset_defaults") == 0) {
+    if (LittleFS.exists("/deleted_defaults.json")) {
+      LittleFS.remove("/deleted_defaults.json");
+    }
+    loadSongMetadata();
+    sendAck(num, true, "Semua lagu bawaan dipulihkan");
     sendSongList();
   }
 }

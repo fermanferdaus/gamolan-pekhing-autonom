@@ -5,7 +5,14 @@ import '../services/gamolan_service.dart';
 import '../theme/lampung_theme.dart';
 
 class ComposerScreen extends StatefulWidget {
-  const ComposerScreen({super.key});
+  final SongModel? editingSong;
+  final List<NoteItem>? initialNotes;
+
+  const ComposerScreen({
+    super.key,
+    this.editingSong,
+    this.initialNotes,
+  });
 
   @override
   State<ComposerScreen> createState() => _ComposerScreenState();
@@ -36,6 +43,19 @@ class _ComposerScreenState extends State<ComposerScreen> {
     {'val': 12, 'label': '3 Ketuk', 'short': '3'},
     {'val': 16, 'label': '4 Ketuk', 'short': '4'},
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.editingSong != null) {
+      _nameController.text = widget.editingSong!.name;
+      _tempo = widget.editingSong!.tempo;
+      _selectedCategory = widget.editingSong!.category;
+    }
+    if (widget.initialNotes != null && widget.initialNotes!.isNotEmpty) {
+      _notes.addAll(widget.initialNotes!);
+    }
+  }
 
   @override
   void dispose() {
@@ -113,7 +133,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
     );
   }
 
-  void _saveSong() {
+  void _saveSong({bool saveAsNew = false}) {
     final name = _nameController.text.trim();
     if (name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -135,27 +155,57 @@ class _ComposerScreenState extends State<ComposerScreen> {
     }
 
     final rawNotes = _notes.map((e) => e.toList()).toList();
-    _service.addSong(name, _tempo, rawNotes, _selectedCategory.name);
+    final isEditing = widget.editingSong != null && !saveAsNew;
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: LampungTheme.statusSuccess,
-        content:
-            Text('Lagu "$name" (${_notes.length} nada) dikirim ke Gamolan!'),
-      ),
-    );
+    if (isEditing) {
+      _service.editSong(
+        widget.editingSong!.id,
+        name,
+        _tempo,
+        rawNotes,
+        _selectedCategory.name,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: LampungTheme.statusSuccess,
+          content: Text('Lagu "$name" berhasil diperbarui di Gamolan!'),
+        ),
+      );
+    } else {
+      _service.addSong(name, _tempo, rawNotes, _selectedCategory.name);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: LampungTheme.statusSuccess,
+          content:
+              Text('Lagu "$name" (${_notes.length} nada) dikirim ke Gamolan!'),
+        ),
+      );
+    }
 
-    setState(() {
-      _nameController.clear();
-      _notes.clear();
-    });
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    } else {
+      setState(() {
+        _nameController.clear();
+        _notes.clear();
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final isEditing = widget.editingSong != null;
+    final canPop = Navigator.canPop(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: canPop
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            : null,
         title: Row(
           children: [
             Container(
@@ -173,13 +223,13 @@ class _ComposerScreenState extends State<ComposerScreen> {
               ),
             ),
             const SizedBox(width: 10),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '[ KOMPOSER MUSIK ]',
-                  style: TextStyle(
+                  isEditing ? '[ MODE SUNTING ]' : '[ KOMPOSER MUSIK ]',
+                  style: const TextStyle(
                     fontFamily: 'monospace',
                     fontWeight: FontWeight.bold,
                     fontSize: 9,
@@ -187,10 +237,10 @@ class _ComposerScreenState extends State<ComposerScreen> {
                     letterSpacing: 1.5,
                   ),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(
-                  'BUAT LAGU GAMOLAN',
-                  style: TextStyle(
+                  isEditing ? 'EDIT LAGU' : 'BUAT LAGU GAMOLAN',
+                  style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 15,
                     color: Colors.white,
@@ -233,9 +283,9 @@ class _ComposerScreenState extends State<ComposerScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    '[ INFORMASI LAGU ]',
-                    style: TextStyle(
+                  Text(
+                    isEditing ? '[ INFORMASI LAGU (ID: ${widget.editingSong!.id}) ]' : '[ INFORMASI LAGU ]',
+                    style: const TextStyle(
                       fontFamily: 'monospace',
                       fontWeight: FontWeight.bold,
                       fontSize: 10,
@@ -629,10 +679,14 @@ class _ComposerScreenState extends State<ComposerScreen> {
                 borderRadius: BorderRadius.all(Radius.circular(999)),
               ),
               child: ElevatedButton.icon(
-                icon: const Icon(Icons.cloud_upload_rounded),
-                label: const Text(
-                  'Simpan ke Gamolan',
-                  style: TextStyle(
+                icon: Icon(
+                  isEditing
+                      ? Icons.check_circle_rounded
+                      : Icons.cloud_upload_rounded,
+                ),
+                label: Text(
+                  isEditing ? 'Simpan Perubahan' : 'Simpan ke Gamolan',
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 0.5,
@@ -646,9 +700,36 @@ class _ComposerScreenState extends State<ComposerScreen> {
                     borderRadius: BorderRadius.circular(999),
                   ),
                 ),
-                onPressed: _saveSong,
+                onPressed: () => _saveSong(saveAsNew: false),
               ),
             ),
+            if (isEditing) ...[
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity,
+                height: 44,
+                child: OutlinedButton.icon(
+                  icon: const Icon(Icons.copy_rounded, size: 18),
+                  label: const Text(
+                    'Simpan Sebagai Lagu Baru (Salinan)',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: LampungTheme.primaryBlue,
+                    backgroundColor: Colors.white,
+                    side: const BorderSide(
+                        color: LampungTheme.primaryBlue, width: 1.5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                  ),
+                  onPressed: () => _saveSong(saveAsNew: true),
+                ),
+              ),
+            ],
           ],
         ),
       ),

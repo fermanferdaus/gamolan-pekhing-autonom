@@ -26,6 +26,7 @@ class GamolanService extends ChangeNotifier {
   StreamSubscription? _subscription;
   Timer? _connectTimeoutTimer;
   Timer? _autoProbeTimer;
+  final Map<int, Completer<List<NoteItem>?>> _songDetailCompleters = {};
 
   ConnectionStatus _status = ConnectionStatus.disconnected;
   ConnectionStatus get status => _status;
@@ -178,6 +179,10 @@ class GamolanService extends ChangeNotifier {
     _subscription?.cancel();
     _subscription = null;
     _channel = null;
+    for (final c in _songDetailCompleters.values) {
+      if (!c.isCompleted) c.complete(null);
+    }
+    _songDetailCompleters.clear();
     notifyListeners();
   }
 
@@ -216,6 +221,22 @@ class GamolanService extends ChangeNotifier {
         _currentNote = map['idx'] as int? ?? 0;
         _totalNotes = map['total'] as int? ?? 0;
         notifyListeners();
+      } else if (type == 'song_detail') {
+        final songId = map['id'] as int? ?? -1;
+        final notesRaw = map['notes'] as List<dynamic>? ?? [];
+        final noteItems = notesRaw.map((n) {
+          final arr = n as List<dynamic>;
+          return NoteItem(
+            nada: arr[0] as int? ?? 0,
+            panjang: arr[1] as int? ?? 4,
+          );
+        }).toList();
+        if (_songDetailCompleters.containsKey(songId)) {
+          if (!_songDetailCompleters[songId]!.isCompleted) {
+            _songDetailCompleters[songId]!.complete(noteItems);
+          }
+          _songDetailCompleters.remove(songId);
+        }
       } else if (type == 'ack') {
         _lastMessage = map['msg'] as String?;
         notifyListeners();
@@ -237,6 +258,19 @@ class GamolanService extends ChangeNotifier {
   void stopPlayback() => _sendRaw({'cmd': 'stop'});
   void hitNada(int nada) => _sendRaw({'cmd': 'hit', 'n': nada});
 
+  Future<List<NoteItem>?> getSongNotes(int id) async {
+    if (!isConnected) return null;
+    final completer = Completer<List<NoteItem>?>();
+    _songDetailCompleters[id] = completer;
+    _sendRaw({'cmd': 'get_notes', 'id': id});
+    try {
+      return await completer.future.timeout(const Duration(seconds: 3));
+    } catch (_) {
+      _songDetailCompleters.remove(id);
+      return null;
+    }
+  }
+
   void addSong(String name, int tempo, List<List<int>> notes, String category) {
     _sendRaw({
       'cmd': 'add',
@@ -247,7 +281,20 @@ class GamolanService extends ChangeNotifier {
     });
   }
 
+  void editSong(
+      int id, String name, int tempo, List<List<int>> notes, String category) {
+    _sendRaw({
+      'cmd': 'edit',
+      'id': id,
+      'name': name,
+      'tempo': tempo,
+      'notes': notes,
+      'cat': category,
+    });
+  }
+
   void deleteSong(int id) => _sendRaw({'cmd': 'del', 'id': id});
+  void resetDefaultSongs() => _sendRaw({'cmd': 'reset_defaults'});
 
   @override
   void dispose() {

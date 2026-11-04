@@ -23,6 +23,8 @@ class SongModel {
     this.category = SongCategory.lainnya,
   });
 
+  bool get isDefault => id < 20;
+
   factory SongModel.fromJson(Map<String, dynamic> json) {
     final catStr = json['cat'] as String? ?? 'lainnya';
     final cat = SongCategory.values.firstWhere(

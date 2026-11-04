@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../models/song_model.dart';
 import '../services/gamolan_service.dart';
 import '../theme/lampung_theme.dart';
+import 'composer_screen.dart';
 
 class PlaylistScreen extends StatefulWidget {
   const PlaylistScreen({super.key});
@@ -254,14 +255,133 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     );
   }
 
-  void _showDeleteDialog(SongModel song) {
-    if (song.id < 20) {
+  Future<void> _editSong(SongModel song, {bool isDuplicate = false}) async {
+    if (!_service.isConnected) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('Lagu bawaan sistem tidak dapat dihapus!')),
+          backgroundColor: LampungTheme.statusDanger,
+          content: Text(
+              'Hubungkan Wi-Fi Gamolan terlebih dahulu untuk memuat notasi lagu!'),
+        ),
       );
       return;
     }
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => const Center(
+        child: Card(
+          color: Colors.white,
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(color: LampungTheme.primaryBlue),
+                SizedBox(width: 16),
+                Text(
+                  'Mengambil notasi...',
+                  style: TextStyle(
+                    color: LampungTheme.slate900,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+
+    final notes = await _service.getSongNotes(song.id);
+    if (!mounted) return;
+    Navigator.of(context, rootNavigator: true).pop();
+
+    if (notes == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: LampungTheme.statusDanger,
+          content: Text('Gagal mengambil notasi lagu dari Gamolan!'),
+        ),
+      );
+      return;
+    }
+
+    final targetSong = isDuplicate
+        ? SongModel(
+            id: -1,
+            name: '${song.name} (Salinan)',
+            tempo: song.tempo,
+            len: notes.length,
+            category: song.category,
+          )
+        : song;
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => ComposerScreen(
+          editingSong: targetSong,
+          initialNotes: notes,
+        ),
+      ),
+    );
+  }
+
+  void _showRestoreDefaultsDialog() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: const BorderSide(color: LampungTheme.slate200),
+        ),
+        title: const Text(
+          'Pulihkan Lagu Bawaan?',
+          style: TextStyle(
+            color: LampungTheme.slate900,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: const Text(
+          'Semua lagu bawaan sistem yang pernah dihapus/disembunyikan akan dikembalikan seperti semula.',
+          style: TextStyle(color: LampungTheme.slate600),
+        ),
+        actions: [
+          TextButton(
+            child: const Text('Batal',
+                style: TextStyle(color: LampungTheme.slate500)),
+            onPressed: () => Navigator.pop(ctx),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: LampungTheme.primaryBlue,
+              foregroundColor: Colors.white,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(999),
+              ),
+            ),
+            child: const Text('Pulihkan'),
+            onPressed: () {
+              Navigator.pop(ctx);
+              _service.resetDefaultSongs();
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  backgroundColor: LampungTheme.statusSuccess,
+                  content: Text('Lagu bawaan sistem berhasil dipulihkan!'),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showDeleteDialog(SongModel song) {
+    final isBawaan = song.isDefault;
 
     showDialog(
       context: context,
@@ -271,12 +391,18 @@ class _PlaylistScreenState extends State<PlaylistScreen>
           borderRadius: BorderRadius.circular(16),
           side: const BorderSide(color: LampungTheme.slate200),
         ),
-        title: Text('Hapus "${song.name}"?',
-            style: const TextStyle(
-                color: LampungTheme.slate900, fontWeight: FontWeight.bold)),
-        content: const Text(
-          'Lagu ini akan dihapus dari memori Gamolan.',
-          style: TextStyle(color: LampungTheme.slate600),
+        title: Text(
+          isBawaan ? 'Hapus Lagu Bawaan?' : 'Hapus "${song.name}"?',
+          style: const TextStyle(
+            color: LampungTheme.slate900,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Text(
+          isBawaan
+              ? 'Lagu bawaan "${song.name}" akan disembunyikan dari daftar. Anda bisa memulihkannya kembali lewat menu titik tiga di atas.'
+              : 'Lagu "${song.name}" akan dihapus permanen dari memori Gamolan.',
+          style: const TextStyle(color: LampungTheme.slate600),
         ),
         actions: [
           TextButton(
@@ -297,6 +423,14 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             onPressed: () {
               Navigator.pop(ctx);
               _service.deleteSong(song.id);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: LampungTheme.statusDanger,
+                  content: Text(isBawaan
+                      ? 'Lagu bawaan disembunyikan'
+                      : 'Lagu "${song.name}" dihapus'),
+                ),
+              );
             },
           ),
         ],
@@ -391,6 +525,65 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                 _service.fetchSongList();
               } else {
                 _service.connectWebSocket();
+              }
+            },
+          ),
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.more_vert_rounded,
+                color: Colors.white, size: 22),
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: const BorderSide(color: LampungTheme.slate200),
+            ),
+            tooltip: 'Opsi Menu',
+            itemBuilder: (ctx) => [
+              const PopupMenuItem(
+                value: 'restore',
+                child: Row(
+                  children: [
+                    Icon(Icons.restore_rounded,
+                        size: 18, color: LampungTheme.primaryBlue),
+                    SizedBox(width: 8),
+                    Text(
+                      'Pulihkan Lagu Bawaan',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: LampungTheme.slate900,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const PopupMenuItem(
+                value: 'new_song',
+                child: Row(
+                  children: [
+                    Icon(Icons.add_circle_outline_rounded,
+                        size: 18, color: LampungTheme.secondaryBlue),
+                    SizedBox(width: 8),
+                    Text(
+                      'Komposer Lagu Baru',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: LampungTheme.slate900,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+            onSelected: (val) {
+              if (val == 'restore') {
+                _showRestoreDefaultsDialog();
+              } else if (val == 'new_song') {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const ComposerScreen(),
+                  ),
+                );
               }
             },
           ),
@@ -724,6 +917,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                   ),
                 ),
                 IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
                   icon: Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
@@ -752,6 +947,87 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                       _service.stopPlayback();
                     } else {
                       _service.playSong(song.id);
+                    }
+                  },
+                ),
+                const SizedBox(width: 4),
+                PopupMenuButton<String>(
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                  icon: const Icon(
+                    Icons.more_vert_rounded,
+                    color: LampungTheme.slate400,
+                    size: 20,
+                  ),
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: const BorderSide(color: LampungTheme.slate200),
+                  ),
+                  tooltip: 'Menu Lagu',
+                  itemBuilder: (ctx) => [
+                    const PopupMenuItem(
+                      value: 'edit',
+                      child: Row(
+                        children: [
+                          Icon(Icons.edit_rounded,
+                              size: 16, color: LampungTheme.primaryBlue),
+                          SizedBox(width: 8),
+                          Text(
+                            'Edit Notasi',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: LampungTheme.slate900,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const PopupMenuItem(
+                      value: 'duplicate',
+                      child: Row(
+                        children: [
+                          Icon(Icons.copy_rounded,
+                              size: 16, color: LampungTheme.secondaryBlue),
+                          SizedBox(width: 8),
+                          Text(
+                            'Duplikat / Salin',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: LampungTheme.slate900,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const PopupMenuItem(
+                      value: 'delete',
+                      child: Row(
+                        children: [
+                          Icon(Icons.delete_outline_rounded,
+                              size: 16, color: LampungTheme.statusDanger),
+                          SizedBox(width: 8),
+                          Text(
+                            'Hapus Lagu',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: LampungTheme.statusDanger,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                  onSelected: (val) {
+                    if (val == 'edit') {
+                      _editSong(song);
+                    } else if (val == 'duplicate') {
+                      _editSong(song, isDuplicate: true);
+                    } else if (val == 'delete') {
+                      _showDeleteDialog(song);
                     }
                   },
                 ),

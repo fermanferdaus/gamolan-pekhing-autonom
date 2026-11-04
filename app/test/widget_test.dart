@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gamolan_pekhing/main.dart';
 import 'package:gamolan_pekhing/models/song_model.dart';
 import 'package:gamolan_pekhing/models/default_songs.dart';
+import 'package:gamolan_pekhing/screens/composer_screen.dart';
 import 'package:gamolan_pekhing/services/gamolan_service.dart';
 
 void main() {
-  test('SongModel fromJson with category', () {
+  test('SongModel fromJson and isDefault check', () {
     final song = SongModel.fromJson({
       'id': 0,
       'name': 'Indonesia Raya',
@@ -18,6 +20,16 @@ void main() {
     expect(song.tempo, 104);
     expect(song.len, 44);
     expect(song.category, SongCategory.nasional);
+    expect(song.isDefault, true);
+
+    final customSong = SongModel(
+      id: 25,
+      name: 'Lagu Ciptaan',
+      tempo: 120,
+      len: 16,
+      category: SongCategory.lainnya,
+    );
+    expect(customSong.isDefault, false);
   });
 
   test('NoteItem labels', () {
@@ -62,5 +74,36 @@ void main() {
     await tester.pump();
     expect(find.text('GAMOLAN PEKHING'), findsWidgets);
     GamolanService().dispose();
+  });
+
+  testWidgets('ComposerScreen renders in edit mode with pre-filled notes',
+      (tester) async {
+    final sampleSong = SongModel(
+      id: 5,
+      name: 'Bubuy Bulan',
+      tempo: 104,
+      len: 2,
+      category: SongCategory.daerah,
+    );
+    final sampleNotes = [
+      NoteItem(nada: 1, panjang: 4),
+      NoteItem(nada: 2, panjang: 4),
+    ];
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: ComposerScreen(
+          editingSong: sampleSong,
+          initialNotes: sampleNotes,
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text('[ MODE SUNTING ]'), findsOneWidget);
+    expect(find.text('EDIT LAGU'), findsOneWidget);
+    expect(find.text('Simpan Perubahan'), findsOneWidget);
+    expect(find.text('Simpan Sebagai Lagu Baru (Salinan)'), findsOneWidget);
+    expect(find.text('[ SUSUNAN: 2 NADA ]'), findsOneWidget);
   });
 }
