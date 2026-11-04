@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,16 +15,17 @@ class NotAngkaScreen extends StatefulWidget {
 class _NotAngkaScreenState extends State<NotAngkaScreen> {
   final GamolanService _service = GamolanService();
   int _pressedNada = 0;
+  Timer? _hitTimer;
 
   final List<Map<String, dynamic>> _bars = [
-    {'num': 1, 'solfege': 'DO', 'freq': '523 Hz'},
-    {'num': 2, 'solfege': 'RE', 'freq': '587 Hz'},
-    {'num': 3, 'solfege': 'MI', 'freq': '659 Hz'},
-    {'num': 4, 'solfege': 'FA', 'freq': '698 Hz'},
-    {'num': 5, 'solfege': 'SOL', 'freq': '783 Hz'},
-    {'num': 6, 'solfege': 'LA', 'freq': '880 Hz'},
-    {'num': 7, 'solfege': 'SI', 'freq': '987 Hz'},
-    {'num': 8, 'solfege': "DO'", 'freq': '1046 Hz'},
+    {'num': 1, 'solfege': 'DO', 'freq': '523 Hz', 'scale': 0.98},
+    {'num': 2, 'solfege': 'RE', 'freq': '587 Hz', 'scale': 0.94},
+    {'num': 3, 'solfege': 'MI', 'freq': '659 Hz', 'scale': 0.90},
+    {'num': 4, 'solfege': 'FA', 'freq': '698 Hz', 'scale': 0.86},
+    {'num': 5, 'solfege': 'SOL', 'freq': '783 Hz', 'scale': 0.82},
+    {'num': 6, 'solfege': 'LA', 'freq': '880 Hz', 'scale': 0.78},
+    {'num': 7, 'solfege': 'SI', 'freq': '987 Hz', 'scale': 0.74},
+    {'num': 8, 'solfege': "DO'", 'freq': '1046 Hz', 'scale': 0.70},
   ];
 
   @override
@@ -37,6 +39,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
 
   @override
   void dispose() {
+    _hitTimer?.cancel();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -45,13 +48,14 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
   }
 
   void _hitBar(int num) {
-    HapticFeedback.lightImpact();
+    HapticFeedback.mediumImpact();
     setState(() {
       _pressedNada = num;
     });
     _service.hitNada(num);
 
-    Future.delayed(const Duration(milliseconds: 180), () {
+    _hitTimer?.cancel();
+    _hitTimer = Timer(const Duration(milliseconds: 160), () {
       if (mounted && _pressedNada == num) {
         setState(() {
           _pressedNada = 0;
@@ -63,255 +67,271 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LampungTheme.slate50,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: const BoxDecoration(
-                color: LampungTheme.primaryBlue,
-                border: Border(
-                  bottom: BorderSide(
-                    color: LampungTheme.darkBlue,
-                    width: 1.5,
-                  ),
+            _buildTopBar(),
+            Expanded(child: _buildGamolanRancak()),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTopBar() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: const BoxDecoration(
+        color: LampungTheme.primaryBlue,
+        border: Border(
+          bottom: BorderSide(
+            color: LampungTheme.darkBlue,
+            width: 1.5,
+          ),
+        ),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: LampungTheme.darkBlue,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: LampungTheme.accentBlueLight.withValues(alpha: 0.3),
+              ),
+            ),
+            child: SvgPicture.asset(
+              'assets/images/gamolan_logo.svg',
+              height: 22,
+              width: 22,
+            ),
+          ),
+          const SizedBox(width: 10),
+          const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '[ INSTRUMEN VIRTUAL 8 BILAH ]',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  color: LampungTheme.accentBlueLight,
+                  fontSize: 9,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.2,
                 ),
               ),
-              child: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: LampungTheme.darkBlue,
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: LampungTheme.accentBlueLight.withValues(alpha: 0.3),
-                      ),
-                    ),
-                    child: SvgPicture.asset(
-                      'assets/images/gamolan_logo.svg',
-                      height: 22,
-                      width: 22,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        '[ VIRTUAL GAMOLAN ]',
-                        style: TextStyle(
-                          fontFamily: 'monospace',
-                          color: LampungTheme.accentBlueLight,
-                          fontSize: 9,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.2,
-                        ),
-                      ),
-                      Text(
-                        'GAMOLAN PEKHING',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(999),
-                      border: Border.all(
-                        color: _service.isConnected
-                            ? LampungTheme.accentBlueLight
-                            : LampungTheme.statusDanger,
-                        width: 1,
-                      ),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: LampungTheme.deepBlue,
-                          offset: Offset(1, 1),
-                          blurRadius: 0,
-                        ),
-                      ],
-                    ),
-                    child: Text(
-                      _service.isConnected ? '[ ONLINE ]' : '[ OFFLINE ]',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        color: _service.isConnected
-                            ? LampungTheme.primaryBlue
-                            : LampungTheme.statusDanger,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  IconButton(
-                    icon: const Icon(Icons.fullscreen_exit,
-                        color: Colors.white),
-                    tooltip: 'Kembali',
-                    onPressed: () => Navigator.of(context).pop(),
+              Text(
+                'GAMOLAN PEKHING',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ],
+          ),
+          const Spacer(),
+          if (_pressedNada > 0 && _pressedNada <= _bars.length)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(999),
+                border: Border.all(
+                  color: LampungTheme.accentBlueLight,
+                  width: 1.5,
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                    color: LampungTheme.deepBlue,
+                    offset: Offset(1, 1),
+                    blurRadius: 0,
                   ),
                 ],
               ),
+              child: Text(
+                'HIT: ${_bars[_pressedNada - 1]['num']} · ${_bars[_pressedNada - 1]['solfege']}',
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  color: LampungTheme.primaryBlue,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 11,
+                  letterSpacing: 0.5,
+                ),
+              ),
             ),
-            Expanded(
+          const SizedBox(width: 10),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(999),
+              border: Border.all(
+                color: _service.isConnected
+                    ? LampungTheme.statusSuccess
+                    : LampungTheme.statusDanger,
+                width: 1.2,
+              ),
+              boxShadow: const [
+                BoxShadow(
+                  color: LampungTheme.deepBlue,
+                  offset: Offset(1, 1),
+                  blurRadius: 0,
+                ),
+              ],
+            ),
+            child: Text(
+              _service.isConnected ? '[ ONLINE ]' : '[ OFFLINE ]',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                color: _service.isConnected
+                    ? LampungTheme.statusSuccess
+                    : LampungTheme.statusDanger,
+                fontSize: 10,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          IconButton(
+            icon: const Icon(Icons.fullscreen_exit_rounded,
+                color: Colors.white, size: 24),
+            tooltip: 'Tutup Mode Bilah',
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGamolanRancak() {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(14, 8, 14, 10),
+      decoration: BoxDecoration(
+        color: LampungTheme.darkBlue,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: LampungTheme.primaryBlue,
+          width: 2.5,
+        ),
+        boxShadow: const [
+          BoxShadow(
+            color: LampungTheme.deepBlue,
+            offset: Offset(4, 5),
+            blurRadius: 0,
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Stack(
+          children: [
+            // 1. Rel Penyangga Tali Atas (Top Rail & Cushion Cord)
+            Positioned(
+              top: 26,
+              left: 10,
+              right: 10,
+              height: 12,
               child: Container(
-                margin: const EdgeInsets.fromLTRB(16, 10, 16, 12),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 14),
                 decoration: BoxDecoration(
                   color: LampungTheme.secondaryBlue,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(4),
                   border: Border.all(
-                    color: LampungTheme.darkBlue,
-                    width: 2.0,
+                    color: LampungTheme.accentBlueLight.withValues(alpha: 0.3),
                   ),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: LampungTheme.deepBlue,
-                      offset: Offset(4, 4),
-                      blurRadius: 0,
-                    ),
-                  ],
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: _bars.map((item) {
-                    final int num = item['num'] as int;
-                    final bool isHit = _pressedNada == num;
-                    final double heightScale = 1.0 - (num - 1) * 0.035;
+                child: Center(
+                  child: Container(
+                    height: 2,
+                    color: Colors.white.withValues(alpha: 0.4),
+                  ),
+                ),
+              ),
+            ),
 
-                    return Expanded(
+            // 2. Rel Penyangga Tali Bawah (Bottom Rail & Cushion Cord)
+            Positioned(
+              bottom: 26,
+              left: 10,
+              right: 10,
+              height: 12,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: LampungTheme.secondaryBlue,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(
+                    color: LampungTheme.accentBlueLight.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: Center(
+                  child: Container(
+                    height: 2,
+                    color: Colors.white.withValues(alpha: 0.4),
+                  ),
+                ),
+              ),
+            ),
+
+            // 3. Susunan 8 Bilah Bambu Gamolan Pekhing
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: _bars.map((item) {
+                  final int num = item['num'] as int;
+                  final bool isHit = _pressedNada == num;
+                  final double scale = item['scale'] as double;
+
+                  return Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 3),
                       child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
                         onTapDown: (_) => _hitBar(num),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 60),
-                          margin:
-                              const EdgeInsets.symmetric(horizontal: 4),
-                          transform: Matrix4.translationValues(
-                            isHit ? 2.0 : 0.0,
-                            isHit ? 3.0 : 0.0,
-                            0.0,
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: FractionallySizedBox(
-                              heightFactor: heightScale,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: isHit
-                                      ? LampungTheme.primaryBlue
-                                      : Colors.white,
-                                  boxShadow: isHit
-                                      ? []
-                                      : const [
-                                          BoxShadow(
-                                            color: LampungTheme.deepBlue,
-                                            offset: Offset(3, 4),
-                                            blurRadius: 0,
-                                          ),
-                                        ],
-                                  border: Border.all(
-                                    color: isHit
-                                        ? Colors.white
-                                        : LampungTheme.accentBlueHighlight,
-                                    width: isHit ? 2.0 : 1.5,
-                                  ),
-                                ),
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      top: 8,
-                                      left: 0,
-                                      right: 0,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          _buildNailHole(isHit),
-                                          _buildNailHole(isHit),
-                                        ],
-                                      ),
-                                    ),
-                                    Center(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            '$num',
-                                            style: TextStyle(
-                                              fontSize: 28,
-                                              fontWeight: FontWeight.w900,
-                                              color: isHit
-                                                  ? Colors.white
-                                                  : LampungTheme.primaryBlue,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 2),
-                                          Text(
-                                            item['solfege'] as String,
-                                            style: TextStyle(
-                                              fontFamily: 'monospace',
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w900,
-                                              color: isHit
-                                                  ? LampungTheme.accentBlueLight
-                                                  : LampungTheme.secondaryBlue,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Positioned(
-                                      bottom: 8,
-                                      left: 0,
-                                      right: 0,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            '[ ${item['freq']} ]',
-                                            style: TextStyle(
-                                              fontFamily: 'monospace',
-                                              fontSize: 9,
-                                              color: isHit
-                                                  ? Colors.white70
-                                                  : LampungTheme.slate500,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              _buildNailHole(isHit),
-                                              _buildNailHole(isHit),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: FractionallySizedBox(
+                            heightFactor: scale,
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 70),
+                              transform: Matrix4.translationValues(
+                                0.0,
+                                isHit ? 4.0 : 0.0,
+                                0.0,
                               ),
+                              decoration: BoxDecoration(
+                                color: isHit
+                                    ? LampungTheme.primaryBlue
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: isHit
+                                      ? Colors.white
+                                      : LampungTheme.accentBlueLight,
+                                  width: isHit ? 2.5 : 1.5,
+                                ),
+                                boxShadow: isHit
+                                    ? []
+                                    : const [
+                                        BoxShadow(
+                                          color: LampungTheme.deepBlue,
+                                          offset: Offset(2, 4),
+                                          blurRadius: 0,
+                                        ),
+                                      ],
+                              ),
+                              child: _buildBilahContent(item, isHit),
                             ),
                           ),
                         ),
                       ),
-                    );
-                  }).toList(),
-                ),
+                    ),
+                  );
+                }).toList(),
               ),
             ),
           ],
@@ -320,13 +340,138 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
     );
   }
 
-  Widget _buildNailHole(bool isHit) {
+  Widget _buildBilahContent(Map<String, dynamic> item, bool isHit) {
+    final int num = item['num'] as int;
+    final String solfege = item['solfege'] as String;
+    final String freq = item['freq'] as String;
+
+    return Column(
+      children: [
+        // Lubang Pasak Tali Atas
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: _buildMountingCordHoles(isHit),
+        ),
+
+        const SizedBox(height: 3),
+
+        // Label Frekuensi (Mono)
+        Text(
+          freq,
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 9,
+            fontWeight: FontWeight.bold,
+            color: isHit ? Colors.white70 : LampungTheme.slate400,
+          ),
+        ),
+
+        const Spacer(),
+
+        // Piringan Titik Ketuk (Strike Bullseye Zone)
+        Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isHit ? Colors.white : LampungTheme.blue50,
+            border: Border.all(
+              color: isHit
+                  ? LampungTheme.accentBlueLight
+                  : LampungTheme.accentBlueLight.withValues(alpha: 0.6),
+              width: 1.5,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: isHit
+                    ? LampungTheme.darkBlue
+                    : const Color(0x1F1D4ED8),
+                offset: const Offset(1, 1),
+                blurRadius: 0,
+              ),
+            ],
+          ),
+          child: Center(
+            child: Text(
+              '$num',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w900,
+                color: LampungTheme.primaryBlue,
+              ),
+            ),
+          ),
+        ),
+
+        const SizedBox(height: 4),
+
+        // Label Solfege (DO, RE, MI...)
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+          decoration: BoxDecoration(
+            color: isHit ? LampungTheme.darkBlue : Colors.transparent,
+            borderRadius: BorderRadius.circular(999),
+          ),
+          child: Text(
+            solfege,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 0.8,
+              color: isHit ? Colors.white : LampungTheme.secondaryBlue,
+            ),
+          ),
+        ),
+
+        const Spacer(),
+
+        // Garis Ruas Akustik Bambu
+        Container(
+          height: 2,
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          color: isHit
+              ? Colors.white.withValues(alpha: 0.4)
+              : LampungTheme.slate200,
+        ),
+
+        // Lubang Pasak Tali Bawah
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 8),
+          child: _buildMountingCordHoles(isHit),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMountingCordHoles(bool isHit) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildPinHole(isHit),
+        Container(
+          width: 14,
+          height: 1.5,
+          color: isHit
+              ? Colors.white.withValues(alpha: 0.6)
+              : LampungTheme.slate300,
+        ),
+        _buildPinHole(isHit),
+      ],
+    );
+  }
+
+  Widget _buildPinHole(bool isHit) {
     return Container(
-      width: 7,
-      height: 7,
+      width: 5,
+      height: 5,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: isHit ? LampungTheme.darkBlue : LampungTheme.accentBlueLight,
+        color: isHit ? Colors.white : LampungTheme.slate400,
+        border: Border.all(
+          color: isHit ? LampungTheme.darkBlue : LampungTheme.slate300,
+          width: 1,
+        ),
       ),
     );
   }

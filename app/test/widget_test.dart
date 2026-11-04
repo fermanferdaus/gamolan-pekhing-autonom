@@ -4,6 +4,7 @@ import 'package:gamolan_pekhing/main.dart';
 import 'package:gamolan_pekhing/models/song_model.dart';
 import 'package:gamolan_pekhing/models/default_songs.dart';
 import 'package:gamolan_pekhing/screens/composer_screen.dart';
+import 'package:gamolan_pekhing/screens/not_angka_screen.dart';
 import 'package:gamolan_pekhing/services/gamolan_service.dart';
 
 void main() {
@@ -132,6 +133,30 @@ void main() {
     await tester.tap(find.text('Daftar Lagu'));
     await tester.pumpAndSettle();
     expect(find.text('GAMOLAN PEKHING'), findsWidgets);
+
+    expect(tester.takeException(), isNull);
+    GamolanService.resetForTest();
+  });
+
+  testWidgets('NotAngkaScreen renders 8 bilah keys and handles tap',
+      (tester) async {
+    tester.view.physicalSize = const Size(800, 400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: NotAngkaScreen(),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.text('DO'), findsOneWidget);
+    expect(find.text("DO'"), findsOneWidget);
+
+    // Tap first bilah (DO - 1)
+    await tester.tap(find.text('DO'));
+    await tester.pump();
 
     expect(tester.takeException(), isNull);
     GamolanService.resetForTest();
