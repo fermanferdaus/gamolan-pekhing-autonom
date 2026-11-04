@@ -669,13 +669,15 @@ void saveSongMetadata() {
   JsonDocument doc;
   JsonArray arr = doc.to<JsonArray>();
 
-  for (int i = NUM_DEFAULT_SONGS; i < totalSongs; i++) {
-    JsonObject obj = arr.add<JsonObject>();
-    obj["id"] = songList[i].id;
-    obj["name"] = songList[i].name;
-    obj["cat"] = songList[i].category;
-    obj["tempo"] = songList[i].tempo;
-    obj["len"] = songList[i].noteCount;
+  for (int i = 0; i < totalSongs; i++) {
+    if (songList[i].id >= 20) {
+      JsonObject obj = arr.add<JsonObject>();
+      obj["id"] = songList[i].id;
+      obj["name"] = songList[i].name;
+      obj["cat"] = songList[i].category;
+      obj["tempo"] = songList[i].tempo;
+      obj["len"] = songList[i].noteCount;
+    }
   }
 
   serializeJson(doc, f);
@@ -1016,7 +1018,12 @@ void handleWebSocketMessage(uint8_t num, uint8_t * payload, size_t length) {
           fDel.close();
         }
       }
-      JsonArray arrDel = docDel.to<JsonArray>();
+      JsonArray arrDel;
+      if (docDel.is<JsonArray>()) {
+        arrDel = docDel.as<JsonArray>();
+      } else {
+        arrDel = docDel.to<JsonArray>();
+      }
       bool already = false;
       for (JsonVariant v : arrDel) {
         if ((v | -1) == id) { already = true; break; }

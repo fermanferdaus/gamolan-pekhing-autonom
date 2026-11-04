@@ -36,11 +36,17 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
       DeviceOrientation.landscapeRight,
     ]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    _service.addListener(_onServiceChange);
+  }
+
+  void _onServiceChange() {
+    if (mounted) setState(() {});
   }
 
   @override
   void dispose() {
     _hitTimer?.cancel();
+    _service.removeListener(_onServiceChange);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -81,12 +87,14 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
         body: Stack(
           children: [
             Positioned.fill(
-              child: IgnorePointer(
-                child: Opacity(
-                  opacity: 0.7,
-                  child: SvgPicture.asset(
-                    'assets/images/lampung_bg_pattern.svg',
-                    fit: BoxFit.cover,
+              child: RepaintBoundary(
+                child: IgnorePointer(
+                  child: Opacity(
+                    opacity: 0.7,
+                    child: SvgPicture.asset(
+                      'assets/images/lampung_bg_pattern.svg',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),

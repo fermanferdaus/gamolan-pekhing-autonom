@@ -134,6 +134,16 @@ class _ComposerScreenState extends State<ComposerScreen> {
   }
 
   void _saveSong({bool saveAsNew = false}) {
+    if (!_service.isConnected) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: LampungTheme.statusDanger,
+          content: Text(
+              'Gamolan belum terhubung! Sambungkan ke Wi-Fi terlebih dahulu.'),
+        ),
+      );
+      return;
+    }
     final name = _nameController.text.trim();
     if (name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -273,12 +283,14 @@ class _ComposerScreenState extends State<ComposerScreen> {
       body: Stack(
         children: [
           Positioned.fill(
-            child: IgnorePointer(
-              child: Opacity(
-                opacity: 0.6,
-                child: SvgPicture.asset(
-                  'assets/images/lampung_bg_pattern.svg',
-                  fit: BoxFit.cover,
+            child: RepaintBoundary(
+              child: IgnorePointer(
+                child: Opacity(
+                  opacity: 0.6,
+                  child: SvgPicture.asset(
+                    'assets/images/lampung_bg_pattern.svg',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

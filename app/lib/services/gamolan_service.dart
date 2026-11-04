@@ -26,13 +26,6 @@ class GamolanService extends ChangeNotifier {
     _instance = GamolanService._internal(startTimer: false);
   }
 
-  void cancelTimers() {
-    _autoProbeTimer?.cancel();
-    _autoProbeTimer = null;
-    _connectTimeoutTimer?.cancel();
-    _connectTimeoutTimer = null;
-  }
-
   static const String serverHost = '192.168.4.1';
   static const int serverPort = 81;
   static const _platformChannel =
@@ -41,7 +34,9 @@ class GamolanService extends ChangeNotifier {
   WebSocketChannel? _channel;
   StreamSubscription? _subscription;
   Timer? _connectTimeoutTimer;
+  Timer? _connectOverallTimeoutTimer;
   Timer? _autoProbeTimer;
+  bool _isProbing = false;
   final Map<int, Completer<List<NoteItem>?>> _songDetailCompleters = {};
 
   ConnectionStatus _status = ConnectionStatus.disconnected;
@@ -74,13 +69,27 @@ class GamolanService extends ChangeNotifier {
   String? _lastMessage;
   String? get lastMessage => _lastMessage;
 
+  void cancelTimers() {
+    _autoProbeTimer?.cancel();
+    _autoProbeTimer = null;
+    _connectTimeoutTimer?.cancel();
+    _connectTimeoutTimer = null;
+    _connectOverallTimeoutTimer?.cancel();
+    _connectOverallTimeoutTimer = null;
+  }
+
   void _startAutoProbeTimer() {
     _autoProbeTimer?.cancel();
     _autoProbeTimer = Timer.periodic(const Duration(seconds: 3), (_) async {
-      if (_status == ConnectionStatus.disconnected) {
-        final reachable = await probeEsp32();
-        if (reachable) {
-          connectWebSocket();
+      if (_status == ConnectionStatus.disconnected && !_isProbing) {
+        _isProbing = true;
+        try {
+          final reachable = await probeEsp32();
+          if (reachable && _status == ConnectionStatus.disconnected) {
+            connectWebSocket();
+          }
+        } finally {
+          _isProbing = false;
         }
       }
     });
@@ -160,7 +169,8 @@ class GamolanService extends ChangeNotifier {
         }
       });
 
-      Timer(const Duration(seconds: 4), () {
+      _connectOverallTimeoutTimer?.cancel();
+      _connectOverallTimeoutTimer = Timer(const Duration(seconds: 4), () {
         if (!completer.isCompleted) {
           if (_status == ConnectionStatus.connected) {
             completer.complete(true);
@@ -189,6 +199,8 @@ class GamolanService extends ChangeNotifier {
   void _handleDisconnect() {
     _connectTimeoutTimer?.cancel();
     _connectTimeoutTimer = null;
+    _connectOverallTimeoutTimer?.cancel();
+    _connectOverallTimeoutTimer = null;
     _status = ConnectionStatus.disconnected;
     _isPlaying = false;
     _activeNada = 0;

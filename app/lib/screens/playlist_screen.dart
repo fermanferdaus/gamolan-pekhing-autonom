@@ -18,11 +18,19 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   late TabController _tabController;
 
   final _categories = SongCategory.values;
+  ConnectionStatus? _lastStatus;
+  bool? _lastIsPlaying;
+  int? _lastPlayingSongId;
+  int _lastSongsLength = 0;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: _categories.length, vsync: this);
+    _lastStatus = _service.status;
+    _lastIsPlaying = _service.isPlaying;
+    _lastPlayingSongId = _service.playingSongId;
+    _lastSongsLength = _service.songs.length;
     _service.addListener(_onServiceUpdate);
     _service.connectWebSocket();
   }
@@ -35,7 +43,17 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   }
 
   void _onServiceUpdate() {
-    if (mounted) setState(() {});
+    if (!mounted) return;
+    if (_lastStatus != _service.status ||
+        _lastIsPlaying != _service.isPlaying ||
+        _lastPlayingSongId != _service.playingSongId ||
+        _lastSongsLength != _service.songs.length) {
+      _lastStatus = _service.status;
+      _lastIsPlaying = _service.isPlaying;
+      _lastPlayingSongId = _service.playingSongId;
+      _lastSongsLength = _service.songs.length;
+      setState(() {});
+    }
   }
 
   List<SongModel> _songsForCategory(SongCategory cat) {
@@ -446,12 +464,14 @@ class _PlaylistScreenState extends State<PlaylistScreen>
       body: Stack(
         children: [
           Positioned.fill(
-            child: IgnorePointer(
-              child: Opacity(
-                opacity: 0.6,
-                child: SvgPicture.asset(
-                  'assets/images/lampung_bg_pattern.svg',
-                  fit: BoxFit.cover,
+            child: RepaintBoundary(
+              child: IgnorePointer(
+                child: Opacity(
+                  opacity: 0.6,
+                  child: SvgPicture.asset(
+                    'assets/images/lampung_bg_pattern.svg',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
@@ -1074,109 +1094,114 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   }
 
   Widget _buildNowPlayingBar() {
-    final progress = _service.totalNotes > 0
-        ? (_service.currentNote / _service.totalNotes).clamp(0.0, 1.0)
-        : 0.0;
+    return AnimatedBuilder(
+      animation: _service,
+      builder: (context, _) {
+        final progress = _service.totalNotes > 0
+            ? (_service.currentNote / _service.totalNotes).clamp(0.0, 1.0)
+            : 0.0;
 
-    const solfeges = ['-', 'DO', 'RE', 'MI', 'FA', 'SOL', 'LA', 'SI', "DO'"];
-    final nadaText =
-        (_service.activeNada >= 0 && _service.activeNada < solfeges.length)
-            ? solfeges[_service.activeNada]
-            : '-';
+        const solfeges = ['-', 'DO', 'RE', 'MI', 'FA', 'SOL', 'LA', 'SI', "DO'"];
+        final nadaText =
+            (_service.activeNada >= 0 && _service.activeNada < solfeges.length)
+                ? solfeges[_service.activeNada]
+                : '-';
 
-    return Container(
-      decoration: const BoxDecoration(
-        color: LampungTheme.primaryBlue,
-        border: Border(
-          top: BorderSide(
-            color: LampungTheme.deepBlue,
-            width: 1.5,
-          ),
-        ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          LinearProgressIndicator(
-            value: progress,
-            backgroundColor: LampungTheme.darkBlue,
-            valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-            minHeight: 3.5,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(14, 10, 14, 14),
-            child: Row(
-              children: [
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: LampungTheme.accentBlueLight,
-                      width: 1.5,
-                    ),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: LampungTheme.deepBlue,
-                        offset: Offset(2, 2),
-                        blurRadius: 0,
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Text(
-                      nadaText,
-                      style: const TextStyle(
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w900,
-                        color: LampungTheme.primaryBlue,
-                        fontSize: 13,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        _service.playingSongName.isNotEmpty
-                            ? _service.playingSongName
-                            : 'Memainkan Lagu...',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        '[ NADA ${_service.currentNote + 1} / ${_service.totalNotes} ]',
-                        style: const TextStyle(
-                          fontFamily: 'monospace',
-                          color: LampungTheme.accentBlueLight,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.stop_circle_rounded,
-                      color: Colors.white, size: 32),
-                  onPressed: () => _service.stopPlayback(),
-                ),
-              ],
+        return Container(
+          decoration: const BoxDecoration(
+            color: LampungTheme.primaryBlue,
+            border: Border(
+              top: BorderSide(
+                color: LampungTheme.deepBlue,
+                width: 1.5,
+              ),
             ),
           ),
-        ],
-      ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              LinearProgressIndicator(
+                value: progress,
+                backgroundColor: LampungTheme.darkBlue,
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                minHeight: 3.5,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(14, 10, 14, 14),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: LampungTheme.accentBlueLight,
+                          width: 1.5,
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: LampungTheme.deepBlue,
+                            offset: Offset(2, 2),
+                            blurRadius: 0,
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          nadaText,
+                          style: const TextStyle(
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w900,
+                            color: LampungTheme.primaryBlue,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            _service.playingSongName.isNotEmpty
+                                ? _service.playingSongName
+                                : 'Memainkan Lagu...',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            '[ NADA ${_service.currentNote + 1} / ${_service.totalNotes} ]',
+                            style: const TextStyle(
+                              fontFamily: 'monospace',
+                              color: LampungTheme.accentBlueLight,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.stop_circle_rounded,
+                          color: Colors.white, size: 32),
+                      onPressed: () => _service.stopPlayback(),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
