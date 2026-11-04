@@ -63,35 +63,60 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LampungTheme.bgDark,
+      backgroundColor: LampungTheme.slate950,
       body: SafeArea(
         child: Column(
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                color: LampungTheme.bgMedium,
+              decoration: const BoxDecoration(
+                color: LampungTheme.slate950,
                 border: Border(
                   bottom: BorderSide(
-                    color: LampungTheme.gold.withValues(alpha: 0.2),
+                    color: LampungTheme.slate800,
+                    width: 1,
                   ),
                 ),
               ),
               child: Row(
                 children: [
-                  SvgPicture.asset(
-                    'assets/images/siger_crown.svg',
-                    height: 24,
+                  Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: LampungTheme.slate900,
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: LampungTheme.slate800),
+                    ),
+                    child: SvgPicture.asset(
+                      'assets/images/siger_crown.svg',
+                      height: 18,
+                    ),
                   ),
                   const SizedBox(width: 10),
-                  const Text(
-                    'Gamolan Pekhing',
-                    style: TextStyle(
-                      color: LampungTheme.gold,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.5,
-                    ),
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '[ VIRTUAL GAMOLAN ]',
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          color: LampungTheme.primaryBlue,
+                          fontSize: 9,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                      Text(
+                        'GAMOLAN PEKHING',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
                   ),
                   const Spacer(),
                   Container(
@@ -99,218 +124,192 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: _service.isConnected
-                          ? Colors.green.withValues(alpha: 0.15)
-                          : LampungTheme.tapisRed.withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(12),
+                          ? const Color(0xFF14532D)
+                          : const Color(0xFF7F1D1D),
+                      borderRadius: BorderRadius.circular(999),
                       border: Border.all(
                         color: _service.isConnected
-                            ? Colors.green
-                            : LampungTheme.tapisRed,
+                            ? LampungTheme.statusSuccess
+                            : LampungTheme.statusDanger,
                         width: 1,
                       ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CircleAvatar(
-                          radius: 4,
-                          backgroundColor: _service.isConnected
-                              ? Colors.green
-                              : LampungTheme.tapisRed,
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          _service.isConnected ? 'Terhubung' : 'Terputus',
-                          style: TextStyle(
-                            color: _service.isConnected
-                                ? Colors.green
-                                : LampungTheme.tapisRed,
-                            fontSize: 12,
-                          ),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: LampungTheme.slate950,
+                          offset: Offset(1, 2),
+                          blurRadius: 0,
                         ),
                       ],
                     ),
+                    child: Text(
+                      _service.isConnected ? '[ ONLINE ]' : '[ OFFLINE ]',
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        color: _service.isConnected
+                            ? const Color(0xFF86EFAC)
+                            : const Color(0xFFFCA5A5),
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 10),
                   IconButton(
                     icon: const Icon(Icons.fullscreen_exit,
-                        color: LampungTheme.textSecondary),
-                    tooltip: 'Kembali ke Potret',
+                        color: LampungTheme.slate400),
+                    tooltip: 'Kembali',
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ],
               ),
             ),
             Expanded(
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: Opacity(
-                      opacity: 0.06,
-                      child: SvgPicture.asset(
-                        'assets/images/pucuk_rebung.svg',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(16, 10, 16, 12),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 12, vertical: 14),
+                decoration: BoxDecoration(
+                  color: LampungTheme.slate900,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: LampungTheme.slate800,
                   ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 16),
-                    decoration: BoxDecoration(
-                      color: LampungTheme.bgDark.withValues(alpha: 0.85),
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                        color: LampungTheme.goldDark.withValues(alpha: 0.3),
-                      ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: LampungTheme.deepBlue,
+                      offset: Offset(4, 4),
+                      blurRadius: 0,
                     ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: _bars.map((item) {
-                        final int num = item['num'] as int;
-                        final bool isHit = _pressedNada == num;
-                        final double heightScale = 1.0 - (num - 1) * 0.035;
+                  ],
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: _bars.map((item) {
+                    final int num = item['num'] as int;
+                    final bool isHit = _pressedNada == num;
+                    final double heightScale = 1.0 - (num - 1) * 0.035;
 
-                        return Expanded(
-                          child: GestureDetector(
-                            onTapDown: (_) => _hitBar(num),
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 90),
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                              transform: Matrix4.diagonal3Values(
-                                  isHit ? 0.96 : 1.0,
-                                  isHit ? 0.98 : 1.0,
-                                  1.0),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: FractionallySizedBox(
-                                  heightFactor: heightScale,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: isHit
-                                            ? [
-                                                LampungTheme.goldLight,
-                                                const Color(0xFFFFD700),
-                                                const Color(0xFFFFA000),
-                                              ]
-                                            : [
-                                                const Color(0xFFE2C465),
-                                                LampungTheme.goldBronze,
-                                                const Color(0xFF9E782F),
-                                              ],
-                                      ),
-                                      boxShadow: [
-                                        if (isHit)
+                    return Expanded(
+                      child: GestureDetector(
+                        onTapDown: (_) => _hitBar(num),
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 60),
+                          margin:
+                              const EdgeInsets.symmetric(horizontal: 4),
+                          transform: Matrix4.translationValues(
+                            isHit ? 2.0 : 0.0,
+                            isHit ? 3.0 : 0.0,
+                            0.0,
+                          ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: FractionallySizedBox(
+                              heightFactor: heightScale,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: isHit
+                                      ? LampungTheme.primaryBlue
+                                      : Colors.white,
+                                  boxShadow: isHit
+                                      ? [] // Shadow tertelan saat ditekan!
+                                      : const [
                                           BoxShadow(
-                                            color: const Color(0xFFFFD700)
-                                                .withValues(alpha: 0.6),
-                                            blurRadius: 18,
-                                            spreadRadius: 3,
-                                          )
-                                        else
-                                          BoxShadow(
-                                            color: Colors.black
-                                                .withValues(alpha: 0.4),
-                                            blurRadius: 6,
-                                            offset: const Offset(0, 4),
+                                            color: LampungTheme.deepBlue,
+                                            offset: Offset(3, 4),
+                                            blurRadius: 0,
                                           ),
-                                      ],
-                                      border: Border.all(
-                                        color: isHit
-                                            ? Colors.white
-                                            : LampungTheme.goldDark,
-                                        width: isHit ? 2.5 : 1.5,
+                                        ],
+                                  border: Border.all(
+                                    color: isHit
+                                        ? LampungTheme.accentBlueHighlight
+                                        : LampungTheme.slate300,
+                                    width: isHit ? 2.0 : 1.5,
+                                  ),
+                                ),
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      top: 8,
+                                      left: 0,
+                                      right: 0,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          _buildNailHole(isHit),
+                                          _buildNailHole(isHit),
+                                        ],
                                       ),
                                     ),
-                                    child: Stack(
-                                      children: [
-                                        Positioned(
-                                          top: 8,
-                                          left: 0,
-                                          right: 0,
-                                          child: Row(
+                                    Center(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            '$num',
+                                            style: TextStyle(
+                                              fontSize: 28,
+                                              fontWeight: FontWeight.w900,
+                                              color: isHit
+                                                  ? Colors.white
+                                                  : LampungTheme.slate900,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 2),
+                                          Text(
+                                            item['solfege'] as String,
+                                            style: TextStyle(
+                                              fontFamily: 'monospace',
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w900,
+                                              color: isHit
+                                                  ? LampungTheme.accentBlueLight
+                                                  : LampungTheme.primaryBlue,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 8,
+                                      left: 0,
+                                      right: 0,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            '[ ${item['freq']} ]',
+                                            style: TextStyle(
+                                              fontFamily: 'monospace',
+                                              fontSize: 9,
+                                              color: isHit
+                                                  ? Colors.white70
+                                                  : LampungTheme.slate500,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceAround,
                                             children: [
-                                              _buildNailHole(),
-                                              _buildNailHole(),
+                                              _buildNailHole(isHit),
+                                              _buildNailHole(isHit),
                                             ],
                                           ),
-                                        ),
-                                        Center(
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                '$num',
-                                                style: TextStyle(
-                                                  fontSize: 28,
-                                                  fontWeight: FontWeight.w900,
-                                                  color: isHit
-                                                      ? Colors.black
-                                                      : const Color(
-                                                          0xFF221804),
-                                                ),
-                                              ),
-                                              const SizedBox(height: 2),
-                                              Text(
-                                                item['solfege'] as String,
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: isHit
-                                                      ? Colors.black87
-                                                      : const Color(
-                                                          0xFF3E2D07),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Positioned(
-                                          bottom: 8,
-                                          left: 0,
-                                          right: 0,
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                item['freq'] as String,
-                                                style: const TextStyle(
-                                                  fontSize: 9,
-                                                  color: Color(0xFF4A3810),
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                              const SizedBox(height: 4),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                children: [
-                                                  _buildNailHole(),
-                                                  _buildNailHole(),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ),
             ),
           ],
@@ -319,14 +318,13 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
     );
   }
 
-  Widget _buildNailHole() {
+  Widget _buildNailHole(bool isHit) {
     return Container(
       width: 7,
       height: 7,
       decoration: BoxDecoration(
-        color: const Color(0xFF2B1F08),
         shape: BoxShape.circle,
-        border: Border.all(color: const Color(0xFF533F17), width: 1),
+        color: isHit ? LampungTheme.darkBlue : LampungTheme.slate300,
       ),
     );
   }

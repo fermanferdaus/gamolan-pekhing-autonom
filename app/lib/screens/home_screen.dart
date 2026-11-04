@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LampungTheme.bgDark,
+      backgroundColor: LampungTheme.slate50,
       body: _pages[_currentIndex],
       floatingActionButton: SizedBox(
         width: 58,
@@ -48,27 +48,18 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                LampungTheme.goldLight,
-                LampungTheme.gold,
-                LampungTheme.goldDark,
-              ],
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: LampungTheme.gold.withValues(alpha: 0.35),
-                blurRadius: 10,
-                spreadRadius: 1,
-                offset: const Offset(0, 2),
-              ),
-            ],
+            color: LampungTheme.primaryBlue,
             border: Border.all(
-              color: const Color(0xFFFFE082),
+              color: LampungTheme.slate200,
               width: 2,
             ),
+            boxShadow: const [
+              BoxShadow(
+                color: LampungTheme.deepBlue,
+                offset: Offset(3, 4),
+                blurRadius: 0,
+              ),
+            ],
           ),
           child: Material(
             color: Colors.transparent,
@@ -80,16 +71,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Icon(
                     Icons.music_note_rounded,
-                    color: Color(0xFF1E1408),
+                    color: Colors.white,
                     size: 26,
                   ),
                   Text(
                     'NOT',
                     style: TextStyle(
-                      color: Color(0xFF1E1408),
+                      color: Colors.white,
                       fontSize: 8,
                       fontWeight: FontWeight.w900,
-                      letterSpacing: 0.5,
+                      letterSpacing: 0.8,
                     ),
                   ),
                 ],
@@ -101,19 +92,19 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButtonLocation:
           const LoweredCenterDockedFabLocation(offsetY: 18.0),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           border: Border(
             top: BorderSide(
-              color: LampungTheme.goldDark.withValues(alpha: 0.3),
+              color: LampungTheme.slate800,
               width: 1,
             ),
           ),
         ),
         child: BottomAppBar(
-          color: LampungTheme.bgMedium,
+          color: LampungTheme.slate950,
           shape: const CircularNotchedRectangle(),
           notchMargin: 8,
-          elevation: 8,
+          elevation: 0,
           child: SizedBox(
             height: 56,
             child: Row(
@@ -145,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }) {
     final isSelected = _currentIndex == index;
     return InkWell(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(999),
       onTap: () {
         setState(() {
           _currentIndex = index;
@@ -158,15 +149,14 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Icon(
               icon,
-              color: isSelected ? LampungTheme.gold : LampungTheme.textMuted,
+              color: isSelected ? LampungTheme.accentBlueHighlight : LampungTheme.slate400,
               size: 22,
             ),
             const SizedBox(height: 2),
             Text(
               label,
               style: TextStyle(
-                color:
-                    isSelected ? LampungTheme.gold : LampungTheme.textMuted,
+                color: isSelected ? Colors.white : LampungTheme.slate400,
                 fontSize: 11,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),

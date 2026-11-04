@@ -31,7 +31,10 @@ class _ComposerScreenState extends State<ComposerScreen> {
     {'val': 2, 'label': '½ Ketuk', 'short': '½'},
     {'val': 3, 'label': '¾ Ketuk', 'short': '¾'},
     {'val': 4, 'label': '1 Ketuk', 'short': '1'},
+    {'val': 6, 'label': '1½ Ketuk', 'short': '1½'},
     {'val': 8, 'label': '2 Ketuk', 'short': '2'},
+    {'val': 12, 'label': '3 Ketuk', 'short': '3'},
+    {'val': 16, 'label': '4 Ketuk', 'short': '4'},
   ];
 
   @override
@@ -42,11 +45,11 @@ class _ComposerScreenState extends State<ComposerScreen> {
   }
 
   void _addNote(int nada) {
-    if (nada > 0) _service.hitNada(nada);
     setState(() {
       _notes.add(NoteItem(nada: nada, panjang: _selectedPanjang));
     });
-    Future.delayed(const Duration(milliseconds: 60), () {
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
@@ -68,20 +71,38 @@ class _ComposerScreenState extends State<ComposerScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: LampungTheme.bgCard,
-        title: const Text('Hapus Semua Notasi?',
-            style: TextStyle(color: LampungTheme.textPrimary)),
-        content: const Text('Semua not angka yang sudah disusun akan dihapus.',
-            style: TextStyle(color: LampungTheme.textSecondary)),
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: const BorderSide(color: LampungTheme.slate200),
+        ),
+        title: const Text(
+          'Hapus Semua Notasi?',
+          style: TextStyle(
+            color: LampungTheme.slate900,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: const Text(
+          'Semua not angka yang sudah disusun akan dihapus.',
+          style: TextStyle(color: LampungTheme.slate600),
+        ),
         actions: [
           TextButton(
-              child: const Text('Batal',
-                  style: TextStyle(color: LampungTheme.textMuted)),
-              onPressed: () => Navigator.pop(ctx)),
+            child: const Text('Batal',
+                style: TextStyle(color: LampungTheme.slate500)),
+            onPressed: () => Navigator.pop(ctx),
+          ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: LampungTheme.tapisRed),
-            child: const Text('Hapus', style: TextStyle(color: Colors.white)),
+              backgroundColor: LampungTheme.statusDanger,
+              foregroundColor: Colors.white,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(999),
+              ),
+            ),
+            child: const Text('Hapus'),
             onPressed: () {
               Navigator.pop(ctx);
               setState(() => _notes.clear());
@@ -96,13 +117,19 @@ class _ComposerScreenState extends State<ComposerScreen> {
     final name = _nameController.text.trim();
     if (name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Masukkan nama lagu terlebih dahulu!')),
+        const SnackBar(
+          backgroundColor: LampungTheme.statusDanger,
+          content: Text('Masukkan nama lagu terlebih dahulu!'),
+        ),
       );
       return;
     }
     if (_notes.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Tambahkan minimal 1 nada!')),
+        const SnackBar(
+          backgroundColor: LampungTheme.statusDanger,
+          content: Text('Tambahkan minimal 1 nada!'),
+        ),
       );
       return;
     }
@@ -112,7 +139,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        backgroundColor: const Color(0xFF1B3B1E),
+        backgroundColor: LampungTheme.statusSuccess,
         content:
             Text('Lagu "$name" (${_notes.length} nada) dikirim ke Gamolan!'),
       ),
@@ -127,113 +154,166 @@ class _ComposerScreenState extends State<ComposerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: LampungTheme.bgDark,
+      backgroundColor: LampungTheme.slate50,
       appBar: AppBar(
         title: Row(
           children: [
-            SvgPicture.asset(
-              'assets/images/siger_crown.svg',
-              height: 22,
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: LampungTheme.slate900,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: LampungTheme.slate800),
+              ),
+              child: SvgPicture.asset(
+                'assets/images/siger_crown.svg',
+                height: 20,
+              ),
             ),
             const SizedBox(width: 10),
-            const Text(
-              'Buat Lagu Gamolan',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: LampungTheme.gold,
-              ),
+            const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '[ KOMPOSER MUSIK ]',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 9,
+                    color: LampungTheme.primaryBlue,
+                    letterSpacing: 1.5,
+                  ),
+                ),
+                SizedBox(height: 2),
+                Text(
+                  'BUAT LAGU GAMOLAN',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 15,
+                    color: Colors.white,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-        backgroundColor: LampungTheme.bgMedium,
+        backgroundColor: LampungTheme.slate950,
         elevation: 0,
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(1),
+          child: Divider(height: 1, color: LampungTheme.slate800),
+        ),
         actions: [
           if (_notes.isNotEmpty)
             IconButton(
               icon:
-                  const Icon(Icons.delete_sweep, color: LampungTheme.tapisRed),
+                  const Icon(Icons.delete_sweep, color: LampungTheme.statusDanger),
               tooltip: 'Hapus Semua',
               onPressed: _clearAllNotes,
             ),
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.fromLTRB(14, 14, 14, 90),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: LampungTheme.bgCard,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                    color: LampungTheme.goldDark.withValues(alpha: 0.2)),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: LampungTheme.slate200),
+                boxShadow: LampungTheme.hardShadowCard,
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const Text(
+                    '[ INFORMASI LAGU ]',
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10,
+                      color: LampungTheme.primaryBlue,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
                   TextField(
                     controller: _nameController,
-                    style: const TextStyle(color: LampungTheme.textPrimary),
+                    style: const TextStyle(
+                      color: LampungTheme.slate900,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                    ),
                     decoration: InputDecoration(
-                      labelText: 'Judul Lagu',
-                      labelStyle:
-                          const TextStyle(color: LampungTheme.textSecondary),
-                      hintText: 'Contoh: Tanah Airku',
-                      hintStyle:
-                          const TextStyle(color: LampungTheme.textMuted),
-                      prefixIcon:
-                          const Icon(Icons.title, color: LampungTheme.gold),
-                      border: const OutlineInputBorder(),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                                LampungTheme.goldDark.withValues(alpha: 0.3)),
+                      filled: true,
+                      fillColor: LampungTheme.slate50,
+                      labelText: 'Nama Lagu',
+                      labelStyle: const TextStyle(
+                        color: LampungTheme.slate500,
+                        fontSize: 12,
                       ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: LampungTheme.gold),
+                      hintText: 'Contoh: Tabuh Sampeang',
+                      hintStyle: const TextStyle(
+                        color: LampungTheme.slate400,
+                        fontSize: 12,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 12),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide:
+                            const BorderSide(color: LampungTheme.slate200),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                            color: LampungTheme.primaryBlue, width: 1.6),
                       ),
                     ),
                   ),
                   const SizedBox(height: 12),
                   Row(
                     children: [
-                      const Icon(Icons.category,
-                          color: LampungTheme.gold, size: 20),
-                      const SizedBox(width: 8),
-                      const Text('Kategori:',
-                          style: TextStyle(
-                              color: LampungTheme.textPrimary,
-                              fontWeight: FontWeight.bold)),
-                      const SizedBox(width: 8),
+                      const Text(
+                        'Kategori:',
+                        style: TextStyle(
+                          color: LampungTheme.slate600,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           decoration: BoxDecoration(
-                            color: LampungTheme.bgSurface,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                                color: LampungTheme.goldDark
-                                    .withValues(alpha: 0.3)),
+                            color: LampungTheme.slate50,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: LampungTheme.slate200),
                           ),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<SongCategory>(
                               value: _selectedCategory,
-                              dropdownColor: LampungTheme.bgCard,
+                              dropdownColor: Colors.white,
                               style: const TextStyle(
-                                  color: LampungTheme.textPrimary,
-                                  fontSize: 14),
-                              isExpanded: true,
-                              items: SongCategory.values
-                                  .map((c) => DropdownMenuItem(
-                                        value: c,
-                                        child: Text(c.label),
-                                      ))
-                                  .toList(),
-                              onChanged: (v) {
-                                if (v != null) {
-                                  setState(() => _selectedCategory = v);
+                                color: LampungTheme.slate900,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                              items: SongCategory.values.map((cat) {
+                                return DropdownMenuItem(
+                                  value: cat,
+                                  child: Text(cat.label),
+                                );
+                              }).toList(),
+                              onChanged: (val) {
+                                if (val != null) {
+                                  setState(() => _selectedCategory = val);
                                 }
                               },
                             ),
@@ -246,20 +326,25 @@ class _ComposerScreenState extends State<ComposerScreen> {
                   Row(
                     children: [
                       const Icon(Icons.speed,
-                          color: LampungTheme.gold, size: 20),
+                          color: LampungTheme.primaryBlue, size: 20),
                       const SizedBox(width: 8),
-                      Text('$_tempo BPM',
-                          style: const TextStyle(
-                              color: LampungTheme.textPrimary,
-                              fontWeight: FontWeight.bold)),
+                      Text(
+                        '[ $_tempo BPM ]',
+                        style: const TextStyle(
+                          fontFamily: 'monospace',
+                          color: LampungTheme.primaryBlue,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
                       Expanded(
                         child: Slider(
                           value: _tempo.toDouble(),
                           min: 60,
                           max: 200,
                           divisions: 28,
-                          activeColor: LampungTheme.gold,
-                          inactiveColor: LampungTheme.bgSurface,
+                          activeColor: LampungTheme.primaryBlue,
+                          inactiveColor: LampungTheme.slate200,
                           onChanged: (val) =>
                               setState(() => _tempo = val.round()),
                         ),
@@ -270,11 +355,16 @@ class _ComposerScreenState extends State<ComposerScreen> {
               ),
             ),
             const SizedBox(height: 14),
-            const Text('Panjang Ketukan',
-                style: TextStyle(
-                    color: LampungTheme.gold,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13)),
+            const Text(
+              '[ PANJANG KETUKAN ]',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                color: LampungTheme.primaryBlue,
+                fontWeight: FontWeight.bold,
+                fontSize: 11,
+                letterSpacing: 1.0,
+              ),
+            ),
             const SizedBox(height: 6),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -285,16 +375,24 @@ class _ComposerScreenState extends State<ComposerScreen> {
                     padding: const EdgeInsets.only(right: 6),
                     child: ChoiceChip(
                       selected: isSelected,
+                      showCheckmark: false,
                       label: Text('${opt['short']} (${opt['label']})'),
-                      selectedColor: LampungTheme.gold,
-                      backgroundColor: LampungTheme.bgCard,
+                      selectedColor: LampungTheme.primaryBlue,
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(999),
+                        side: BorderSide(
+                          color: isSelected
+                              ? LampungTheme.primaryBlue
+                              : LampungTheme.slate200,
+                        ),
+                      ),
                       labelStyle: TextStyle(
-                        color: isSelected
-                            ? LampungTheme.bgDark
-                            : LampungTheme.textSecondary,
+                        fontFamily: 'monospace',
+                        color: isSelected ? Colors.white : LampungTheme.slate700,
                         fontWeight:
-                            isSelected ? FontWeight.bold : FontWeight.normal,
-                        fontSize: 12,
+                            isSelected ? FontWeight.bold : FontWeight.w600,
+                        fontSize: 11,
                       ),
                       onSelected: (selected) {
                         if (selected) {
@@ -308,11 +406,16 @@ class _ComposerScreenState extends State<ComposerScreen> {
               ),
             ),
             const SizedBox(height: 14),
-            const Text('Ketuk Bilah',
-                style: TextStyle(
-                    color: LampungTheme.gold,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13)),
+            const Text(
+              '[ KETUK BILAH ]',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                color: LampungTheme.primaryBlue,
+                fontWeight: FontWeight.bold,
+                fontSize: 11,
+                letterSpacing: 1.0,
+              ),
+            ),
             const SizedBox(height: 6),
             GridView.builder(
               shrinkWrap: true,
@@ -322,32 +425,51 @@ class _ComposerScreenState extends State<ComposerScreen> {
                 crossAxisCount: 4,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
-                childAspectRatio: 1.4,
+                childAspectRatio: 1.35,
               ),
               itemBuilder: (context, index) {
                 final bar = _bars[index];
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: LampungTheme.goldBronze,
-                    foregroundColor: const Color(0xFF221804),
-                    elevation: 3,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side:
-                          BorderSide(color: LampungTheme.goldDark, width: 1.5),
-                    ),
-                  ),
-                  onPressed: () => _addNote(bar['num'] as int),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('${bar['num']}',
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w900)),
-                      Text(bar['solfege'] as String,
-                          style: const TextStyle(
-                              fontSize: 11, fontWeight: FontWeight.bold)),
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: LampungTheme.slate200),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Color(0x1F1D4ED8),
+                        offset: Offset(2, 2),
+                        blurRadius: 0,
+                      ),
                     ],
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () => _addNote(bar['num'] as int),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${bar['num']}',
+                            style: const TextStyle(
+                              fontSize: 19,
+                              fontWeight: FontWeight.w900,
+                              color: LampungTheme.slate900,
+                            ),
+                          ),
+                          Text(
+                            bar['solfege'] as String,
+                            style: const TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: LampungTheme.primaryBlue,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 );
               },
@@ -358,18 +480,22 @@ class _ComposerScreenState extends State<ComposerScreen> {
               height: 42,
               child: OutlinedButton.icon(
                 icon: const Icon(Icons.pause,
-                    color: LampungTheme.textSecondary, size: 18),
-                label: const Text('Istirahat (0)',
-                    style: TextStyle(
-                        color: LampungTheme.textPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13)),
+                    color: LampungTheme.slate600, size: 18),
+                label: const Text(
+                  'Istirahat / Diam (0)',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    color: LampungTheme.slate700,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
                 style: OutlinedButton.styleFrom(
-                  backgroundColor: LampungTheme.bgCard,
-                  side: BorderSide(
-                      color: LampungTheme.goldDark.withValues(alpha: 0.3)),
+                  backgroundColor: Colors.white,
+                  side: const BorderSide(color: LampungTheme.slate300),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
                 ),
                 onPressed: () => _addNote(0),
               ),
@@ -378,22 +504,32 @@ class _ComposerScreenState extends State<ComposerScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Susunan (${_notes.length} nada)',
-                    style: const TextStyle(
-                        color: LampungTheme.gold,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13)),
+                Text(
+                  '[ SUSUNAN: ${_notes.length} NADA ]',
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    color: LampungTheme.primaryBlue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11,
+                    letterSpacing: 1.0,
+                  ),
+                ),
                 if (_notes.isNotEmpty)
                   GestureDetector(
                     onTap: _removeLastNote,
                     child: const Row(
                       children: [
                         Icon(Icons.backspace,
-                            size: 14, color: LampungTheme.tapisRed),
+                            size: 14, color: LampungTheme.statusDanger),
                         SizedBox(width: 4),
-                        Text('Hapus',
-                            style: TextStyle(
-                                color: LampungTheme.tapisRed, fontSize: 11)),
+                        Text(
+                          'Hapus Terakhir',
+                          style: TextStyle(
+                            color: LampungTheme.statusDanger,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -401,22 +537,33 @@ class _ComposerScreenState extends State<ComposerScreen> {
             ),
             const SizedBox(height: 6),
             Container(
-              height: 62,
+              height: 64,
               width: double.infinity,
               padding:
                   const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               decoration: BoxDecoration(
-                color: LampungTheme.bgDark,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    color: LampungTheme.goldDark.withValues(alpha: 0.2)),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: LampungTheme.slate200),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x1F1D4ED8),
+                    offset: Offset(2, 2),
+                    blurRadius: 0,
+                  ),
+                ],
               ),
               child: _notes.isEmpty
                   ? const Center(
-                      child: Text('Ketuk bilah untuk mulai menyusun lagu.',
-                          style: TextStyle(
-                              color: LampungTheme.textMuted, fontSize: 11),
-                          textAlign: TextAlign.center))
+                      child: Text(
+                        'Ketuk bilah untuk mulai menyusun lagu.',
+                        style: TextStyle(
+                          color: LampungTheme.slate400,
+                          fontSize: 11,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    )
                   : ListView.builder(
                       controller: _scrollController,
                       scrollDirection: Axis.horizontal,
@@ -425,61 +572,77 @@ class _ComposerScreenState extends State<ComposerScreen> {
                         final item = _notes[index];
                         final isDiam = item.nada == 0;
                         return Container(
-                          margin: const EdgeInsets.only(right: 5),
+                          margin: const EdgeInsets.only(right: 6),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 3),
+                              horizontal: 9, vertical: 3),
                           decoration: BoxDecoration(
                             color: isDiam
-                                ? LampungTheme.bgSurface
-                                : LampungTheme.gold,
-                            borderRadius: BorderRadius.circular(6),
+                                ? LampungTheme.slate100
+                                : LampungTheme.blue50,
+                            borderRadius: BorderRadius.circular(8),
                             border: Border.all(
                               color: isDiam
-                                  ? LampungTheme.goldDark
-                                      .withValues(alpha: 0.3)
-                                  : LampungTheme.goldDark,
+                                  ? LampungTheme.slate300
+                                  : LampungTheme.primaryBlue,
                             ),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(isDiam ? '-' : '${item.nada}',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      color: isDiam
-                                          ? LampungTheme.textSecondary
-                                          : LampungTheme.bgDark)),
                               Text(
-                                  isDiam
-                                      ? 'diam'
-                                      : '${item.namaNada}·${item.durasiLabel}',
-                                  style: TextStyle(
-                                      fontSize: 8,
-                                      color: isDiam
-                                          ? LampungTheme.textMuted
-                                          : const Color(0xFF3E2D07),
-                                      fontWeight: FontWeight.w600)),
+                                isDiam ? '-' : '${item.nada}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: isDiam
+                                      ? LampungTheme.slate600
+                                      : LampungTheme.primaryBlue,
+                                ),
+                              ),
+                              Text(
+                                isDiam
+                                    ? 'diam'
+                                    : '${item.namaNada}·${item.durasiLabel}',
+                                style: TextStyle(
+                                  fontFamily: 'monospace',
+                                  fontSize: 8,
+                                  color: isDiam
+                                      ? LampungTheme.slate500
+                                      : LampungTheme.darkBlue,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ],
                           ),
                         );
                       },
                     ),
             ),
-            const SizedBox(height: 16),
-            SizedBox(
+            const SizedBox(height: 18),
+            Container(
               width: double.infinity,
               height: 48,
+              decoration: const BoxDecoration(
+                boxShadow: LampungTheme.hardShadowPill,
+                borderRadius: BorderRadius.all(Radius.circular(999)),
+              ),
               child: ElevatedButton.icon(
-                icon: const Icon(Icons.cloud_upload),
-                label: const Text('Simpan ke Gamolan',
-                    style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                icon: const Icon(Icons.cloud_upload_rounded),
+                label: const Text(
+                  'Simpan ke Gamolan',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 0.5,
+                  ),
+                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: LampungTheme.gold,
-                  foregroundColor: LampungTheme.bgDark,
+                  backgroundColor: LampungTheme.primaryBlue,
+                  foregroundColor: Colors.white,
+                  elevation: 0,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
                 ),
                 onPressed: _saveSong,
               ),
