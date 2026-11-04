@@ -18,14 +18,14 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
   Timer? _hitTimer;
 
   final List<Map<String, dynamic>> _bars = [
-    {'num': 1, 'solfege': 'DO', 'freq': '523 Hz', 'scale': 0.98},
-    {'num': 2, 'solfege': 'RE', 'freq': '587 Hz', 'scale': 0.94},
-    {'num': 3, 'solfege': 'MI', 'freq': '659 Hz', 'scale': 0.90},
-    {'num': 4, 'solfege': 'FA', 'freq': '698 Hz', 'scale': 0.86},
-    {'num': 5, 'solfege': 'SOL', 'freq': '783 Hz', 'scale': 0.82},
-    {'num': 6, 'solfege': 'LA', 'freq': '880 Hz', 'scale': 0.78},
-    {'num': 7, 'solfege': 'SI', 'freq': '987 Hz', 'scale': 0.74},
-    {'num': 8, 'solfege': "DO'", 'freq': '1046 Hz', 'scale': 0.70},
+    {'num': 1, 'solfege': 'DO', 'scale': 0.98},
+    {'num': 2, 'solfege': 'RE', 'scale': 0.94},
+    {'num': 3, 'solfege': 'MI', 'scale': 0.90},
+    {'num': 4, 'solfege': 'FA', 'scale': 0.86},
+    {'num': 5, 'solfege': 'SOL', 'scale': 0.82},
+    {'num': 6, 'solfege': 'LA', 'scale': 0.78},
+    {'num': 7, 'solfege': 'SI', 'scale': 0.74},
+    {'num': 8, 'solfege': "DO'", 'scale': 0.70},
   ];
 
   @override
@@ -78,10 +78,25 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
       ),
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Column(
+        body: Stack(
           children: [
-            _buildTopBar(context),
-            Expanded(child: _buildGamolanRancak(context)),
+            Positioned.fill(
+              child: IgnorePointer(
+                child: Opacity(
+                  opacity: 0.7,
+                  child: SvgPicture.asset(
+                    'assets/images/lampung_bg_pattern.svg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Column(
+              children: [
+                _buildTopBar(context),
+                Expanded(child: _buildGamolanRancak(context)),
+              ],
+            ),
           ],
         ),
       ),
@@ -365,27 +380,13 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
   Widget _buildBilahContent(Map<String, dynamic> item, bool isHit) {
     final int num = item['num'] as int;
     final String solfege = item['solfege'] as String;
-    final String freq = item['freq'] as String;
 
     return Column(
       children: [
         // Lubang Pasak Tali Atas
         Padding(
-          padding: const EdgeInsets.only(top: 8),
+          padding: const EdgeInsets.only(top: 10),
           child: _buildMountingCordHoles(isHit),
-        ),
-
-        const SizedBox(height: 3),
-
-        // Label Frekuensi (Mono)
-        Text(
-          freq,
-          style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 9,
-            fontWeight: FontWeight.bold,
-            color: isHit ? Colors.white70 : LampungTheme.slate400,
-          ),
         ),
 
         const Spacer(),

@@ -443,13 +443,28 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
+      body: Stack(
         children: [
-          _buildHeader(),
-          _buildConnectionStrip(),
-          _buildCategoryTabs(),
-          Expanded(child: _buildTabContent()),
-          if (_service.isPlaying) _buildNowPlayingBar(),
+          Positioned.fill(
+            child: IgnorePointer(
+              child: Opacity(
+                opacity: 0.6,
+                child: SvgPicture.asset(
+                  'assets/images/lampung_bg_pattern.svg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          Column(
+            children: [
+              _buildHeader(),
+              _buildConnectionStrip(),
+              _buildCategoryTabs(),
+              Expanded(child: _buildTabContent()),
+              if (_service.isPlaying) _buildNowPlayingBar(),
+            ],
+          ),
         ],
       ),
     );

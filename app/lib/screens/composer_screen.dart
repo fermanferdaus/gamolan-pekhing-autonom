@@ -270,9 +270,22 @@ class _ComposerScreenState extends State<ComposerScreen> {
             ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(14, 14, 14, 90),
-        child: Column(
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: IgnorePointer(
+              child: Opacity(
+                opacity: 0.6,
+                child: SvgPicture.asset(
+                  'assets/images/lampung_bg_pattern.svg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(14, 14, 14, 90),
+            child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
@@ -737,6 +750,8 @@ class _ComposerScreenState extends State<ComposerScreen> {
           ],
         ),
       ),
-    );
+    ],
+  ),
+);
   }
 }
