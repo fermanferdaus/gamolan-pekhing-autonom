@@ -534,8 +534,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     }
 
     return Container(
-      color: Colors.white,
       decoration: const BoxDecoration(
+        color: Colors.white,
         border: Border(
           bottom: BorderSide(color: LampungTheme.slate200, width: 1),
         ),

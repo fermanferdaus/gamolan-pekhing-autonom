@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gamolan_pekhing/main.dart';
 import 'package:gamolan_pekhing/models/song_model.dart';
 import 'package:gamolan_pekhing/models/default_songs.dart';
+import 'package:gamolan_pekhing/services/gamolan_service.dart';
 
 void main() {
   test('SongModel fromJson with category', () {
@@ -52,5 +54,13 @@ void main() {
       expect(song.tempo, meta.$2, reason: '${meta.$1} tempo');
       expect(song.len, meta.$3, reason: '${meta.$1} len');
     });
+  });
+
+  testWidgets('GamolanApp builds and renders HomeScreen without assertion errors',
+      (tester) async {
+    await tester.pumpWidget(const GamolanApp());
+    await tester.pump();
+    expect(find.text('GAMOLAN PEKHING'), findsWidgets);
+    GamolanService().dispose();
   });
 }
