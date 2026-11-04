@@ -506,31 +506,14 @@ class _PlaylistScreenState extends State<PlaylistScreen>
           ),
           const SizedBox(width: 12),
           const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  '[ SISTEM AUTONOMOUS ]',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 9,
-                    color: LampungTheme.accentBlueLight,
-                    letterSpacing: 1.5,
-                  ),
-                ),
-                SizedBox(height: 2),
-                Text(
-                  'GAMOLAN PEKHING',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 16,
-                    color: Colors.white,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ],
+            child: Text(
+              'GAMOLAN PEKHING',
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontSize: 16,
+                color: Colors.white,
+                letterSpacing: 0.5,
+              ),
             ),
           ),
           IconButton(
