@@ -354,6 +354,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<SongCategory>(
                               value: _selectedCategory,
+                              isExpanded: true,
                               dropdownColor: Colors.white,
                               style: const TextStyle(
                                 color: LampungTheme.slate900,

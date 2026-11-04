@@ -30,132 +30,153 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: _pages[_currentIndex],
-      floatingActionButton: SizedBox(
-        width: 58,
-        height: 58,
+      bottomNavigationBar: SafeArea(
+        top: false,
         child: Container(
+          height: 60,
+          margin: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+          padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            shape: BoxShape.circle,
             color: Colors.white,
+            borderRadius: BorderRadius.circular(999),
             border: Border.all(
-              color: LampungTheme.accentBlueLight,
-              width: 2.5,
+              color: LampungTheme.slate200,
+              width: 1.5,
             ),
             boxShadow: const [
               BoxShadow(
-                color: LampungTheme.deepBlue,
-                offset: Offset(2, 3),
+                color: Color(0x1F1D4ED8),
+                offset: Offset(0, 4),
                 blurRadius: 0,
               ),
             ],
           ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              customBorder: const CircleBorder(),
-              onTap: _openNotAngka,
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.piano_rounded,
-                    color: LampungTheme.primaryBlue,
-                    size: 24,
-                  ),
-                  Text(
-                    'BILAH',
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      color: LampungTheme.primaryBlue,
-                      fontSize: 8,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 0.8,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          color: LampungTheme.primaryBlue,
-          border: Border(
-            top: BorderSide(
-              color: LampungTheme.darkBlue,
-              width: 1.5,
-            ),
-          ),
-        ),
-        child: BottomAppBar(
-          color: LampungTheme.primaryBlue,
-          shape: const CircularNotchedRectangle(),
-          notchMargin: 8,
-          elevation: 0,
-          child: SizedBox(
-            height: 56,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildNavItem(
+          child: Row(
+            children: [
+              Expanded(
+                child: _buildPillNav(
                   index: 0,
                   icon: Icons.queue_music_rounded,
                   label: 'Daftar Lagu',
                 ),
-                const SizedBox(width: 56),
-                _buildNavItem(
+              ),
+              const SizedBox(width: 4),
+              _buildCenterBilahAction(),
+              const SizedBox(width: 4),
+              Expanded(
+                child: _buildPillNav(
                   index: 1,
                   icon: Icons.tune_rounded,
                   label: 'Komposer',
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget _buildNavItem({
+  Widget _buildPillNav({
     required int index,
     required IconData icon,
     required String label,
   }) {
     final isSelected = _currentIndex == index;
-    return InkWell(
-      borderRadius: BorderRadius.circular(999),
-      onTap: () {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              color: isSelected
-                  ? Colors.white
-                  : LampungTheme.accentBlueLight.withValues(alpha: 0.7),
-              size: 22,
-            ),
-            const SizedBox(height: 2),
-            Text(
-              label,
-              style: TextStyle(
-                color: isSelected
-                    ? Colors.white
-                    : LampungTheme.accentBlueLight.withValues(alpha: 0.7),
-                fontSize: 11,
-                fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
-                letterSpacing: 0.3,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(999),
+        onTap: () => setState(() => _currentIndex = index),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 9),
+          decoration: BoxDecoration(
+            color: isSelected ? LampungTheme.primaryBlue : Colors.transparent,
+            borderRadius: BorderRadius.circular(999),
+            boxShadow: isSelected
+                ? const [
+                    BoxShadow(
+                      color: LampungTheme.deepBlue,
+                      offset: Offset(1, 2),
+                      blurRadius: 0,
+                    ),
+                  ]
+                : null,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                size: 17,
+                color: isSelected ? Colors.white : LampungTheme.slate400,
               ),
+              const SizedBox(width: 5),
+              Flexible(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isSelected ? FontWeight.w900 : FontWeight.w700,
+                    color: isSelected ? Colors.white : LampungTheme.slate600,
+                    letterSpacing: 0.2,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCenterBilahAction() {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(999),
+        onTap: _openNotAngka,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+          decoration: BoxDecoration(
+            color: LampungTheme.darkBlue,
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(
+              color: LampungTheme.accentBlueLight.withValues(alpha: 0.4),
+              width: 1.2,
             ),
-          ],
+            boxShadow: const [
+              BoxShadow(
+                color: LampungTheme.deepBlue,
+                offset: Offset(1, 2),
+                blurRadius: 0,
+              ),
+            ],
+          ),
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.piano_rounded,
+                size: 17,
+                color: Colors.white,
+              ),
+              SizedBox(width: 5),
+              Text(
+                'BILAH',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  letterSpacing: 0.8,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -106,4 +106,34 @@ void main() {
     expect(find.text('Simpan Sebagai Lagu Baru (Salinan)'), findsOneWidget);
     expect(find.text('[ SUSUNAN: 2 NADA ]'), findsOneWidget);
   });
+
+  testWidgets(
+      'HomeScreen floating island navbar switches tabs and renders on narrow screen',
+      (tester) async {
+    tester.view.physicalSize = const Size(320, 640);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+
+    await tester.pumpWidget(const GamolanApp());
+    await tester.pump();
+    expect(tester.takeException(), isNull, reason: 'Initial load should have no exception');
+
+    expect(find.text('Daftar Lagu'), findsOneWidget);
+    expect(find.text('BILAH'), findsOneWidget);
+    expect(find.text('Komposer'), findsOneWidget);
+
+    // Switch to Komposer
+    await tester.tap(find.text('Komposer'));
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull, reason: 'Switch to komposer should have no exception');
+    expect(find.text('BUAT LAGU GAMOLAN'), findsOneWidget);
+
+    // Switch back to Daftar Lagu
+    await tester.tap(find.text('Daftar Lagu'));
+    await tester.pumpAndSettle();
+    expect(find.text('GAMOLAN PEKHING'), findsWidgets);
+
+    expect(tester.takeException(), isNull);
+    GamolanService.resetForTest();
+  });
 }
