@@ -214,36 +214,33 @@ const Nada song_4[] PROGMEM = {
 
 // --- 2. LAGU DAERAH ---
 // Yamko Rambe Yamko (Papua, 4/4, tempo 104) — transcribed bar-exact dari not angka Melodica FM.
-// Angga: Bait1 x2 (| 1_ 5 5 | 6 3 5 6 | 5 5 6 2 | 3 1 ×|), Bait2 x2 (| 1_ 5 5 6 | 5 6 5 6 1 2 3 | 2_ 3 2_ | 3 1 2 3 2_ 1 |),
-// Bait3 x2 (| 5_ 5_ 5_ 6 | 5_ 5_ 6 2_ | 2_ 1 2_ 3 | 2_ 2_ 3 1 |).
-// Nada tinggi (●) diklem ke rentang bilah alami 1-8: 1̂→DO_T, selain itu memakai derajat dasarnya.
+// Rapikan: angka tunggal = not 1/4 (panjang 4), larikan cepat dibaca 1/8 (panjang 2), nada pembuka & akhir frasa dipanjangkan (8).
+// Nada tinggi (●) diklem ke rentang bilah alami 1-8: 1̂→DO_T, selain itu derajat dasarnya.
 const Nada song_5[] PROGMEM = {
   // --- BAIT 1 (x2) ---
-  // | 1_ 5 5 | 6 3 5 6 | 5 5 6 2 | 3 1 ×|
-  { DO_T, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
-  { MI, 4 }, { SOL, 4 }, { LA, 4 }, { SOL, 4 },
-  { SOL, 4 }, { LA, 4 }, { RE, 4 }, { MI, 4 },
-  { DO, 4 }, { DIAM, 4 }, { DIAM, 4 }, { DIAM, 4 },
-  { DO_T, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
-  { MI, 4 }, { SOL, 4 }, { LA, 4 }, { SOL, 4 },
-  { SOL, 4 }, { LA, 4 }, { RE, 4 }, { MI, 4 },
-  { DO, 4 }, { DIAM, 4 }, { DIAM, 4 }, { DIAM, 4 },
+  // | 1̂ 5 5 | 6 3 5 6 | 5 5 6 2 | 3 1 |
+  { DO_T, 8 }, { SOL, 4 }, { SOL, 4 },
+  { LA, 4 }, { MI, 4 }, { SOL, 4 }, { LA, 4 },
+  { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { RE, 4 },
+  { MI, 8 }, { DO, 8 },
+  { DO_T, 8 }, { SOL, 4 }, { SOL, 4 },
+  { LA, 4 }, { MI, 4 }, { SOL, 4 }, { LA, 4 },
+  { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { RE, 4 },
+  { MI, 8 }, { DO, 8 },
 
   // --- BAIT 2 (x2) ---
-  // | 1_ 5 5 6 | 5 6 5 6 1 2 3 | 2_ 3 2_ | 3 1 2 3 2_ 1 |
+  // | 1̂ 5 5 6 | 5 6 5 6 1 2 3 | 2̂ 3 2̂ | 3 1 2 3 2̂ 1 |
   { DO_T, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
-  { SOL, 4 }, { LA, 4 }, { SOL, 4 }, { LA, 4 },
-  { DO, 4 }, { RE, 4 }, { MI, 4 }, { RE, 4 },
-  { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 4 },
-  { MI, 4 }, { RE, 4 }, { DO, 4 }, { DIAM, 4 },
+  { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { LA, 2 }, { DO, 2 }, { RE, 2 }, { MI, 4 },
+  { RE, 8 }, { MI, 4 }, { RE, 4 },
+  { MI, 2 }, { DO, 2 }, { RE, 2 }, { MI, 2 }, { RE, 4 }, { DO, 4 },
   { DO_T, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
-  { SOL, 4 }, { LA, 4 }, { SOL, 4 }, { LA, 4 },
-  { DO, 4 }, { RE, 4 }, { MI, 4 }, { RE, 4 },
-  { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 4 },
-  { MI, 4 }, { RE, 4 }, { DO, 4 }, { DIAM, 4 },
+  { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { LA, 2 }, { DO, 2 }, { RE, 2 }, { MI, 4 },
+  { RE, 8 }, { MI, 4 }, { RE, 4 },
+  { MI, 2 }, { DO, 2 }, { RE, 2 }, { MI, 2 }, { RE, 4 }, { DO, 4 },
 
   // --- BAIT 3 (x2) ---
-  // | 5_ 5_ 5_ 6 | 5_ 5_ 6 2_ | 2_ 1 2_ 3 | 2_ 2_ 3 1 |
+  // | 5̂ 5̂ 5̂ 6 | 5̂ 5̂ 6 2̂ | 2̂ 1 2̂ 3 | 2̂ 2̂ 3 1 |
   { SOL, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
   { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { RE, 4 },
   { RE, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 },
