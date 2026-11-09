@@ -213,15 +213,45 @@ const Nada song_4[] PROGMEM = {
 };
 
 // --- 2. LAGU DAERAH ---
+// Yamko Rambe Yamko (Papua, 4/4, tempo 104) — transcribed bar-exact dari not angka Melodica FM.
+// Angga: Bait1 x2 (| 1_ 5 5 | 6 3 5 6 | 5 5 6 2 | 3 1 ×|), Bait2 x2 (| 1_ 5 5 6 | 5 6 5 6 1 2 3 | 2_ 3 2_ | 3 1 2 3 2_ 1 |),
+// Bait3 x2 (| 5_ 5_ 5_ 6 | 5_ 5_ 6 2_ | 2_ 1 2_ 3 | 2_ 2_ 3 1 |).
+// Nada tinggi (●) diklem ke rentang bilah alami 1-8: 1̂→DO_T, selain itu memakai derajat dasarnya.
 const Nada song_5[] PROGMEM = {
-  { DO, 4 }, { MI, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { SOL, 4 }, { MI, 4 }, { DIAM, 4 },
-  { SOL, 4 }, { LA, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 8 },
-  { DO, 4 }, { MI, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { SOL, 4 }, { MI, 4 }, { DIAM, 4 },
-  { SOL, 4 }, { MI, 4 }, { RE, 4 }, { MI, 4 }, { DO, 8 }, { DO, 4 }, { DIAM, 4 },
-  { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { DO_T, 4 }, { LA, 4 }, { SOL, 4 }, { MI, 4 }, { DIAM, 4 },
-  { SOL, 4 }, { LA, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 8 },
-  { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { DO_T, 4 }, { LA, 4 }, { SOL, 4 }, { MI, 4 }, { DIAM, 4 },
-  { SOL, 4 }, { MI, 4 }, { RE, 4 }, { MI, 4 }, { DO, 8 }, { DO, 4 }, { DIAM, 4 }
+  // --- BAIT 1 (x2) ---
+  // | 1_ 5 5 | 6 3 5 6 | 5 5 6 2 | 3 1 ×|
+  { DO_T, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
+  { MI, 4 }, { SOL, 4 }, { LA, 4 }, { SOL, 4 },
+  { SOL, 4 }, { LA, 4 }, { RE, 4 }, { MI, 4 },
+  { DO, 4 }, { DIAM, 4 }, { DIAM, 4 }, { DIAM, 4 },
+  { DO_T, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
+  { MI, 4 }, { SOL, 4 }, { LA, 4 }, { SOL, 4 },
+  { SOL, 4 }, { LA, 4 }, { RE, 4 }, { MI, 4 },
+  { DO, 4 }, { DIAM, 4 }, { DIAM, 4 }, { DIAM, 4 },
+
+  // --- BAIT 2 (x2) ---
+  // | 1_ 5 5 6 | 5 6 5 6 1 2 3 | 2_ 3 2_ | 3 1 2 3 2_ 1 |
+  { DO_T, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
+  { SOL, 4 }, { LA, 4 }, { SOL, 4 }, { LA, 4 },
+  { DO, 4 }, { RE, 4 }, { MI, 4 }, { RE, 4 },
+  { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 4 },
+  { MI, 4 }, { RE, 4 }, { DO, 4 }, { DIAM, 4 },
+  { DO_T, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
+  { SOL, 4 }, { LA, 4 }, { SOL, 4 }, { LA, 4 },
+  { DO, 4 }, { RE, 4 }, { MI, 4 }, { RE, 4 },
+  { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 4 },
+  { MI, 4 }, { RE, 4 }, { DO, 4 }, { DIAM, 4 },
+
+  // --- BAIT 3 (x2) ---
+  // | 5_ 5_ 5_ 6 | 5_ 5_ 6 2_ | 2_ 1 2_ 3 | 2_ 2_ 3 1 |
+  { SOL, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
+  { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { RE, 4 },
+  { RE, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 },
+  { RE, 4 }, { RE, 4 }, { MI, 4 }, { DO, 4 },
+  { SOL, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
+  { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { RE, 4 },
+  { RE, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 },
+  { RE, 4 }, { RE, 4 }, { MI, 4 }, { DO, 4 }
 };
 
 // Ampar-Ampar Pisang (Kalimantan Selatan, 4/4, Allegretto moderato tempo 105) — transcribed bar-exact dari partitur koor Bayu Nerviadi (Suara I).
@@ -513,7 +543,7 @@ const int defaultSongLengths[] = {
 
 const char* const defaultSongNames[] = {
   "Indonesia Raya", "Tanah Airku", "Bagimu Negeri", "Garuda Pancasila", "Ibu Kita Kartini",
-  "Bubuy Bulan", "Ampar-Ampar Pisang", "Gundul-Gundul Pacul", "Apuse", "Suwe Ora Jamu",
+  "Yamko Rambe Yamko", "Ampar-Ampar Pisang", "Gundul-Gundul Pacul", "Apuse", "Suwe Ora Jamu",
   "Tabuh Segata", "Sang Bumi Ruwa Jurai", "Tanoh Lado", "Gitar Tunggal Lampung", "Mulang Unyin",
   "Twinkle Twinkle Little Star", "Selamat Ulang Tahun", "Ode to Joy", "Do Re Mi", "Mary Had a Little Lamb"
 };

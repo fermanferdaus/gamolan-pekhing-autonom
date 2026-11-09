@@ -44,9 +44,9 @@ class DefaultSongs {
     // --- 2. LAGU DAERAH ---
     SongModel(
       id: 5,
-      name: 'Bubuy Bulan',
+      name: 'Yamko Rambe Yamko',
       tempo: 104,
-      len: 60,
+      len: 104,
       category: SongCategory.daerah,
     ),
     SongModel(
