@@ -213,9 +213,12 @@ const Nada song_4[] PROGMEM = {
 };
 
 // --- 2. LAGU DAERAH ---
-// Yamko Rambe Yamko (Papua, 4/4, tempo 104) — transcribed bar-exact dari not angka Melodica FM.
-// Rapikan: angka tunggal = not 1/4 (panjang 4), larikan cepat dibaca 1/8 (panjang 2), nada pembuka & akhir frasa dipanjangkan (8).
-// Nada tinggi (●) diklem ke rentang bilah alami 1-8: 1̂→DO_T, selain itu derajat dasarnya.
+// Yamko Rambe Yamko (Papua, 4/4, tempo 116) — transcribed bar-exact dari not angka Melodica FM.
+// Nada kanonik kartu Melodica FM:
+//   Bait 1: | 1̂ 5 5 | 6 3 5 6 | 5 5 6 2 | 3 1 | (2x)
+//   Bait 2: | 1̂ 5 5 6 | 5 6 5 6 1 2 3 | 2 3 2 | 3 1 2 3 2 1 | (2x)
+//   Bait 3: | 5 5 5 6 | 5 5 6 2 | 2 1 2 3 | 2 2 3 1 | (2x)
+// Rentang 8 nada Gamolan Pekhing: 1=DO, 2=RE, 3=MI, 5=SOL, 6=LA, 8=DO_T.
 const Nada song_5[] PROGMEM = {
   // --- BAIT 1 (x2) ---
   // | 1̂ 5 5 | 6 3 5 6 | 5 5 6 2 | 3 1 |
@@ -229,18 +232,18 @@ const Nada song_5[] PROGMEM = {
   { MI, 8 }, { DO, 8 },
 
   // --- BAIT 2 (x2) ---
-  // | 1̂ 5 5 6 | 5 6 5 6 1 2 3 | 2̂ 3 2̂ | 3 1 2 3 2̂ 1 |
+  // | 1̂ 5 5 6 | 5 6 5 6 1 2 3 | 2 3 2 | 3 1 2 3 2 1 |
   { DO_T, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
   { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { LA, 2 }, { DO, 2 }, { RE, 2 }, { MI, 4 },
-  { RE, 8 }, { MI, 4 }, { RE, 4 },
+  { RE, 4 }, { MI, 4 }, { RE, 8 },
   { MI, 2 }, { DO, 2 }, { RE, 2 }, { MI, 2 }, { RE, 4 }, { DO, 4 },
   { DO_T, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
   { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { LA, 2 }, { DO, 2 }, { RE, 2 }, { MI, 4 },
-  { RE, 8 }, { MI, 4 }, { RE, 4 },
+  { RE, 4 }, { MI, 4 }, { RE, 8 },
   { MI, 2 }, { DO, 2 }, { RE, 2 }, { MI, 2 }, { RE, 4 }, { DO, 4 },
 
   // --- BAIT 3 (x2) ---
-  // | 5̂ 5̂ 5̂ 6 | 5̂ 5̂ 6 2̂ | 2̂ 1 2̂ 3 | 2̂ 2̂ 3 1 |
+  // | 5 5 5 6 | 5 5 6 2 | 2 1 2 3 | 2 2 3 1 |
   { SOL, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
   { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { RE, 4 },
   { RE, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 },
@@ -248,7 +251,7 @@ const Nada song_5[] PROGMEM = {
   { SOL, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
   { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { RE, 4 },
   { RE, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 },
-  { RE, 4 }, { RE, 4 }, { MI, 4 }, { DO, 4 }
+  { RE, 4 }, { RE, 4 }, { MI, 4 }, { DO, 8 }
 };
 
 // Ampar-Ampar Pisang (Kalimantan Selatan, 4/4, Allegretto moderato tempo 105) — transcribed bar-exact dari partitur koor Bayu Nerviadi (Suara I).
@@ -554,7 +557,7 @@ const char* const defaultSongCats[] = {
 
 const int defaultSongTempos[] = {
   96, 80, 80, 100, 88,
-  104, 105, 112, 96, 104,
+  116, 105, 112, 96, 104,
   96, 100, 92, 88, 92,
   100, 100, 108, 108, 104
 };
