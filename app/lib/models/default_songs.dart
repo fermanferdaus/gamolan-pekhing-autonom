@@ -44,8 +44,8 @@ class DefaultSongs {
     // --- 2. LAGU DAERAH ---
     SongModel(
       id: 5,
-      name: 'Yamko Rambe Yamko',
-      tempo: 120,
+      name: 'Anak Kambing Saya',
+      tempo: 112,
       len: 100,
       category: SongCategory.daerah,
     ),

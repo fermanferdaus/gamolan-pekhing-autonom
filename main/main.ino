@@ -213,42 +213,49 @@ const Nada song_4[] PROGMEM = {
 };
 
 // --- 2. LAGU DAERAH ---
-// Yamko Rambe Yamko (Papua, 4/4, tempo 120) — transcribed bar-exact dari audio asli video Melodica FM.
-// Birama 4/4 = 16 unit per birama (1=1/16, 2=1/8, 4=1/4, 8=1/2).
-// Tiap akhir rima baris dipanjangkan (8) dan diimbangi ketukan pendek (2) agar ritme lagu pas & berayun alami.
+// Anak Kambing Saya (Nusa Tenggara Timur, 4/4 / 2/4, Allegro tempo 112) — transcribed bar-exact dari partitur kanonik.
+// Not angka: nada 5̣ (SOL rendah) dipetakan ke SOL (5), 6̣ (LA rendah) ke LA (6), 7̣ (SI rendah) ke SI (7).
+// Birama 4/4 = 16 unit per birama (1=1/16, 2=1/8, 4=1/4, 6=3/8, 8=1/2, 16=1 bar utuh).
 const Nada song_5[] PROGMEM = {
-  // --- BAIT 1 (x2) ---
-  // | 1̂ . 5 5 | 6_ 3_ 5 6 . | 5_ 5_ 6 2 . | 3 1 . 0 |
-  { DO_T, 8 }, { SOL, 4 }, { SOL, 4 },
-  { LA, 2 }, { MI, 2 }, { SOL, 4 }, { LA, 8 },
-  { SOL, 2 }, { SOL, 2 }, { LA, 4 }, { RE, 8 },
-  { MI, 4 }, { DO, 8 }, { DIAM, 4 },
-  { DO_T, 8 }, { SOL, 4 }, { SOL, 4 },
-  { LA, 2 }, { MI, 2 }, { SOL, 4 }, { LA, 8 },
-  { SOL, 2 }, { SOL, 2 }, { LA, 4 }, { RE, 8 },
-  { MI, 4 }, { DO, 8 }, { DIAM, 4 },
+  // --- BAIT 1 ---
+  // Birama 1: "Ma-na di-ma-na an-" (| 1_ 1_ 1_ 1_ 1 ._ 7̣_ |)
+  { DO, 2 }, { DO, 2 }, { DO, 2 }, { DO, 2 }, { DO, 6 }, { SI, 2 },
+  // Birama 2: "-ak kam-bing sa-ya a-" (| 6̣_ 1_ 7̣_ 6̣_ 5̣ ._ 5̣_ |)
+  { LA, 2 }, { DO, 2 }, { SI, 2 }, { LA, 2 }, { SOL, 6 }, { SOL, 2 },
+  // Birama 3: "-nak kam-bing tu-an a-da" (| 2_ 2_ 2_ 2_ 2 1_ 2_ |)
+  { RE, 2 }, { RE, 2 }, { RE, 2 }, { RE, 2 }, { RE, 4 }, { DO, 2 }, { RE, 2 },
+  // Birama 4: "di po-hon wa-ru" (| 3_ 4_ 3_ 2_ 1 . |)
+  { MI, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { DO, 8 },
 
-  // --- BAIT 2 (x2) ---
-  // | 1̂ 5 5 6 | 5_ 6_ 5_ 6_ 1_ 2_ 3 | 2 3 2 . | 3_ 1_ 2_ 3_ 2 1 |
-  { DO_T, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
-  { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { LA, 2 }, { DO, 2 }, { RE, 2 }, { MI, 4 },
-  { RE, 4 }, { MI, 4 }, { RE, 8 },
-  { MI, 2 }, { DO, 2 }, { RE, 2 }, { MI, 2 }, { RE, 4 }, { DO, 4 },
-  { DO_T, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 },
-  { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { LA, 2 }, { DO, 2 }, { RE, 2 }, { MI, 4 },
-  { RE, 4 }, { MI, 4 }, { RE, 8 },
-  { MI, 2 }, { DO, 2 }, { RE, 2 }, { MI, 2 }, { RE, 4 }, { DO, 4 },
+  // --- BAIT 2 ---
+  // Birama 5: "Ma-na di-ma-na jan-" (| 1_ 1_ 1_ 1_ 1 ._ 7̣_ |)
+  { DO, 2 }, { DO, 2 }, { DO, 2 }, { DO, 2 }, { DO, 6 }, { SI, 2 },
+  // Birama 6: "-tung ha-ti sa-ya jan-" (| 6̣_ 1_ 7̣_ 6̣_ 5̣ ._ 5̣_ |)
+  { LA, 2 }, { DO, 2 }, { SI, 2 }, { LA, 2 }, { SOL, 6 }, { SOL, 2 },
+  // Birama 7: "-tung ha-ti tu-an a-da" (| 2_ 2_ 2_ 2_ 2 1_ 2_ |)
+  { RE, 2 }, { RE, 2 }, { RE, 2 }, { RE, 2 }, { RE, 4 }, { DO, 2 }, { RE, 2 },
+  // Birama 8: "di kam-pung ba-ru" (| 3_ 4_ 3_ 2_ 1 . |)
+  { MI, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { DO, 8 },
 
-  // --- BAIT 3 (x2) ---
-  // | 5_ 5_ 5 6 . | 5_ 5_ 6 2 . | 2_ 1_ 2 3 . | 2_ 2_ 3 1 . |
-  { SOL, 2 }, { SOL, 2 }, { SOL, 4 }, { LA, 8 },
-  { SOL, 2 }, { SOL, 2 }, { LA, 4 }, { RE, 8 },
-  { RE, 2 }, { DO, 2 }, { RE, 4 }, { MI, 8 },
-  { RE, 2 }, { RE, 2 }, { MI, 4 }, { DO, 8 },
-  { SOL, 2 }, { SOL, 2 }, { SOL, 4 }, { LA, 8 },
-  { SOL, 2 }, { SOL, 2 }, { LA, 4 }, { RE, 8 },
-  { RE, 2 }, { DO, 2 }, { RE, 4 }, { MI, 8 },
-  { RE, 2 }, { RE, 2 }, { MI, 4 }, { DO, 8 }
+  // --- REFF / CHORUS 1 ---
+  // Birama 9: "Ca-ca ma-ri-ca he-hei" (| 4_ 4_ 4_ 4_ 4_ 6_ 6 |)
+  { FA, 2 }, { FA, 2 }, { FA, 2 }, { FA, 2 }, { FA, 2 }, { LA, 2 }, { LA, 4 },
+  // Birama 10: "Ca-ca ma-ri-ca he-hei" (| 3_ 3_ 3_ 3_ 3_ 5_ 5 |)
+  { MI, 2 }, { MI, 2 }, { MI, 2 }, { MI, 2 }, { MI, 2 }, { SOL, 2 }, { SOL, 4 },
+  // Birama 11: "Ca-ca ma-ri-ca a-da" (| 2_ 2_ 2_ 2_ 2 1_ 2_ |)
+  { RE, 2 }, { RE, 2 }, { RE, 2 }, { RE, 2 }, { RE, 4 }, { DO, 2 }, { RE, 2 },
+  // Birama 12: "di kam-pung ba-ru" (| 3_ 4_ 3_ 2_ 1 . |)
+  { MI, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { DO, 8 },
+
+  // --- REFF / CHORUS 2 ---
+  // Birama 13: "Ca-ca ma-ri-ca he-hei" (| 4_ 4_ 4_ 4_ 4_ 6_ 6 |)
+  { FA, 2 }, { FA, 2 }, { FA, 2 }, { FA, 2 }, { FA, 2 }, { LA, 2 }, { LA, 4 },
+  // Birama 14: "Ca-ca ma-ri-ca he-hei" (| 3_ 3_ 3_ 3_ 3_ 5_ 5 |)
+  { MI, 2 }, { MI, 2 }, { MI, 2 }, { MI, 2 }, { MI, 2 }, { SOL, 2 }, { SOL, 4 },
+  // Birama 15: "Ca-ca ma-ri-ca a-da" (| 2_ 2_ 2_ 2_ 2 1_ 2_ |)
+  { RE, 2 }, { RE, 2 }, { RE, 2 }, { RE, 2 }, { RE, 4 }, { DO, 2 }, { RE, 2 },
+  // Birama 16: "di kam-pung ba-ru" (| 3_ 4_ 3_ 2_ 1 . |)
+  { MI, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { DO, 8 }
 };
 
 // Ampar-Ampar Pisang (Kalimantan Selatan, 4/4, Allegretto moderato tempo 105) — transcribed bar-exact dari partitur koor Bayu Nerviadi (Suara I).
@@ -540,7 +547,7 @@ const int defaultSongLengths[] = {
 
 const char* const defaultSongNames[] = {
   "Indonesia Raya", "Tanah Airku", "Bagimu Negeri", "Garuda Pancasila", "Ibu Kita Kartini",
-  "Yamko Rambe Yamko", "Ampar-Ampar Pisang", "Gundul-Gundul Pacul", "Apuse", "Suwe Ora Jamu",
+  "Anak Kambing Saya", "Ampar-Ampar Pisang", "Gundul-Gundul Pacul", "Apuse", "Suwe Ora Jamu",
   "Tabuh Segata", "Sang Bumi Ruwa Jurai", "Tanoh Lado", "Gitar Tunggal Lampung", "Mulang Unyin",
   "Twinkle Twinkle Little Star", "Selamat Ulang Tahun", "Ode to Joy", "Do Re Mi", "Mary Had a Little Lamb"
 };
@@ -554,7 +561,7 @@ const char* const defaultSongCats[] = {
 
 const int defaultSongTempos[] = {
   96, 80, 80, 100, 88,
-  120, 105, 112, 96, 104,
+  112, 105, 112, 96, 104,
   96, 100, 92, 88, 92,
   100, 100, 108, 108, 104
 };
