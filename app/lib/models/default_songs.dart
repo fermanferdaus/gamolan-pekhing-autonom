@@ -133,8 +133,8 @@ class DefaultSongs {
     SongModel(
       id: 17,
       name: 'Pelangi-Pelangi',
-      tempo: 80,
-      len: 56,
+      tempo: 76,
+      len: 47,
       category: SongCategory.lainnya,
     ),
     SongModel(

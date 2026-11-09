@@ -61,7 +61,7 @@ void main() {
       7: ('Gundul-Gundul Pacul', 112, 56),
       8: ('Apuse', 96, 53),
       9: ('Suwe Ora Jamu', 104, 54),
-      17: ('Pelangi-Pelangi', 80, 56),
+      17: ('Pelangi-Pelangi', 76, 47),
       18: ('Balonku Ada Lima', 68, 58),
       19: ('Naik Delman', 92, 117),
     };
