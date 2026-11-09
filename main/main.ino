@@ -485,49 +485,44 @@ const Nada song_16[] PROGMEM = {
   { LA, 2 }, { LA, 2 }, { SOL, 4 }, { MI, 4 }, { FA, 4 }, { MI, 8 }
 };
 
-// Pelangi-Pelangi (A.T. Mahmud, 2/4, tempo 76) — transcribed bar-exact dari partitur kanonik.
-// Not angka: 5 3 3 | 3 3 3 | 3 2 1 | 1 2 2 . (rentang nada 1 s.d. 5).
-// Birama 2/4 = 8 unit per birama (2=1/8, 4=1/4, 6=3/8, 8=1/2). Total 16 birama (47 not).
+// Pelangi-Pelangi (A.T. Mahmud, 2/4, Tempo Sedang 80 BPM) — transcribed bar-exact dari partitur kanonik.
+// Not angka: |. 0 5 | 3_ 3_ 3_ 3_ | 3 ._ 3_ | 2_ 1_ 7_ 1_ | 2 0_ 5_ | ... (rentang nada 1 s.d. 5).
+// Birama 2/4 = 8 unit per birama (2=1/8, 4=1/4, 6=3/8, 8=1/2). Total 17 birama (49 not).
 const Nada song_17[] PROGMEM = {
-  // --- FRASA 1: Pelangi-pelangi, alangkah indahmu ---
-  // Bar 1: "Pe-lan-gi" (| 5_ 3_ 3 |)
-  { SOL, 2 }, { MI, 2 }, { MI, 4 },
-  // Bar 2: "pe-lan-gi" (| 3_ 3_ 3 |)
-  { MI, 2 }, { MI, 2 }, { MI, 4 },
-  // Bar 3: "a-lang-kah" (| 3_ 2_ 1 |)
-  { MI, 2 }, { RE, 2 }, { DO, 4 },
-  // Bar 4: "in-dah-mu" (| 1_ 2_ 2 . |)
-  { DO, 2 }, { RE, 2 }, { RE, 4 },
-
-  // --- FRASA 2: Merah, kuning, hijau, di langit yang biru ---
-  // Bar 5: "Me-rah ku-" (| 5_ 4_ 4 |)
-  { SOL, 2 }, { FA, 2 }, { FA, 4 },
-  // Bar 6: "ning hi-jau" (| 4_ 3_ 2 |)
-  { FA, 2 }, { MI, 2 }, { RE, 4 },
-  // Bar 7: "di la-ngit" (| 4_ 3_ 2 |)
-  { FA, 2 }, { MI, 2 }, { RE, 4 },
-  // Bar 8: "yang bi-ru" (| 1_ 2_ 3 . |)
-  { DO, 2 }, { RE, 2 }, { MI, 4 },
-
-  // --- FRASA 3: Pelukismu agung, siapa gerangan ---
-  // Bar 9: "Pe-lu-kis-mu" (| 3_ 5_ 5_ 5_ |)
-  { MI, 2 }, { SOL, 2 }, { SOL, 2 }, { SOL, 2 },
-  // Bar 10: "a-gung" (| 3_ 4_ 4 |)
-  { MI, 2 }, { FA, 2 }, { FA, 4 },
-  // Bar 11: "sia-pa ge-ran-" (| 3_ 3_ 3_ 1_ |)
+  // Bar 1: Intro / "Pe-" (| . 0 5 |)
+  { DIAM, 6 }, { SOL, 2 },
+  // Bar 2: "la-ngi pe-la-" (| 3_ 3_ 3_ 3_ |)
+  { MI, 2 }, { MI, 2 }, { MI, 2 }, { MI, 2 },
+  // Bar 3: "-ngi a-" (| 3 ._ 3_ |)
+  { MI, 6 }, { MI, 2 },
+  // Bar 4: "lang-kah in-dah" (| 2_ 1_ 7_ 1_ | -> 7 disesuaikan ke DO)
+  { RE, 2 }, { DO, 2 }, { DO, 2 }, { DO, 2 },
+  // Bar 5: "-mu Me-" (| 2 0_ 5_ |)
+  { RE, 4 }, { DIAM, 2 }, { SOL, 2 },
+  // Bar 6: "rah ku-ning hi-" (| 4_ 4_ 4_ 3_ |)
+  { FA, 2 }, { FA, 2 }, { FA, 2 }, { MI, 2 },
+  // Bar 7: "-jau Di" (| 2 ._ 4_ |)
+  { RE, 6 }, { FA, 2 },
+  // Bar 8: "la-ngit yang bi-" (| 3_ 2_ 1_ 2_ |)
+  { MI, 2 }, { RE, 2 }, { DO, 2 }, { RE, 2 },
+  // Bar 9: "-ru Pe-" (| 3 ._ 3_ |)
+  { MI, 6 }, { MI, 2 },
+  // Bar 10: "lu-kis-mu a-" (| 5_ 5_ 5_ 3_ |)
+  { SOL, 2 }, { SOL, 2 }, { SOL, 2 }, { MI, 2 },
+  // Bar 11: "-gung Si-" (| 4 ._ 4_ |)
+  { FA, 6 }, { FA, 2 },
+  // Bar 12: "a-pa ge-ran-" (| 3_ 3_ 3_ 1_ |)
   { MI, 2 }, { MI, 2 }, { MI, 2 }, { DO, 2 },
-  // Bar 12: "-gan" (| 2 . |)
-  { RE, 8 },
-
-  // --- FRASA 4: Pelangi, pelangi, ciptaan Tuhan ---
-  // Bar 13: "Pe-lan-gi" (| 5_ 1_ 3 |)
-  { SOL, 2 }, { DO, 2 }, { MI, 4 },
-  // Bar 14: "pe-lan-gi" (| 3_ 2_ 4 |)
-  { MI, 2 }, { RE, 2 }, { FA, 4 },
-  // Bar 15: "cip-ta-an" (| 3_ 3_ 2 |)
-  { MI, 2 }, { MI, 2 }, { RE, 4 },
-  // Bar 16: "Tu-han" (| 2_ 1_ 1 . |)
-  { RE, 2 }, { DO, 6 }
+  // Bar 13: "-gan Pe-" (| 2 ._ 5_ |)
+  { RE, 6 }, { SOL, 2 },
+  // Bar 14: "la-ngi pe-" (| 1 3_ 3_ |)
+  { DO, 4 }, { MI, 2 }, { MI, 2 },
+  // Bar 15: "la-ngi" (| 2 4 |)
+  { RE, 4 }, { FA, 4 },
+  // Bar 16: "cip-ta-an Tu-" (| 3_ 3_ 2_ 2_ |)
+  { MI, 2 }, { MI, 2 }, { RE, 2 }, { RE, 2 },
+  // Bar 17: "-han" (| 1 . |)
+  { DO, 8 }
 };
 
 // Balonku Ada Lima (A.T. Mahmud / Pak Kasur, 4/4 / 2/4, tempo 68) — transcribed bar-exact dari partitur kanonik.
@@ -647,7 +642,7 @@ const int defaultSongTempos[] = {
   96, 80, 80, 100, 88,
   112, 140, 112, 96, 104,
   96, 100, 92, 88, 92,
-  100, 100, 76, 68, 92
+  100, 100, 80, 68, 92
 };
 
 const int NUM_DEFAULT_SONGS = 20;
