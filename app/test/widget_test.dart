@@ -188,4 +188,50 @@ void main() {
     expect(tester.takeException(), isNull);
     GamolanService.resetForTest();
   });
+
+  test('GamolanService starts with empty songs when disconnected', () {
+    GamolanService.resetForTest();
+    expect(GamolanService().songs, isEmpty);
+    expect(GamolanService().isConnected, false);
+  });
+
+  test('GamolanService populates songs from ESP32 list message and clears on disconnect', () {
+    GamolanService.resetForTest();
+    final service = GamolanService();
+    expect(service.songs, isEmpty);
+
+    // Simulate ESP32 sending song list from flash
+    service.handleMessageForTest(
+      '{"t":"list","songs":['
+      '{"id":0,"name":"Indonesia Raya","cat":"nasional","tempo":96,"len":45},'
+      '{"id":17,"name":"Pelangi-Pelangi","cat":"lainnya","tempo":80,"len":49}'
+      ']}'
+    );
+    expect(service.songs.length, 2);
+    expect(service.songs[0].name, 'Indonesia Raya');
+    expect(service.songs[1].name, 'Pelangi-Pelangi');
+
+    // Simulate disconnect
+    service.disconnect();
+    expect(service.songs, isEmpty);
+    expect(service.isConnected, false);
+    GamolanService.resetForTest();
+  });
+
+  testWidgets('PlaylistScreen displays disconnected message when offline',
+      (tester) async {
+    GamolanService.resetForTest();
+    await tester.pumpWidget(const GamolanApp());
+    await tester.pump();
+
+    expect(find.text('Belum Terhubung ke Gamolan'), findsOneWidget);
+    expect(
+      find.text(
+          'Lagu tersimpan di memori flash ESP32.\nSambungkan aplikasi ke alat untuk memuat daftar lagu.'),
+      findsOneWidget,
+    );
+    expect(find.text('Sambungkan ke Gamolan'), findsOneWidget);
+
+    GamolanService.resetForTest();
+  });
 }

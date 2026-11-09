@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import '../models/song_model.dart';
-import '../models/default_songs.dart';
 
 enum ConnectionStatus { disconnected, connecting, connected }
 
@@ -13,7 +12,7 @@ class GamolanService extends ChangeNotifier {
   static GamolanService _instance = GamolanService._internal();
   factory GamolanService() => _instance;
   GamolanService._internal({bool startTimer = true}) {
-    _songs = List.from(DefaultSongs.list);
+    _songs = [];
     final isTesting = Platform.environment.containsKey('FLUTTER_TEST');
     if (startTimer && !isTesting) _startAutoProbeTimer();
   }
@@ -25,6 +24,15 @@ class GamolanService extends ChangeNotifier {
     _instance._channel?.sink.close();
     _instance = GamolanService._internal(startTimer: false);
   }
+
+  @visibleForTesting
+  void setSongsForTest(List<SongModel> songs) {
+    _songs = List.from(songs);
+    notifyListeners();
+  }
+
+  @visibleForTesting
+  void handleMessageForTest(String raw) => _handleMessage(raw);
 
   static const String serverHost = '192.168.4.1';
   static const int serverPort = 81;
@@ -204,6 +212,7 @@ class GamolanService extends ChangeNotifier {
     _status = ConnectionStatus.disconnected;
     _isPlaying = false;
     _activeNada = 0;
+    _songs = [];
     _subscription?.cancel();
     _subscription = null;
     _channel = null;
@@ -226,11 +235,9 @@ class GamolanService extends ChangeNotifier {
 
       if (type == 'list') {
         final list = map['songs'] as List<dynamic>? ?? [];
-        if (list.isNotEmpty) {
-          _songs = list
-              .map((e) => SongModel.fromJson(e as Map<String, dynamic>))
-              .toList();
-        }
+        _songs = list
+            .map((e) => SongModel.fromJson(e as Map<String, dynamic>))
+            .toList();
         notifyListeners();
       } else if (type == 'state') {
         final state = map['state'] as String?;

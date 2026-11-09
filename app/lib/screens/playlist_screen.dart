@@ -804,6 +804,67 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   }
 
   Widget _buildTabContent() {
+    if (!_service.isConnected) {
+      return Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: LampungTheme.blue50,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: LampungTheme.accentBlueLight),
+                ),
+                child: SvgPicture.asset(
+                  'assets/images/gamolan_logo.svg',
+                  height: 64,
+                  width: 64,
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Belum Terhubung ke Gamolan',
+                style: TextStyle(
+                  color: LampungTheme.slate800,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Lagu tersimpan di memori flash ESP32.\nSambungkan aplikasi ke alat untuk memuat daftar lagu.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: LampungTheme.slate500,
+                  fontSize: 13,
+                  height: 1.4,
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton.icon(
+                onPressed: _showWifiConnectModal,
+                icon: const Icon(Icons.wifi, size: 18),
+                label: const Text('Sambungkan ke Gamolan'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: LampungTheme.primaryBlue,
+                  foregroundColor: Colors.white,
+                  elevation: 0,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return TabBarView(
       controller: _tabController,
       children: _categories.map((cat) {
