@@ -485,33 +485,97 @@ const Nada song_16[] PROGMEM = {
   { LA, 2 }, { LA, 2 }, { SOL, 4 }, { MI, 4 }, { FA, 4 }, { MI, 8 }
 };
 
+// Pelangi-Pelangi (A.T. Mahmud, 4/4 / 2/4, Moderato tempo 108) — transcribed bar-exact dari partitur kanonik.
+// Not angka: rentang nada 1 (DO) s.d. 5 (SOL), tanpa nada rendah/tinggi yang keluar dari 8 bilah.
+// Birama 4/4 = 16 unit per birama (2=1/8, 4=1/4, 8=1/2, 14=pickup rest, 16=1 bar utuh).
 const Nada song_17[] PROGMEM = {
-  { MI, 4 }, { MI, 4 }, { FA, 4 }, { SOL, 4 }, { SOL, 4 }, { FA, 4 }, { MI, 4 }, { RE, 4 },
-  { DO, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 }, { MI, 6 }, { RE, 2 }, { RE, 8 },
-  { MI, 4 }, { MI, 4 }, { FA, 4 }, { SOL, 4 }, { SOL, 4 }, { FA, 4 }, { MI, 4 }, { RE, 4 },
-  { DO, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 }, { RE, 6 }, { DO, 2 }, { DO, 8 },
-  { RE, 4 }, { RE, 4 }, { MI, 4 }, { DO, 4 }, { RE, 4 }, { MI, 2 }, { FA, 2 }, { MI, 4 }, { DO, 4 },
-  { RE, 4 }, { MI, 2 }, { FA, 2 }, { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 4 }, { SOL, 4 }, { DIAM, 4 },
-  { MI, 4 }, { MI, 4 }, { FA, 4 }, { SOL, 4 }, { SOL, 4 }, { FA, 4 }, { MI, 4 }, { RE, 4 },
-  { DO, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 }, { RE, 6 }, { DO, 2 }, { DO, 8 }
+  // Bar 1: Intro / pickup "Pe-" (| 0 0 0 _5 |)
+  { DIAM, 14 }, { SOL, 2 },
+  // Bar 2: "la-ngi pe-la-ngi, a-" (| 3_ 3_ 3_ 2_ 1 _0 2_ |)
+  { MI, 2 }, { MI, 2 }, { MI, 2 }, { RE, 2 }, { DO, 4 }, { DIAM, 2 }, { RE, 2 },
+  // Bar 3: "-lang-kah in-dah-mu, me-" (| 3_ 4_ 3_ 2_ 2 _0 5_ |)
+  { MI, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { RE, 4 }, { DIAM, 2 }, { SOL, 2 },
+  // Bar 4: "-rah ku-ning hi-jau, di" (| 4_ 4_ 4_ 3_ 2 _0 3_ |)
+  { FA, 2 }, { FA, 2 }, { FA, 2 }, { MI, 2 }, { RE, 4 }, { DIAM, 2 }, { MI, 2 },
+  // Bar 5: "la-ngit yang bi-ru, pe-" (| 4_ 5_ 4_ 3_ 3 _0 5_ |)
+  { FA, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { MI, 4 }, { DIAM, 2 }, { SOL, 2 },
+  // Bar 6: "-lu-kis-mu a-gung, sia-" (| 3_ 3_ 3_ 2_ 1 _0 2_ |)
+  { MI, 2 }, { MI, 2 }, { MI, 2 }, { RE, 2 }, { DO, 4 }, { DIAM, 2 }, { RE, 2 },
+  // Bar 7: "-pa ge-ran-gan, pe-" (| 3_ 4_ 3_ 2_ 2 _0 5_ |)
+  { MI, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { RE, 4 }, { DIAM, 2 }, { SOL, 2 },
+  // Bar 8: "-la-ngi pe-la-ngi, cip-" (| 4_ 4_ 4_ 3_ 2 _0 2_ |)
+  { FA, 2 }, { FA, 2 }, { FA, 2 }, { MI, 2 }, { RE, 4 }, { DIAM, 2 }, { RE, 2 },
+  // Bar 9: "-ta-an Tu-han" (| 1_ 3_ 2_ 2_ 1 . ||)
+  { DO, 2 }, { MI, 2 }, { RE, 2 }, { RE, 2 }, { DO, 8 }
 };
 
+// Balonku Ada Lima (A.T. Mahmud / Pak Kasur, 4/4 / 2/4, tempo 104) — transcribed bar-exact dari partitur kanonik.
+// Not angka: rentang nada 1 (DO) s.d. 8 (DO_T), mencakup 7 (SI) & 8 (DO_T) saat "DOR" dan "kelabu/tinggal empat".
+// Birama 4/4 = 16 unit per birama (2=1/8, 4=1/4, 6=3/8, 10=5/8, 16=1 bar utuh).
 const Nada song_18[] PROGMEM = {
-  { DO, 4 }, { RE, 4 }, { MI, 4 }, { DO, 4 }, { MI, 4 }, { DO, 4 }, { MI, 8 },
-  { RE, 4 }, { MI, 4 }, { FA, 4 }, { FA, 4 }, { MI, 4 }, { RE, 4 }, { FA, 8 },
-  { MI, 4 }, { FA, 4 }, { SOL, 4 }, { MI, 4 }, { SOL, 4 }, { MI, 4 }, { SOL, 8 },
-  { FA, 4 }, { SOL, 4 }, { LA, 4 }, { LA, 4 }, { SOL, 4 }, { FA, 4 }, { LA, 8 },
-  { SOL, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 }, { FA, 4 }, { SOL, 4 }, { LA, 8 },
-  { LA, 4 }, { RE, 4 }, { MI, 4 }, { FA, 4 }, { SOL, 4 }, { LA, 4 }, { SI, 8 },
-  { SI, 4 }, { MI, 4 }, { FA, 4 }, { SOL, 4 }, { LA, 4 }, { SI, 4 }, { DO_T, 8 },
-  { DO_T, 4 }, { SI, 4 }, { LA, 4 }, { SOL, 4 }, { FA, 4 }, { MI, 4 }, { RE, 4 }, { DO, 4 }
+  // Bar 1: "Ba-lon-ku a-da li-ma" (| 3_ 4_ 5_ 1'_ | 5_ 3_ 5 . |)
+  { MI, 2 }, { FA, 2 }, { SOL, 2 }, { DO_T, 2 }, { SOL, 2 }, { MI, 2 }, { SOL, 4 },
+  // Bar 2: "Ru-pa-ru-pa war-na-nya" (| 2_ 3_ 4_ 2_ | 5_ 4_ 3 . |)
+  { RE, 2 }, { MI, 2 }, { FA, 2 }, { RE, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 4 },
+  // Bar 3: "Hi-jau ku-ning ke-la-bu" (| 1_ 1_ 6_ 6_ | 7_ 1'_ 5 . |)
+  { DO, 2 }, { DO, 2 }, { LA, 2 }, { LA, 2 }, { SI, 2 }, { DO_T, 2 }, { SOL, 4 },
+  // Bar 4: "Me-rah mu-da dan bi-ru" (| 3_ 4_ 5_ 4_ | 3_ 2_ 1 . |)
+  { MI, 2 }, { FA, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { DO, 4 },
+  // Bar 5: "Me-le-tus ba-lon hi-jau" (| 3_ 4_ 5_ 1'_ | 5_ 3_ 5 . |)
+  { MI, 2 }, { FA, 2 }, { SOL, 2 }, { DO_T, 2 }, { SOL, 2 }, { MI, 2 }, { SOL, 4 },
+  // Bar 6: "DOR!" (| 1' . 0 . |)
+  { DO_T, 6 }, { DIAM, 10 },
+  // Bar 7: "Ha-ti-ku sa-ngat ka-cau" (| 2_ 3_ 4_ 2_ | 5_ 4_ 3 . |)
+  { RE, 2 }, { MI, 2 }, { FA, 2 }, { RE, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 4 },
+  // Bar 8: "Ba-lon-ku ting-gal em-pat" (| 1_ 1_ 6_ 6_ | 7_ 1'_ 5 . |)
+  { DO, 2 }, { DO, 2 }, { LA, 2 }, { LA, 2 }, { SI, 2 }, { DO_T, 2 }, { SOL, 4 },
+  // Bar 9: "Ku-pe-gang e-rat-e-rat" (| 3_ 4_ 5_ 4_ | 3_ 2_ 1 . |)
+  { MI, 2 }, { FA, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { DO, 4 }
 };
 
+// Naik Delman (Ibu Sud / Pak Kasur, 4/4 / 2/4, Allegro tempo 120) — transcribed bar-exact dari partitur kanonik.
+// Not angka: rentang nada 1 (DO) s.d. 6 (LA), sangat ritmis dan cocok untuk solenoid gamolan pada reff "Tuk-tik-tak".
+// Birama 4/4 = 16 unit per birama (2=1/8, 4=1/4, 8=1/2, 12=3/4, 16=1 bar utuh).
 const Nada song_19[] PROGMEM = {
-  { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 }, { MI, 4 }, { MI, 8 },
-  { RE, 4 }, { RE, 4 }, { RE, 8 }, { MI, 4 }, { SOL, 4 }, { SOL, 8 },
-  { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 }, { MI, 4 }, { MI, 4 }, { MI, 4 },
-  { RE, 4 }, { RE, 4 }, { MI, 4 }, { RE, 4 }, { DO, 8 }, { DO, 4 }, { DIAM, 4 }
+  // --- BAIT ---
+  // Bar 1: Intro / pickup "Pa-da" (| 0 0 0 5_ 5_ |)
+  { DIAM, 12 }, { SOL, 2 }, { SOL, 2 },
+  // Bar 2: "ha-ri Ming-gu ku tu-rut a-yah ke ko-ta" (| 1_ 1_ 1_ 3_ 5_ 5_ 5_ 3_ |)
+  { DO, 2 }, { DO, 2 }, { DO, 2 }, { MI, 2 }, { SOL, 2 }, { SOL, 2 }, { SOL, 2 }, { MI, 2 },
+  // Bar 3: "Na-ik del-man is-ti-me-wa ku du-duk di mu-ka" (| 6_ 6_ 6_ 3_ 5 . 0 5_ |)
+  { LA, 2 }, { LA, 2 }, { LA, 2 }, { MI, 2 }, { SOL, 4 }, { DIAM, 2 }, { SOL, 2 },
+  // Bar 4: "Na-ik del-man is-ti-me-wa ku du-duk di mu-ka" (| 1_ 1_ 1_ 3_ 5_ 5_ 5_ 3_ |)
+  { DO, 2 }, { DO, 2 }, { DO, 2 }, { MI, 2 }, { SOL, 2 }, { SOL, 2 }, { SOL, 2 }, { MI, 2 },
+  // Bar 5: "ku du-duk di mu-ka" (| 6_ 6_ 3_ 4_ 2 . 0 5_ |)
+  { LA, 2 }, { LA, 2 }, { MI, 2 }, { FA, 2 }, { RE, 4 }, { DIAM, 2 }, { SOL, 2 },
+  // Bar 6: "Ku du-duk sam-ping pak ku-sir yang se-dang be-ker-ja" (| 2_ 2_ 2_ 3_ 4_ 4_ 4_ 2_ |)
+  { RE, 2 }, { RE, 2 }, { RE, 2 }, { MI, 2 }, { FA, 2 }, { FA, 2 }, { FA, 2 }, { RE, 2 },
+  // Bar 7: "yang se-dang be-ker-ja" (| 5_ 5_ 4_ 3_ 2 . 0 5_ |)
+  { SOL, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { RE, 4 }, { DIAM, 2 }, { SOL, 2 },
+  // Bar 8: "Me-ngen-da-ra-i ku-da su-pa-ya ba-ik ja-lan-nya" (| 2_ 2_ 2_ 3_ 4_ 4_ 4_ 2_ |)
+  { RE, 2 }, { RE, 2 }, { RE, 2 }, { MI, 2 }, { FA, 2 }, { FA, 2 }, { FA, 2 }, { RE, 2 },
+  // Bar 9: "su-pa-ya ba-ik ja-lan-nya" (| 5_ 4_ 3_ 2_ 1 . 0 0 |)
+  { SOL, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { DO, 4 }, { DIAM, 4 },
+
+  // --- CHORUS 1 ---
+  // Bar 10: "Tuk-tik-tak-tik-tuk tik-tak-tik-tuk" (| 1_ 3_ 5_ 3_ 1_ 3_ 5_ 3_ |)
+  { DO, 2 }, { MI, 2 }, { SOL, 2 }, { MI, 2 }, { DO, 2 }, { MI, 2 }, { SOL, 2 }, { MI, 2 },
+  // Bar 11: "tik-tak-tik-tuk" (| 1_ 3_ 5_ 3_ 2 . 0 0 |)
+  { DO, 2 }, { MI, 2 }, { SOL, 2 }, { MI, 2 }, { RE, 4 }, { DIAM, 4 },
+  // Bar 12: "Tuk-tik-tak-tik-tuk tik-tak" (| 2_ 4_ 6_ 4_ 2_ 4_ 6_ 4_ |)
+  { RE, 2 }, { FA, 2 }, { LA, 2 }, { FA, 2 }, { RE, 2 }, { FA, 2 }, { LA, 2 }, { FA, 2 },
+  // Bar 13: "sua-ra se-pa-tu ku-da" (| 2_ 4_ 3_ 2_ 1 . 0 0 |)
+  { RE, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { DO, 4 }, { DIAM, 4 },
+
+  // --- CHORUS 2 ---
+  // Bar 14: "Tuk-tik-tak-tik-tuk tik-tak-tik-tuk" (| 1_ 3_ 5_ 3_ 1_ 3_ 5_ 3_ |)
+  { DO, 2 }, { MI, 2 }, { SOL, 2 }, { MI, 2 }, { DO, 2 }, { MI, 2 }, { SOL, 2 }, { MI, 2 },
+  // Bar 15: "tik-tak-tik-tuk" (| 1_ 3_ 5_ 3_ 2 . 0 0 |)
+  { DO, 2 }, { MI, 2 }, { SOL, 2 }, { MI, 2 }, { RE, 4 }, { DIAM, 4 },
+  // Bar 16: "Tuk-tik-tak-tik-tuk tik-tak" (| 2_ 4_ 6_ 4_ 2_ 4_ 6_ 4_ |)
+  { RE, 2 }, { FA, 2 }, { LA, 2 }, { FA, 2 }, { RE, 2 }, { FA, 2 }, { LA, 2 }, { FA, 2 },
+  // Bar 17: "sua-ra se-pa-tu ku-da" (| 2_ 4_ 3_ 2_ 1 . . 0 |)
+  { RE, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { DO, 8 }
 };
 
 const Nada* const defaultSongNotes[] = {
@@ -548,7 +612,7 @@ const char* const defaultSongNames[] = {
   "Indonesia Raya", "Tanah Airku", "Bagimu Negeri", "Garuda Pancasila", "Ibu Kita Kartini",
   "Anak Kambing Saya", "Cublak-Cublak Suweng", "Gundul-Gundul Pacul", "Apuse", "Suwe Ora Jamu",
   "Tabuh Segata", "Sang Bumi Ruwa Jurai", "Tanoh Lado", "Gitar Tunggal Lampung", "Mulang Unyin",
-  "Twinkle Twinkle Little Star", "Selamat Ulang Tahun", "Ode to Joy", "Do Re Mi", "Mary Had a Little Lamb"
+  "Twinkle Twinkle Little Star", "Selamat Ulang Tahun", "Pelangi-Pelangi", "Balonku Ada Lima", "Naik Delman"
 };
 
 const char* const defaultSongCats[] = {
@@ -562,7 +626,7 @@ const int defaultSongTempos[] = {
   96, 80, 80, 100, 88,
   112, 140, 112, 96, 104,
   96, 100, 92, 88, 92,
-  100, 100, 108, 108, 104
+  100, 100, 108, 104, 120
 };
 
 const int NUM_DEFAULT_SONGS = 20;
