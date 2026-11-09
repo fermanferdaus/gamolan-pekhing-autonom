@@ -534,7 +534,7 @@ const Nada song_17[] PROGMEM = {
   { DO, 8 }
 };
 
-// Balonku Ada Lima (A.T. Mahmud / Pak Kasur, 4/4 / 2/4, tempo 104) — transcribed bar-exact dari partitur kanonik.
+// Balonku Ada Lima (A.T. Mahmud / Pak Kasur, 4/4 / 2/4, tempo 68) — transcribed bar-exact dari partitur kanonik.
 // Not angka: rentang nada 1 (DO) s.d. 8 (DO_T), mencakup 7 (SI) & 8 (DO_T) saat "DOR" dan "kelabu/tinggal empat".
 // Birama 4/4 = 16 unit per birama (2=1/8, 4=1/4, 6=3/8, 10=5/8, 16=1 bar utuh).
 const Nada song_18[] PROGMEM = {
@@ -651,7 +651,7 @@ const int defaultSongTempos[] = {
   96, 80, 80, 100, 88,
   112, 140, 112, 96, 104,
   96, 100, 92, 88, 92,
-  100, 100, 80, 84, 92
+  100, 100, 80, 68, 92
 };
 
 const int NUM_DEFAULT_SONGS = 20;

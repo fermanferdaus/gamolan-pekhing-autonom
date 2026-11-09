@@ -140,7 +140,7 @@ class DefaultSongs {
     SongModel(
       id: 18,
       name: 'Balonku Ada Lima',
-      tempo: 84,
+      tempo: 68,
       len: 58,
       category: SongCategory.lainnya,
     ),

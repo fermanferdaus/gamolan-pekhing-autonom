@@ -62,7 +62,7 @@ void main() {
       8: ('Apuse', 96, 53),
       9: ('Suwe Ora Jamu', 104, 54),
       17: ('Pelangi-Pelangi', 80, 56),
-      18: ('Balonku Ada Lima', 84, 58),
+      18: ('Balonku Ada Lima', 68, 58),
       19: ('Naik Delman', 92, 117),
     };
     firmware.forEach((id, meta) {
