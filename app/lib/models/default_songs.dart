@@ -45,8 +45,8 @@ class DefaultSongs {
     SongModel(
       id: 5,
       name: 'Yamko Rambe Yamko',
-      tempo: 104,
-      len: 98,
+      tempo: 120,
+      len: 100,
       category: SongCategory.daerah,
     ),
     SongModel(
