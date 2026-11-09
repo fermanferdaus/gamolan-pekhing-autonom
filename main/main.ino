@@ -258,40 +258,41 @@ const Nada song_5[] PROGMEM = {
   { MI, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { DO, 8 }
 };
 
-// Cublak-Cublak Suweng (Jawa Timur - Sunan Giri, 4/4, Allegro tempo 140) — transcribed bar-exact dari partitur kanonik.
-// Not angka: laras slendro (1, 2, 3, 5, 6 / Ji, Ro, Lu, Mo, Nem). Nada 5̣ (SOL rendah) dipetakan ke SOL (5), 6̣ (LA rendah) ke LA (6).
+// Cublak-Cublak Suweng (Jawa Timur - Sunan Giri, 4/4, Allegro tempo 140) — ditransposisi +5 semitone (Sol rendah = Bilah 1)
+// agar kontur melodi 5̣ dan 6̣ (Pak Em-pong) turun alami ke bilah 1 & 2 tanpa melompat ke oktaf atas.
+// Pemetaan 8 bilah: 5̣->1(DO), 6̣->2(RE), 1->4(FA), 2->5(SOL), 3->6(LA), 5->8(DO_T). Semua interval identik 100%.
 // Birama 4/4 = 16 unit per birama (4=1/4 ketuk, 8=1/2, 12=3/4, 16=1 bar utuh).
 const Nada song_6[] PROGMEM = {
-  // Bar 0: Intro / pickup "Cub" (| 0 0 0 3 |)
-  { DIAM, 12 }, { MI, 4 },
-  // Bar 1: "lak cub lak su" (| 5 5 2 3 |)
-  { SOL, 4 }, { SOL, 4 }, { RE, 4 }, { MI, 4 },
-  // Bar 2: "weng su weng e" (| 1 0 2 3 |)
-  { DO, 4 }, { DIAM, 4 }, { RE, 4 }, { MI, 4 },
-  // Bar 3: "teng ge len" (| 2 5 3 2 |)
-  { RE, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 },
-  // Bar 4: "ter Mam bu ke" (| 1 0 2 3 |)
-  { DO, 4 }, { DIAM, 4 }, { RE, 4 }, { MI, 4 },
-  // Bar 5: "thu dung gu" (| 2 5 3 2 |)
-  { RE, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 },
-  // Bar 6: "del Pak Em" (| 1 0 1 5̣ |)
-  { DO, 4 }, { DIAM, 4 }, { DO, 4 }, { SOL, 4 },
-  // Bar 7: "pong le ra le" (| 6̣ 1 2 3 |)
-  { LA, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 },
-  // Bar 8: "le So po nggu" (| 1 1 1 5̣ |)
-  { DO, 4 }, { DO, 4 }, { DO, 4 }, { SOL, 4 },
-  // Bar 9: "yu nde lik a" (| 6̣ 1 2 3 |)
-  { LA, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 },
-  // Bar 10: "ke sir sir" (| 1 5 . 5 |)
-  { DO, 4 }, { SOL, 8 }, { SOL, 4 },
-  // Bar 11: "pong de le ko" (| 3 2 1 2 |)
-  { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 4 },
-  // Bar 12: "pong sir sir" (| 3 5 . 5 |)
-  { MI, 4 }, { SOL, 8 }, { SOL, 4 },
-  // Bar 13: "pong de le ko" (| 3 2 1 2 |)
-  { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 4 },
-  // Bar 14: Ending "pong" (| 3 . . 0 |)
-  { MI, 12 }, { DIAM, 4 }
+  // Bar 0: Intro / pickup "Cub" (| 0 0 0 3 | -> 0 0 0 6)
+  { DIAM, 12 }, { LA, 4 },
+  // Bar 1: "lak cub lak su" (| 5 5 2 3 | -> 8 8 5 6)
+  { DO_T, 4 }, { DO_T, 4 }, { SOL, 4 }, { LA, 4 },
+  // Bar 2: "weng su weng e" (| 1 0 2 3 | -> 4 0 5 6)
+  { FA, 4 }, { DIAM, 4 }, { SOL, 4 }, { LA, 4 },
+  // Bar 3: "teng ge len" (| 2 5 3 2 | -> 5 8 6 5)
+  { SOL, 4 }, { DO_T, 4 }, { LA, 4 }, { SOL, 4 },
+  // Bar 4: "ter Mam bu ke" (| 1 0 2 3 | -> 4 0 5 6)
+  { FA, 4 }, { DIAM, 4 }, { SOL, 4 }, { LA, 4 },
+  // Bar 5: "thu dung gu" (| 2 5 3 2 | -> 5 8 6 5)
+  { SOL, 4 }, { DO_T, 4 }, { LA, 4 }, { SOL, 4 },
+  // Bar 6: "del Pak Em" (| 1 0 1 5̣ | -> 4 0 4 1)
+  { FA, 4 }, { DIAM, 4 }, { FA, 4 }, { DO, 4 },
+  // Bar 7: "pong le ra le" (| 6̣ 1 2 3 | -> 2 4 5 6)
+  { RE, 4 }, { FA, 4 }, { SOL, 4 }, { LA, 4 },
+  // Bar 8: "le So po nggu" (| 1 1 1 5̣ | -> 4 4 4 1)
+  { FA, 4 }, { FA, 4 }, { FA, 4 }, { DO, 4 },
+  // Bar 9: "yu nde lik a" (| 6̣ 1 2 3 | -> 2 4 5 6)
+  { RE, 4 }, { FA, 4 }, { SOL, 4 }, { LA, 4 },
+  // Bar 10: "ke sir sir" (| 1 5 . 5 | -> 4 8 . 8)
+  { FA, 4 }, { DO_T, 8 }, { DO_T, 4 },
+  // Bar 11: "pong de le ko" (| 3 2 1 2 | -> 6 5 4 5)
+  { LA, 4 }, { SOL, 4 }, { FA, 4 }, { SOL, 4 },
+  // Bar 12: "pong sir sir" (| 3 5 . 5 | -> 6 8 . 8)
+  { LA, 4 }, { DO_T, 8 }, { DO_T, 4 },
+  // Bar 13: "pong de le ko" (| 3 2 1 2 | -> 6 5 4 5)
+  { LA, 4 }, { SOL, 4 }, { FA, 4 }, { SOL, 4 },
+  // Bar 14: Ending "pong" (| 3 . . 0 | -> 6 . . 0)
+  { LA, 12 }, { DIAM, 4 }
 };
 
 // Gundhul Pacul (Jawa Tengah, 4/4, Moderato tempo 112) — transcribed bar-exact dari partitur kanonik.
