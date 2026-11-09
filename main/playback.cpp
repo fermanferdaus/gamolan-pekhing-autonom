@@ -146,8 +146,7 @@ void playbackInit() {
       NULL,
       5,
       &playbackTaskHandle,
-      1
-    );
+      1);
   }
 }
 
