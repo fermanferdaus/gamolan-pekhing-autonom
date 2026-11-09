@@ -61,9 +61,9 @@ void main() {
       7: ('Gundul-Gundul Pacul', 112, 56),
       8: ('Apuse', 96, 53),
       9: ('Suwe Ora Jamu', 104, 54),
-      17: ('Pelangi-Pelangi', 108, 56),
-      18: ('Balonku Ada Lima', 104, 58),
-      19: ('Naik Delman', 120, 117),
+      17: ('Pelangi-Pelangi', 80, 56),
+      18: ('Balonku Ada Lima', 84, 58),
+      19: ('Naik Delman', 92, 117),
     };
     firmware.forEach((id, meta) {
       final song = DefaultSongs.list.firstWhere((s) => s.id == id);
