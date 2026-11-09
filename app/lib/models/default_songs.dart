@@ -51,9 +51,9 @@ class DefaultSongs {
     ),
     SongModel(
       id: 6,
-      name: 'Ampar-Ampar Pisang',
-      tempo: 105,
-      len: 77,
+      name: 'Cublak-Cublak Suweng',
+      tempo: 140,
+      len: 54,
       category: SongCategory.daerah,
     ),
     SongModel(

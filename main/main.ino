@@ -258,42 +258,40 @@ const Nada song_5[] PROGMEM = {
   { MI, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { DO, 8 }
 };
 
-// Ampar-Ampar Pisang (Kalimantan Selatan, 4/4, Allegretto moderato tempo 105) — transcribed bar-exact dari partitur koor Bayu Nerviadi (Suara I).
-// Not angka Voice I: 1 | 3 3 2 3 4 2 2 | 4 4 3 4 5 . | 6 6 4 4 5 3 3 | 4 4 3 4 3 . (2 bait lengkap).
-// Seluruh not diatonis alami (1-6 / DO-LA), tanpa nada mol/fals. Birama 4/4 = 16 unit (1=1/16, 2=1/8, 4=1/4, 8=1/2, 16=1 bar utuh).
+// Cublak-Cublak Suweng (Jawa Timur - Sunan Giri, 4/4, Allegro tempo 140) — transcribed bar-exact dari partitur kanonik.
+// Not angka: laras slendro (1, 2, 3, 5, 6 / Ji, Ro, Lu, Mo, Nem). Nada 5̣ (SOL rendah) dipetakan ke SOL (5), 6̣ (LA rendah) ke LA (6).
+// Birama 4/4 = 16 unit per birama (4=1/4 ketuk, 8=1/2, 12=3/4, 16=1 bar utuh).
 const Nada song_6[] PROGMEM = {
-  // --- BAIT 1 ---
-  // Birama 1: Intro / pickup "Am-" (| 0 0 _0 1_ |)
-  { DIAM, 14 }, { DO, 2 },
-  // Birama 2: "-par am-par pi-sang, pi-sang-" (| _3 3_ _2 3_ 4 _2 2_ |)
-  { MI, 2 }, { MI, 2 }, { RE, 2 }, { MI, 2 }, { FA, 4 }, { RE, 2 }, { RE, 2 },
-  // Birama 3: "-ku ba-lum ma-sak," (| _4 4_ _3 4_ 5 . |)
-  { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 2 }, { SOL, 8 },
-  // Birama 4: "ma-sak sa-bi-gi di-hu-" (| _6 6_ _4 4_ 5 _3 3_ |)
-  { LA, 2 }, { LA, 2 }, { FA, 2 }, { FA, 2 }, { SOL, 4 }, { MI, 2 }, { MI, 2 },
-  // Birama 5: "rung ba-ri-ba-ri." (| _4 4_ _3 4_ 3 . |)
-  { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 2 }, { MI, 8 },
-  // Birama 6: "Ma-sak sa-bi-gi di-hu-" (| _6 6_ _4 4_ 5 _3 3_ |)
-  { LA, 2 }, { LA, 2 }, { FA, 2 }, { FA, 2 }, { SOL, 4 }, { MI, 2 }, { MI, 2 },
-  // Birama 7: "rung ba-ri-ba-ri. Am-" (| _4 4_ _3 4_ 3 _0 1_ |)
-  { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 2 }, { MI, 4 }, { DIAM, 2 }, { DO, 2 },
-
-  // --- BAIT 2 ---
-  // Birama 8: "-par am-par pi-sang, pi-sang-" (| _3 3_ _2 3_ 4 _2 2_ |)
-  { MI, 2 }, { MI, 2 }, { RE, 2 }, { MI, 2 }, { FA, 4 }, { RE, 2 }, { RE, 2 },
-  // Birama 9: "-ku ba-lum ma-sak," (| _4 4_ _3 4_ 5 . |)
-  { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 2 }, { SOL, 8 },
-  // Birama 10: "ma-sak sa-bi-gi di-hu-" (| _6 6_ _4 4_ 5 _3 3_ |)
-  { LA, 2 }, { LA, 2 }, { FA, 2 }, { FA, 2 }, { SOL, 4 }, { MI, 2 }, { MI, 2 },
-  // Birama 11: "rung ba-ri-ba-ri." (| _4 4_ _3 4_ 3 . |)
-  { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 2 }, { MI, 8 },
-  // Birama 12: "Ma-sak sa-bi-gi di-hu-" (| _6 6_ _4 4_ 5 _3 3_ |)
-  { LA, 2 }, { LA, 2 }, { FA, 2 }, { FA, 2 }, { SOL, 4 }, { MI, 2 }, { MI, 2 },
-  // Birama 13: "rung ba-ri-ba-ri." (| _4 4_ _3 4_ 3 . |)
-  { FA, 2 }, { FA, 2 }, { MI, 2 }, { FA, 2 }, { MI, 8 },
-
-  // Birama 14: Akhir / rest
-  { DIAM, 16 }
+  // Bar 0: Intro / pickup "Cub" (| 0 0 0 3 |)
+  { DIAM, 12 }, { MI, 4 },
+  // Bar 1: "lak cub lak su" (| 5 5 2 3 |)
+  { SOL, 4 }, { SOL, 4 }, { RE, 4 }, { MI, 4 },
+  // Bar 2: "weng su weng e" (| 1 0 2 3 |)
+  { DO, 4 }, { DIAM, 4 }, { RE, 4 }, { MI, 4 },
+  // Bar 3: "teng ge len" (| 2 5 3 2 |)
+  { RE, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 },
+  // Bar 4: "ter Mam bu ke" (| 1 0 2 3 |)
+  { DO, 4 }, { DIAM, 4 }, { RE, 4 }, { MI, 4 },
+  // Bar 5: "thu dung gu" (| 2 5 3 2 |)
+  { RE, 4 }, { SOL, 4 }, { MI, 4 }, { RE, 4 },
+  // Bar 6: "del Pak Em" (| 1 0 1 5̣ |)
+  { DO, 4 }, { DIAM, 4 }, { DO, 4 }, { SOL, 4 },
+  // Bar 7: "pong le ra le" (| 6̣ 1 2 3 |)
+  { LA, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 },
+  // Bar 8: "le So po nggu" (| 1 1 1 5̣ |)
+  { DO, 4 }, { DO, 4 }, { DO, 4 }, { SOL, 4 },
+  // Bar 9: "yu nde lik a" (| 6̣ 1 2 3 |)
+  { LA, 4 }, { DO, 4 }, { RE, 4 }, { MI, 4 },
+  // Bar 10: "ke sir sir" (| 1 5 . 5 |)
+  { DO, 4 }, { SOL, 8 }, { SOL, 4 },
+  // Bar 11: "pong de le ko" (| 3 2 1 2 |)
+  { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 4 },
+  // Bar 12: "pong sir sir" (| 3 5 . 5 |)
+  { MI, 4 }, { SOL, 8 }, { SOL, 4 },
+  // Bar 13: "pong de le ko" (| 3 2 1 2 |)
+  { MI, 4 }, { RE, 4 }, { DO, 4 }, { RE, 4 },
+  // Bar 14: Ending "pong" (| 3 . . 0 |)
+  { MI, 12 }, { DIAM, 4 }
 };
 
 // Gundhul Pacul (Jawa Tengah, 4/4, Moderato tempo 112) — transcribed bar-exact dari partitur kanonik.
@@ -547,7 +545,7 @@ const int defaultSongLengths[] = {
 
 const char* const defaultSongNames[] = {
   "Indonesia Raya", "Tanah Airku", "Bagimu Negeri", "Garuda Pancasila", "Ibu Kita Kartini",
-  "Anak Kambing Saya", "Ampar-Ampar Pisang", "Gundul-Gundul Pacul", "Apuse", "Suwe Ora Jamu",
+  "Anak Kambing Saya", "Cublak-Cublak Suweng", "Gundul-Gundul Pacul", "Apuse", "Suwe Ora Jamu",
   "Tabuh Segata", "Sang Bumi Ruwa Jurai", "Tanoh Lado", "Gitar Tunggal Lampung", "Mulang Unyin",
   "Twinkle Twinkle Little Star", "Selamat Ulang Tahun", "Ode to Joy", "Do Re Mi", "Mary Had a Little Lamb"
 };
@@ -561,7 +559,7 @@ const char* const defaultSongCats[] = {
 
 const int defaultSongTempos[] = {
   96, 80, 80, 100, 88,
-  112, 105, 112, 96, 104,
+  112, 140, 112, 96, 104,
   96, 100, 92, 88, 92,
   100, 100, 108, 108, 104
 };
