@@ -16,7 +16,8 @@ constexpr int PULSE_MS = 40;
 constexpr int JEDA_MIN_MS = 25;
 
 constexpr int MAX_SONGS = 50;
-constexpr int MAX_NOTES = 256;
+constexpr int MAX_NOTES = 512;
+constexpr int MAX_CUSTOM_NOTES = 255;
 constexpr int NUM_DEFAULT_SONGS = 20;
 constexpr int WS_PORT = 81;
 
@@ -25,10 +26,15 @@ extern const char* const namaNada[9];
 extern const char* const AP_SSID;
 extern const char* const AP_PASS;
 
+// nada: nibble bawah = stik kanan (melodi), nibble atas = stik kiri (ketukan). 0 = diam.
 struct Nada {
   byte nada;
   byte panjang;
 };
+
+constexpr byte duo(byte kanan, byte kiri) { return kanan | (kiri << 4); }
+constexpr byte stikKanan(byte nada) { return nada & 0x0F; }
+constexpr byte stikKiri(byte nada) { return nada >> 4; }
 
 struct SongHeader {
   int id;

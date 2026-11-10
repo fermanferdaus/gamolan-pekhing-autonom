@@ -48,9 +48,20 @@ static void handleCmdWhilePlaying(const PlaybackCommand& cmd, bool& playing,
   }
 }
 
+static void hitBoth(byte kanan, byte kiri, int nyala) {
+  solenoidHit(kanan, nyala);
+  if (kiri != kanan) solenoidHit(kiri, nyala);
+}
+
+static void releaseBoth(byte kanan, byte kiri) {
+  solenoidRelease(kanan);
+  if (kiri != kanan) solenoidRelease(kiri);
+}
+
+static Nada notes[MAX_NOTES];
+
 static void playbackTask(void* pvParameters) {
   PlaybackCommand cmd;
-  Nada notes[MAX_NOTES];
   int noteCount = 0;
   int tempo = 120;
   int currentId = -1;
@@ -78,10 +89,12 @@ static void playbackTask(void* pvParameters) {
 
       for (int i = 0; i < noteCount; i++) {
         Nada item = notes[i];
+        byte kanan = stikKanan(item.nada);
+        byte kiri = stikKiri(item.nada);
         int seperempatKetuk = 60000 / tempo / 4;
         int totalDurasi = item.panjang * seperempatKetuk;
 
-        if (item.nada >= DO && item.nada <= DO_T) {
+        if (kanan != DIAM || kiri != DIAM) {
           int nyala = PULSE_MS;
           if (nyala > totalDurasi - JEDA_MIN_MS) {
             nyala = totalDurasi - JEDA_MIN_MS;
@@ -93,17 +106,17 @@ static void playbackTask(void* pvParameters) {
           if (noteCallback) {
             noteCallback(item.nada, i, noteCount);
           }
-          solenoidHit(item.nada, nyala);
+          hitBoth(kanan, kiri, nyala);
 
           TickType_t pulseTicks = pdMS_TO_TICKS(nyala);
           if (pulseTicks < 1) pulseTicks = 1;
           if (xQueueReceive(playbackQueue, &cmd, pulseTicks) == pdTRUE) {
-            solenoidRelease(item.nada);
+            releaseBoth(kanan, kiri);
             semuaMati();
             handleCmdWhilePlaying(cmd, playing, notes, noteCount, tempo, currentId, aborted);
             if (aborted) break;
           } else {
-            solenoidRelease(item.nada);
+            releaseBoth(kanan, kiri);
           }
 
           TickType_t gapTicks = pdMS_TO_TICKS(sisa);

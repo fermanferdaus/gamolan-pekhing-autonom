@@ -24,7 +24,8 @@ static void onPlaybackState(const char* state, int songId) {
 static void onPlaybackNote(byte nada, int noteIndex, int totalNotes) {
   JsonDocument doc;
   doc["t"] = "note";
-  doc["n"] = nada;
+  doc["n"] = stikKanan(nada) ? stikKanan(nada) : stikKiri(nada);
+  doc["l"] = stikKiri(nada);
   doc["idx"] = noteIndex;
   doc["total"] = totalNotes;
   String out;
@@ -115,7 +116,7 @@ static void handleWebSocketMessage(uint8_t num, uint8_t* payload, size_t length)
     }
   } else if (strcmp(cmd, "get_notes") == 0) {
     int id = doc["id"] | -1;
-    Nada tempNotes[MAX_NOTES];
+    static Nada tempNotes[MAX_NOTES];
     int noteCount = 0;
     int tempo = 120;
 

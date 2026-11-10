@@ -59,12 +59,15 @@ class NoteItem {
 
   List<int> toList() => [nada, panjang];
 
+  int get kanan => nada & 0x0F;
+  int get kiri => nada >> 4;
+
+  String get angka => kiri > 0 ? '$kanan+$kiri' : '$nada';
+
   String get namaNada {
     const names = ['-', 'DO', 'RE', 'MI', 'FA', 'SOL', 'LA', 'SI', "DO'"];
-    if (nada >= 0 && nada < names.length) {
-      return names[nada];
-    }
-    return '?';
+    if (kanan >= names.length || kiri >= names.length) return '?';
+    return kiri > 0 ? '${names[kanan]}+${names[kiri]}' : names[kanan];
   }
 
   String get durasiLabel {

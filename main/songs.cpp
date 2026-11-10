@@ -836,214 +836,221 @@ const Nada song_9[] PROGMEM = {
   { DIAM, 4 }
 };
 
-// --- 3. TRADISIONAL LAMPUNG (Gamolan Pekhing Asli) ---
+// --- 3. TRADISIONAL LAMPUNG (Tabuh Gamolan Pekhing, notasi Muhammad Yoga Saputra, narasumber Syapril Yamin) ---
+// Dua stik: duo(kanan, kiri) memukul dua bilah serentak. Tanda '-' pada notasi = jeda, digabung ke durasi nada sebelumnya.
 
-// Tabuh Alau-Alau (Tradisi Gamolan Pekhing Kembahang, Lampung Barat, 4/4, Tempo Rancak 104 BPM)
-// Pola tabuhan klasik gamolan bambu dengan ketukan 1/8 (2 unit) berulang (ostinato) dan gendang buka pada bilah 6 (LA).
-// Birama 4/4 = 16 unit per birama (2=1/8, 4=1/4, 6=3/8). Total 12 birama (84 not).
+// Tabuh Sambai Agung (Sekala Berak, tempo sedang, ketukan 1/8 = 2 unit, 100 BPM).
+// Kanan: melodi. Kiri: ketukan bilah 1 pola | - - 1 - | 1 - 1 1 | tiap birama.
 const Nada song_10[] PROGMEM = {
-  // --- BAGIAN A: Buka / Alau-Alau Utama ---
-  // Bar 1: [ - - 2 6 6 6 5 6 ] (Gendang buka masuk di 6)
-  { DIAM, 4 }, { RE, 2 }, { LA, 2 }, { LA, 2 }, { LA, 2 }, { SOL, 2 }, { LA, 2 },
-  // Bar 2: [ - - 6 5 5 3 2 (3) ]
-  { DIAM, 4 }, { LA, 2 }, { SOL, 2 }, { SOL, 2 }, { MI, 2 }, { RE, 2 }, { MI, 2 },
-  // Bar 3: [ - - 2 6 6 6 5 6 ]
-  { DIAM, 4 }, { RE, 2 }, { LA, 2 }, { LA, 2 }, { LA, 2 }, { SOL, 2 }, { LA, 2 },
-  // Bar 4: [ - - 6 5 5 3 2 (3) ]
-  { DIAM, 4 }, { LA, 2 }, { SOL, 2 }, { SOL, 2 }, { MI, 2 }, { RE, 2 }, { MI, 2 },
-  // Bar 5: [ - - 3 5 6 5 3 2 ] (Peralihan melodi bawah)
-  { DIAM, 4 }, { MI, 2 }, { SOL, 2 }, { LA, 2 }, { SOL, 2 }, { MI, 2 }, { RE, 2 },
-  // Bar 6: [ - - 2 3 5 3 2 (3) ]
-  { DIAM, 4 }, { RE, 2 }, { MI, 2 }, { SOL, 2 }, { MI, 2 }, { RE, 2 }, { MI, 2 },
-
-  // --- BAGIAN B: Ngigel / Variasi Bilah Atas ---
-  // Bar 7: [ - - 3 5 6 1' 6 5 ]
-  { DIAM, 4 }, { MI, 2 }, { SOL, 2 }, { LA, 2 }, { DO_T, 2 }, { LA, 2 }, { SOL, 2 },
-  // Bar 8: [ - - 6 5 3 2 1 (2) ]
-  { DIAM, 4 }, { LA, 2 }, { SOL, 2 }, { MI, 2 }, { RE, 2 }, { DO, 2 }, { RE, 2 },
-  // Bar 9: [ - - 3 5 6 1' 6 5 ]
-  { DIAM, 4 }, { MI, 2 }, { SOL, 2 }, { LA, 2 }, { DO_T, 2 }, { LA, 2 }, { SOL, 2 },
-  // Bar 10: [ - - 6 5 3 2 1 (1) ]
-  { DIAM, 4 }, { LA, 2 }, { SOL, 2 }, { MI, 2 }, { RE, 2 }, { DO, 2 }, { DO, 2 },
-
-  // --- BAGIAN C: Penutup Alau-Alau ---
-  // Bar 11: [ - - 2 6 6 6 5 6 ]
-  { DIAM, 4 }, { RE, 2 }, { LA, 2 }, { LA, 2 }, { LA, 2 }, { SOL, 2 }, { LA, 2 },
-  // Bar 12: [ - - 6 5 5 3 2 (3.) ] (Gong penutup)
-  { DIAM, 4 }, { LA, 2 }, { SOL, 2 }, { SOL, 2 }, { MI, 2 }, { RE, 2 }, { MI, 6 }
+  // Melodi buka (kanan saja): | 2 2 3 3 5 5 6 6 |
+  { RE, 2 }, { RE, 2 }, { MI, 2 }, { MI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { LA, 4 },
+  // | - 6 6 6 | 6 6 6 (6) |
+  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
+  // | - 6 6 6 | 6 6 6 6 |
+  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
+  // | - 6 6 6 | 6 6 6 (6) |
+  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
+  // | - 6 6 6 | 6 6 7 7 |
+  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(SI, DO), 2 }, { duo(SI, DO), 4 },
+  // | - 6 7 5 | 6 7 6 (7) |
+  { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SI, 2 }, { duo(LA, DO), 2 }, { duo(SI, DO), 4 },
+  // | - 6 7 5 | 6 7 6 7 |
+  { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SI, 2 }, { duo(LA, DO), 2 }, { duo(SI, DO), 4 },
+  // | - 6 7 5 | 6 6 6 (6) |
+  { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
+  // | - 6 6 6 | 6 6 7 7 |
+  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(SI, DO), 2 }, { duo(SI, DO), 4 },
+  // | - 6 7 5 | 6 7 6 (7) |
+  { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SI, 2 }, { duo(LA, DO), 2 }, { duo(SI, DO), 4 },
+  // | - 6 7 5 | 6 7 6 7 |
+  { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SI, 2 }, { duo(LA, DO), 2 }, { duo(SI, DO), 4 },
+  // | - 6 7 5 | 6 6 6 (6) |
+  { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
+  // | - 6 6 6 | 6 6 6 6 |
+  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
+  // | - 6 6 6 | 6 6 6 (6) |
+  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
+  // | - 6 6 6 | 6 6 6 5 |
+  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(SOL, DO), 2 },
+  // | 6 6 6 3 | 5 6 6 (5) |
+  { LA, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(SOL, DO), 2 },
+  // | 6 6 6 5 | 5 3 5 5 |
+  { LA, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(SOL, DO), 2 },
+  // | 3 3 2 1 | 2 3 5 (3) |
+  { MI, 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(MI, DO), 2 },
+  // | 5 3 2 1 | 2 2 2 2 |
+  { SOL, 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 4 },
+  // | - 2 2 2 | 2 2 2 (2) |
+  { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 4 },
+  // | - 2 2 2 | 2 2 2 3 |
+  { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
+  // | - 2 3 1 | 2 3 2 (3) |
+  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
+  // | - 2 3 1 | 2 2 2 2 |
+  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 4 },
+  // | - 2 2 2 | 2 2 2 (3) |
+  { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
+  // | - 2 3 1 | 2 2 2 2 |
+  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 4 },
+  // | - 2 2 2 | 2 2 2 (3) |
+  { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
+  // | - 2 3 1 | 2 3 5 3 |
+  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(MI, DO), 4 },
+  // | - 2 3 1 | 2 3 5 (3) |
+  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(MI, DO), 4 },
+  // | - 2 3 1 | 2 3 5 3 |
+  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(MI, DO), 4 },
+  // | - 5 3 5 | 3 5 5 (5) |
+  { SOL, 2 }, { duo(MI, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { SOL, 2 }, { duo(SOL, DO), 2 }, { duo(SOL, DO), 4 },
+  // | - 2 3 1 | 2 3 2 3 |
+  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
+  // | - 2 3 1 | 2 2 2 (2) |
+  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 4 },
+  // | - 2 3 1 | 2 3 2 3 |
+  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
+  // | - 2 3 1 | 2 3 5 (5) |
+  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(SOL, DO), 2 }
 };
 
-// Sang Bumi Ruwa Jurai (Syaiful Anwar, 4/4, Moderato Megah 92 BPM) — transcribed bar-exact dari partitur kanonik.
-// Rentang nada: 1 (DO) s.d. 8 (DO_T). Birama 4/4 = 16 unit per birama (2=1/8, 4=1/4, 8=1/2, 12=3/4). Total 18 birama (73 not).
+// Tabuh Sekeli (tempo sedang, ketukan 1/8 = 2 unit, 100 BPM).
+// Kanan: melodi. Kiri: ritem | - - 2 - | 2 - 2 2 | lalu | - - 1 - | 1 - 1 1 | mulai bagian 7 7 7 6.
 const Nada song_11[] PROGMEM = {
-  // --- BAIT 1 ---
-  // Bar 1: "Jak u-jung Da-nau Ra-" (| 0 5_ 6_ 1' 1'_ 7_ |)
-  { DIAM, 4 }, { SOL, 2 }, { LA, 2 }, { DO_T, 4 }, { DO_T, 2 }, { SI, 2 },
-  // Bar 2: "-nau" (| 6 5 . 0 |)
-  { LA, 4 }, { SOL, 8 }, { DIAM, 4 },
-  // Bar 3: "Te-li-u mit Way Ka-" (| 0 3_ 5_ 6 5_ 3_ |)
-  { DIAM, 4 }, { MI, 2 }, { SOL, 2 }, { LA, 4 }, { SOL, 2 }, { MI, 2 },
-  // Bar 4: "-nan" (| 2 . . 0 |)
-  { RE, 12 }, { DIAM, 4 },
-  // Bar 5: "Sam-pai pan-tai la-wok ja-" (| 0 3_ 5_ 6 1'_ 7_ |)
-  { DIAM, 4 }, { MI, 2 }, { SOL, 2 }, { LA, 4 }, { DO_T, 2 }, { SI, 2 },
-  // Bar 6: "-oh" (| 6 5 . 0 |)
-  { LA, 4 }, { SOL, 8 }, { DIAM, 4 },
-  // Bar 7: "Pe-si-sir khik Pe-pa-" (| 0 3_ 5_ 6 5_ 3_ |)
-  { DIAM, 4 }, { MI, 2 }, { SOL, 2 }, { LA, 4 }, { SOL, 2 }, { MI, 2 },
-  // Bar 8: "-dun" (| 2 . . 0 |)
-  { RE, 12 }, { DIAM, 4 },
-  // Bar 9: "Ja-di sai di-lom lam-" (| 0 1_ 2_ 3 2_ 1_ |)
-  { DIAM, 4 }, { DO, 2 }, { RE, 2 }, { MI, 4 }, { RE, 2 }, { DO, 2 },
-  // Bar 10: "-bang" (| 2 1 . 0 |)
-  { RE, 4 }, { DO, 8 }, { DIAM, 4 },
-  // Bar 11: "Lam-pung sai ka-ya kha-" (| 0 1_ 2_ 3 4_ 3_ |)
-  { DIAM, 4 }, { DO, 2 }, { RE, 2 }, { MI, 4 }, { FA, 2 }, { MI, 2 },
-  // Bar 12: "-ya" (| 2 . . 0 |)
-  { RE, 12 }, { DIAM, 4 },
-
-  // --- REFF ---
-  // Bar 13: "Lam-pung sai..." (| 3 5 6 . |)
-  { MI, 4 }, { SOL, 4 }, { LA, 8 },
-  // Bar 14: "Sang bu-mi ru-wa ju-" (| 0 5_ 3_ 2 3_ 5_ |)
-  { DIAM, 4 }, { SOL, 2 }, { MI, 2 }, { RE, 4 }, { MI, 2 }, { SOL, 2 },
-  // Bar 15: "-rai" (| 6 . . 0 |)
-  { LA, 12 }, { DIAM, 4 },
-  // Bar 16: "Lam-pung sai..." (| 3 5 6 . |)
-  { MI, 4 }, { SOL, 4 }, { LA, 8 },
-  // Bar 17: "Sang bu-mi ru-wa ju-" (| 0 5_ 3_ 2 3_ 2_ |)
-  { DIAM, 4 }, { SOL, 2 }, { MI, 2 }, { RE, 4 }, { MI, 2 }, { RE, 2 },
-  // Bar 18: "-rai" (| 1 . . 0 |)
-  { DO, 12 }, { DIAM, 4 }
+  // Melodi buka (kanan saja): | 2 2 3 3 | 5 5 6 6 |
+  { RE, 2 }, { RE, 2 }, { MI, 2 }, { MI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { LA, 4 },
+  // | - 6 6 6 | 6 6 6 (6) |
+  { LA, 2 }, { duo(LA, RE), 2 }, { LA, 2 }, { duo(LA, RE), 2 }, { LA, 2 }, { duo(LA, RE), 2 }, { duo(LA, RE), 4 },
+  // | - 6 6 5 | 6 5 3 6 |
+  { LA, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(MI, RE), 2 }, { duo(LA, RE), 4 },
+  // | - 6 6 5 | 6 5 3 (6) |
+  { LA, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(MI, RE), 2 }, { duo(LA, RE), 2 },
+  // | 5 3 5 6 | 5 6 5 6 |
+  { SOL, 2 }, { MI, 2 }, { duo(SOL, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { duo(LA, RE), 2 },
+  // | 7 7 7 6 | 5 6 5 (6) |
+  { SI, 2 }, { SI, 2 }, { duo(SI, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { duo(LA, RE), 2 },
+  // | 7 7 7 6 | 5 6 5 6 |
+  { SI, 2 }, { SI, 2 }, { duo(SI, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { duo(LA, RE), 4 },
+  // | - 6 6 6 | 6 5 3 (6) |
+  { LA, 2 }, { duo(LA, RE), 2 }, { LA, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(MI, RE), 2 }, { duo(LA, RE), 2 },
+  // | 7 7 7 6 | 5 6 5 6 |
+  { SI, 2 }, { SI, 2 }, { duo(SI, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { duo(LA, DO), 2 },
+  // | 7 7 7 6 | 5 6 5 (6) |
+  { SI, 2 }, { SI, 2 }, { duo(SI, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { duo(LA, DO), 4 },
+  // | - 6 6 6 | 6 6 6 6 |
+  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
+  // | - 6 6 6 | 6 5 3 (6) |
+  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { duo(LA, DO), 4 },
+  // | - 6 6 6 | 6 5 3 6 |
+  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { duo(LA, DO), 2 },
+  // | 5 3 5 3 | 5 3 2 (1) |
+  { SOL, 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 },
+  // | 2 2 2 3 | 5 3 2 3 |
+  { RE, 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 2 },
+  // | 2 1 2 3 | 5 3 5 (5) |
+  { RE, 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(SOL, DO), 2 },
+  // | 6 6 3 5 | 5 3 2 1 |
+  { LA, 2 }, { LA, 2 }, { duo(MI, DO), 2 }, { SOL, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 },
+  // | 6 6 3 5 | 5 3 5 (3) |
+  { LA, 2 }, { LA, 2 }, { duo(MI, DO), 2 }, { SOL, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(MI, DO), 2 },
+  // | 5 3 5 5 | 5 3 2 1 |
+  { SOL, 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { SOL, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 },
+  // | 2 2 2 2 | 2 2 2 (2) |
+  { RE, 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 4 },
+  // | - 2 2 2 | 2 2 3 3 |
+  { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { duo(MI, DO), 4 },
+  // | - 2 3 1 | 2 3 2 (3) |
+  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
+  // | - 2 3 1 | 2 3 5 5 |
+  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(SOL, DO), 2 }
 };
 
-// Tanoh Lado (Fath Syahbudin, 4/4, Andante 88 BPM) — transcribed bar-exact dari partitur kanonik.
-// Rentang nada: 1 (DO) s.d. 7 (SI). Birama 4/4 = 16 unit per birama (2=1/8, 4=1/4, 6=3/8, 8=1/2, 12=3/4). Total 15 birama (72 not).
+// Tabuh Jakhang (tempo lambat, ketukan 1/16 = 1 unit, 66 BPM).
+// Susunan: Melodi I - Peralihan I - Melodi I - Peralihan II - Melodi II - Peralihan III.
+// Kanan: melodi. Kiri: | - 1 - - | per ketuk.
 const Nada song_12[] PROGMEM = {
-  // --- BAIT 1 ---
-  // Bar 1: Pickup "Jak Ra-" (| 0 0 0 1_ 2_ |)
-  { DIAM, 12 }, { DO, 2 }, { RE, 2 },
-  // Bar 2: "-nau ti-goh di Te-la-" (| 3 ._ 3_ 3_ 2_ 1_ 2_ |)
-  { MI, 6 }, { MI, 2 }, { MI, 2 }, { RE, 2 }, { DO, 2 }, { RE, 2 },
-  // Bar 3: "-das, Jak Pa-" (| 3 . 0 4_ 5_ |)
-  { MI, 8 }, { DIAM, 4 }, { FA, 2 }, { SOL, 2 },
-  // Bar 4: "-las mung-gak mit Beng-ku-" (| 6 ._ 6_ 6_ 5_ 4_ 3_ |)
-  { LA, 6 }, { LA, 2 }, { LA, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 },
-  // Bar 5: "-nat. Gu-nung" (| 4 . 0 2_ 3_ |)
-  { FA, 8 }, { DIAM, 4 }, { RE, 2 }, { MI, 2 },
-  // Bar 6: "rim-ba ti-uh pu-ma-" (| 4 ._ 4_ 4_ 3_ 2_ 3_ |)
-  { FA, 6 }, { FA, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { MI, 2 },
-  // Bar 7: "-tang, Pu-lau" (| 2 . 0 1_ 2_ |)
-  { RE, 8 }, { DIAM, 4 }, { DO, 2 }, { RE, 2 },
-  // Bar 8: "pu-lau di la-wok le-" (| 3 ._ 3_ 2_ 1_ 2_ 3_ |)
-  { MI, 6 }, { MI, 2 }, { RE, 2 }, { DO, 2 }, { RE, 2 }, { MI, 2 },
-  // Bar 9: "-pas. Me-re-" (| 1 . 0 3_ 5_ |)
-  { DO, 8 }, { DIAM, 4 }, { MI, 2 }, { SOL, 2 },
-
-  // --- REFF ---
-  // Bar 10: "-gai bu-ai ghik ba-ha-" (| 6 ._ 6_ 6_ 5_ 4_ 5_ |)
-  { LA, 6 }, { LA, 2 }, { LA, 2 }, { SOL, 2 }, { FA, 2 }, { SOL, 2 },
-  // Bar 11: "-sa, Na-yah" (| 6 3 0 5_ 6_ |)
-  { LA, 4 }, { MI, 4 }, { DIAM, 4 }, { SOL, 2 }, { LA, 2 },
-  // Bar 12: "si-na tan-da gham ka-" (| 7 ._ 6_ 5_ 4_ 3_ 2_ |)
-  { SI, 6 }, { LA, 2 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 },
-  // Bar 13: "-ya. Ta-noh" (| 3 . 0 3_ 5_ |)
-  { MI, 8 }, { DIAM, 4 }, { MI, 2 }, { SOL, 2 },
-  // Bar 14: "Lam-pung-ku ta-noh la-" (| 6 ._ 5_ 4_ 3_ 2_ 3_ |)
-  { LA, 6 }, { SOL, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { MI, 2 },
-  // Bar 15: "-do." (| 1 . . 0 |)
-  { DO, 12 }, { DIAM, 4 }
+  // Melodi I (rendah) | - - - 2 | - 2 2 2 | - 2 2 3 | 3 1 1 2 |
+  { DIAM, 1 }, { duo(DIAM, DO), 2 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { MI, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 2 },
+  // Melodi I (rendah) | - - - 2 | - 2 2 2 | - 2 2 3 | 3 1 1 (2) |
+  { duo(DIAM, DO), 2 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { MI, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 2 },
+  // Melodi I (rendah) | - - 3 3 | 2 1 2 2 | 3 3 3 3 | 2 1 2 2 |
+  { duo(DIAM, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 },
+  // Melodi I (rendah) | 3 3 3 3 | 2 1 2 2 | 3 3 3 3 | 2 2 2 (2) |
+  { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 2 },
+  // Peralihan I | - - 2 3 | 5 5 3 3 | 5 3 5 6 | 6 5 5 3 |
+  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(MI, DO), 1 }, { SOL, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { MI, 1 },
+  // Peralihan I | 2 1 2 3 | 5 5 3 3 | 2 1 1 2 | 3 1 1 (2) |
+  { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 2 },
+  // Melodi I (rendah) | - - - 2 | - 2 2 2 | - 2 2 3 | 3 1 1 2 |
+  { duo(DIAM, DO), 2 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { MI, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 2 },
+  // Melodi I (rendah) | - - - 2 | - 2 2 2 | - 2 2 3 | 3 1 1 (2) |
+  { duo(DIAM, DO), 2 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { MI, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 2 },
+  // Melodi I (rendah) | - - 3 3 | 2 1 2 2 | 3 3 3 3 | 2 1 2 2 |
+  { duo(DIAM, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 },
+  // Melodi I (rendah) | 3 3 3 3 | 2 1 2 2 | 3 3 3 3 | 2 2 2 (2) |
+  { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 2 },
+  // Peralihan II | - - 2 3 | 5 5 6 6 | 6 5 6 6 | 6 6 1 2 |
+  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(LA, DO), 1 }, { DO, 1 }, { RE, 2 },
+  // Peralihan II | - - 2 3 | 5 5 6 6 | 6 5 6 6 | 6 5 6 (6) |
+  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 2 },
+  // Melodi II (tinggi) | - - 7 7 | 6 5 5 6 | 7 7 7 7 | 6 5 5 6 |
+  { duo(DIAM, DO), 1 }, { SI, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { LA, 1 }, { SI, 1 }, { duo(SI, DO), 1 }, { SI, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { LA, 1 },
+  // Melodi II (tinggi) | 7 7 7 7 | 6 5 5 6 | 7 7 7 7 | 6 5 5 (6) |
+  { SI, 1 }, { duo(SI, DO), 1 }, { SI, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { LA, 1 }, { SI, 1 }, { duo(SI, DO), 1 }, { SI, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { LA, 2 },
+  // Melodi II (tinggi) | - - - 3 | 5 5 6 6 | 6 5 6 6 | 6 5 6 6 |
+  { duo(DIAM, DO), 2 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 2 },
+  // Peralihan III | - - 6 6 | 6 5 5 3 | 5 5 3 3 | 5 5 3 3 |
+  { duo(DIAM, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 },
+  // Peralihan III | 2 1 2 3 | 5 5 3 3 | 2 1 1 2 | 3 1 1 (2) |
+  { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 2 },
+  // Peralihan III | - - 2 3 | 5 5 3 3 | 5 5 3 3 | 5 5 3 3 |
+  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 },
+  // Peralihan III | 2 1 2 3 | 5 5 3 3 | 2 1 1 2 | 3 1 1 (2) |
+  { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 }
 };
 
-// Cangget Agung (Syaiful Anwar, 4/4, Moderato Agung 92 BPM) — transcribed bar-exact dari partitur kanonik.
-// Seluruh melodi asli berada pada rentang 1 (DO) s.d. 6 (LA) tanpa penyempitan oktaf.
-// Birama 4/4 = 16 unit per birama (2=1/8, 4=1/4, 6=3/8, 8=1/2). Total 20 birama (106 not).
+// Tabuh Tari (tempo sedang, ketukan 1/16 = 1 unit, 76 BPM).
+// Kanan: melodi. Kiri: | - 1 - - | per ketuk (bagian 5 3 sesuai notasi Ka/Ki).
 const Nada song_13[] PROGMEM = {
-  // --- BAIT 1 ---
-  // Bar 1: "Se-sat a-gung sai wa-" (| 3 4_ 5_ 6 5_ 4_ |)
-  { MI, 4 }, { FA, 2 }, { SOL, 2 }, { LA, 4 }, { SOL, 2 }, { FA, 2 },
-  // Bar 2: "-wai" (| 3 2 3 0 |)
-  { MI, 4 }, { RE, 4 }, { MI, 4 }, { DIAM, 4 },
-  // Bar 3: "Ta-lo bu-ta-buh ta-khi cang-" (| 3 4_ 5_ 6 5_ 4_ |)
-  { MI, 4 }, { FA, 2 }, { SOL, 2 }, { LA, 4 }, { SOL, 2 }, { FA, 2 },
-  // Bar 4: "-get" (| 3 2 1 0 |)
-  { MI, 4 }, { RE, 4 }, { DO, 4 }, { DIAM, 4 },
-  // Bar 5: "Ga-wi a-dat ta-no te-goh" (| 1_ 2_ 3_ 4_ 5 6 |)
-  { DO, 2 }, { RE, 2 }, { MI, 2 }, { FA, 2 }, { SOL, 4 }, { LA, 4 },
-  // Bar 6: "ca-kak pe-pa-dun" (| 5_ 4_ 3_ 2_ 3 ._ 0_ |)
-  { SOL, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { MI, 6 }, { DIAM, 2 },
-
-  // --- BAIT 2 ---
-  // Bar 7: "A-dat bu-da-yo Lam-" (| 3 4_ 5_ 6 5_ 4_ |)
-  { MI, 4 }, { FA, 2 }, { SOL, 2 }, { LA, 4 }, { SOL, 2 }, { FA, 2 },
-  // Bar 8: "-pung" (| 3 2 3 0 |)
-  { MI, 4 }, { RE, 4 }, { MI, 4 }, { DIAM, 4 },
-  // Bar 9: "Na-yah te-mon ra-gam wa-" (| 3 4_ 5_ 6 5_ 4_ |)
-  { MI, 4 }, { FA, 2 }, { SOL, 2 }, { LA, 4 }, { SOL, 2 }, { FA, 2 },
-  // Bar 10: "-wai no" (| 3 2 1 0 |)
-  { MI, 4 }, { RE, 4 }, { DO, 4 }, { DIAM, 4 },
-  // Bar 11: "Je-pa-na ga-ru-da-no" (| 1_ 2_ 3_ 4_ 5 6 |)
-  { DO, 2 }, { RE, 2 }, { MI, 2 }, { FA, 2 }, { SOL, 4 }, { LA, 4 },
-  // Bar 12: "gha-ta se-ba-tin" (| 5_ 4_ 3_ 2_ 1 ._ 0_ |)
-  { SOL, 2 }, { FA, 2 }, { MI, 2 }, { RE, 2 }, { DO, 6 }, { DIAM, 2 },
-
-  // --- REFF ---
-  // Bar 13: "Cang-get a-gung..." (| 5 5_ 6_ 5 3 |)
-  { SOL, 4 }, { SOL, 2 }, { LA, 2 }, { SOL, 4 }, { MI, 4 },
-  // Bar 14: "Cang-get a-gung..." (| 5 5_ 6_ 5 3 |)
-  { SOL, 4 }, { SOL, 2 }, { LA, 2 }, { SOL, 4 }, { MI, 4 },
-  // Bar 15: "Mu-li ba-tang-an..." (| 1_ 2_ 3_ 4_ 5 ._ 0_ |)
-  { DO, 2 }, { RE, 2 }, { MI, 2 }, { FA, 2 }, { SOL, 6 }, { DIAM, 2 },
-  // Bar 16: "Di-lom ku-to-ma-ro..." (| 5 5_ 6_ 5 3 |)
-  { SOL, 4 }, { SOL, 2 }, { LA, 2 }, { SOL, 4 }, { MI, 4 },
-  // Bar 17: "Me-jeng bu-san-ding..." (| 1_ 2_ 3_ 2_ 1 ._ 0_ |)
-  { DO, 2 }, { RE, 2 }, { MI, 2 }, { RE, 2 }, { DO, 6 }, { DIAM, 2 },
-  // Bar 18: "La-pah gham ja-mo ja-mo" (| 5 6_ 5_ 4 3_ 2_ |)
-  { SOL, 4 }, { LA, 2 }, { SOL, 2 }, { FA, 4 }, { MI, 2 }, { RE, 2 },
-  // Bar 19: "Nge-les-ta-ri-ko a-dat" (| 3 1_ 2_ 3 4_ 3_ |)
-  { MI, 4 }, { DO, 2 }, { RE, 2 }, { MI, 4 }, { FA, 2 }, { MI, 2 },
-  // Bar 20: "Lam-pung." (| 2 1 . 0 |)
-  { RE, 4 }, { DO, 8 }, { DIAM, 4 }
+  // | - - 2 3 | 2 1 2 3 | 2 1 2 3 | 2 1 2 2 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 2 },
+  // | - - 2 3 | 2 1 2 3 | 2 1 2 3 | 2 1 2 (2) |
+  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 2 },
+  // | - - 2 3 | 5 5 6 6 | 6 5 6 6 | 6 6 1 2 |
+  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(LA, DO), 1 }, { DO, 1 }, { RE, 2 },
+  // | - - 2 3 | 5 5 6 6 | 6 5 6 6 | 6 5 6 (6) |
+  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 2 },
+  // | - - 6 7 | 6 5 6 7 | 6 5 6 7 | 6 5 6 6 |
+  { duo(DIAM, DO), 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 2 },
+  // | - - 6 7 | 6 5 6 7 | 6 5 6 7 | 6 5 6 (6) |
+  { duo(DIAM, DO), 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 3 },
+  // | - - 5 3 | 5 5 3 3 | 5 5 3 3 | 5 5 3 3 |
+  { SOL, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 },
+  // | 2 - 2 3 | 5 5 3 3 | 2 - 2 2 | 3 - 2 (2) |
+  { RE, 2 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { RE, 3 },
+  // | - - 5 3 | 5 5 3 3 | 5 5 3 3 | 5 5 3 3 |
+  { SOL, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 },
+  // | 2 - 2 3 | 5 5 3 3 | 2 - 2 2 | 3 - 2 (2) |
+  { RE, 2 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { RE, 1 }
 };
 
-// Pang Lipang Dang (Lagu Daerah Klasik Lampung, 4/4, Allegro Riang 104 BPM) — transcribed bar-exact dari partitur kanonik.
-// Rentang nada: 1 (DO) s.d. 8 (DO_T). Birama 4/4 = 16 unit per birama (2=1/8, 4=1/4, 8=1/2, 12=3/4). Total 16 birama (80 not).
+// Tabuh Alau-Alau Kembahang (tempo cepat, ketukan 1/8 = 2 unit, 132 BPM).
+// Kanan: melodi. Kiri: ketukan bilah 1 pola | - - 1 - | 1 - 1 1 |.
 const Nada song_14[] PROGMEM = {
-  // --- REFF / CHORUS UTAMA ---
-  // Bar 1: "Pang li-pang dang, pang li-" (| 3 3_ 2_ 1 2_ 3_ |)
-  { MI, 4 }, { MI, 2 }, { RE, 2 }, { DO, 4 }, { RE, 2 }, { MI, 2 },
-  // Bar 2: "-pang dang ki-li-dang" (| 5 5_ 6_ 5 3 |)
-  { SOL, 4 }, { SOL, 2 }, { LA, 2 }, { SOL, 4 }, { MI, 4 },
-  // Bar 3: "Pang li-pang dang, sa-kik" (| 5 3_ 5_ 2 1_ 2_ |)
-  { SOL, 4 }, { MI, 2 }, { SOL, 2 }, { RE, 4 }, { DO, 2 }, { RE, 2 },
-  // Bar 4: "li-pang dang kun-dang" (| 3 1_ 2_ 3_ 2_ 1 |)
-  { MI, 4 }, { DO, 2 }, { RE, 2 }, { MI, 2 }, { RE, 2 }, { DO, 4 },
-  // Bar 5: "Yu yu pa-yu, yu pa-" (| 3 3_ 2_ 1 2_ 3_ |)
-  { MI, 4 }, { MI, 2 }, { RE, 2 }, { DO, 4 }, { RE, 2 }, { MI, 2 },
-  // Bar 6: "-yu ku te-khi-ma" (| 5 5_ 6_ 5 3 |)
-  { SOL, 4 }, { SOL, 2 }, { LA, 2 }, { SOL, 4 }, { MI, 4 },
-  // Bar 7: "Yu yu pa-yu, yu pa-" (| 5 3_ 5_ 2 1_ 2_ |)
-  { SOL, 4 }, { MI, 2 }, { SOL, 2 }, { RE, 4 }, { DO, 2 }, { RE, 2 },
-  // Bar 8: "-yu ka-ya di-a" (| 3 2_ 1_ 2 1 |)
-  { MI, 4 }, { RE, 2 }, { DO, 2 }, { RE, 4 }, { DO, 4 },
-
-  // --- BAIT 1 ---
-  // Bar 9: "A-pi peng-ga-li la-" (| 0 5_ 6_ 1' 1'_ 7_ |)
-  { DIAM, 4 }, { SOL, 2 }, { LA, 2 }, { DO_T, 4 }, { DO_T, 2 }, { SI, 2 },
-  // Bar 10: "-was" (| 6 5 . 0 |)
-  { LA, 4 }, { SOL, 8 }, { DIAM, 4 },
-  // Bar 11: "Pa-kai tem-bi-lang be-" (| 0 3_ 5_ 6 5_ 3_ |)
-  { DIAM, 4 }, { MI, 2 }, { SOL, 2 }, { LA, 4 }, { SOL, 2 }, { MI, 2 },
-  // Bar 12: "-si" (| 2 3 . 0 |)
-  { RE, 4 }, { MI, 8 }, { DIAM, 4 },
-  // Bar 13: "Hai mu-li a-was a-" (| 0 5_ 6_ 1' 1'_ 7_ |)
-  { DIAM, 4 }, { SOL, 2 }, { LA, 2 }, { DO_T, 4 }, { DO_T, 2 }, { SI, 2 },
-  // Bar 14: "-was" (| 6 5 . 0 |)
-  { LA, 4 }, { SOL, 8 }, { DIAM, 4 },
-  // Bar 15: "Na-yah ra-gah mem-bu-" (| 0 3_ 5_ 4 3_ 2_ |)
-  { DIAM, 4 }, { MI, 2 }, { SOL, 2 }, { FA, 4 }, { MI, 2 }, { RE, 2 },
-  // Bar 16: "-di." (| 1 . . 0 |)
-  { DO, 12 }, { DIAM, 4 }
+  // | - - 2 6 | 6 6 5 6 |
+  { DIAM, 4 }, { duo(RE, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { duo(LA, DO), 6 },
+  // | - - 6 5 | 3 3 2 (3) |
+  { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 6 },
+  // | - - 3 6 | 6 6 5 6 |
+  { duo(MI, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { duo(LA, DO), 6 },
+  // | - - 6 5 | 3 3 2 (3) |
+  { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 6 },
+  // | - - 3 5 | 6 5 3 2 |
+  { duo(MI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { duo(RE, DO), 6 },
+  // | - - 2 3 | 5 3 2 (3) |
+  { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 6 },
+  // | - - 3 5 | 6 5 3 2 |
+  { duo(MI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { duo(RE, DO), 6 },
+  // | - - 2 3 | 5 3 2 (1) |
+  { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 }
 };
 
 // --- 4. LAINNYA ---
@@ -1378,7 +1385,7 @@ const int defaultSongLengths[] = {
 const char* const defaultSongNames[] = {
   "Indonesia Raya", "Tanah Airku", "Bagimu Negeri", "Garuda Pancasila", "Ibu Kita Kartini",
   "Anak Kambing Saya", "Cublak-Cublak Suweng", "Gundul-Gundul Pacul", "Apuse", "Suwe Ora Jamu",
-  "Tabuh Alau-Alau", "Sang Bumi Ruwa Jurai", "Tanoh Lado", "Cangget Agung", "Pang Lipang Dang",
+  "Tabuh Sambai Agung", "Tabuh Sekeli", "Tabuh Jakhang", "Tabuh Tari", "Tabuh Alau-Alau Kembahang",
   "Twinkle Twinkle Little Star", "Selamat Ulang Tahun", "Pelangi-Pelangi", "Balonku Ada Lima", "Naik Delman"
 };
 
@@ -1392,6 +1399,6 @@ const char* const defaultSongCats[] = {
 const int defaultSongTempos[] = {
   96, 80, 80, 100, 88,
   112, 140, 112, 96, 104,
-  104, 92, 88, 92, 104,
+  100, 100, 66, 76, 132,
   100, 100, 80, 68, 92
 };

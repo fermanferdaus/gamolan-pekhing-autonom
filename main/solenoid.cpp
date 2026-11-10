@@ -1,6 +1,10 @@
 #include "solenoid.h"
 
-static byte activeNada = DIAM;
+static uint16_t activeMask = 0;
+
+static bool isValid(byte nada) {
+  return nada >= DO && nada <= DO_T;
+}
 
 void solenoidInit() {
   for (int i = 0; i < jumlahRelay; i++) {
@@ -10,32 +14,25 @@ void solenoidInit() {
 }
 
 void semuaMati() {
-  if (activeNada != DIAM) {
-    Serial.printf("[OFF] %d\n", activeNada);
-    activeNada = DIAM;
-  }
   for (int i = 0; i < jumlahRelay; i++) {
     digitalWrite(relayPins[i], HIGH);
+    if (activeMask & (1 << (i + 1))) {
+      Serial.printf("[OFF] %d\n", i + 1);
+    }
   }
+  activeMask = 0;
 }
 
 void solenoidHit(byte nada, int durasiMs) {
-  if (nada >= DO && nada <= DO_T) {
-    if (activeNada != DIAM && activeNada != nada) {
-      solenoidRelease(activeNada);
-    }
-    activeNada = nada;
-    Serial.printf("[HIT] %d %s %d\n", nada, namaNada[nada], durasiMs);
-    digitalWrite(relayPins[nada - 1], LOW);
-  }
+  if (!isValid(nada)) return;
+  digitalWrite(relayPins[nada - 1], LOW);
+  activeMask |= (1 << nada);
+  Serial.printf("[HIT] %d %s %d\n", nada, namaNada[nada], durasiMs);
 }
 
 void solenoidRelease(byte nada) {
-  if (nada >= DO && nada <= DO_T) {
-    digitalWrite(relayPins[nada - 1], HIGH);
-    Serial.printf("[OFF] %d\n", nada);
-    if (activeNada == nada) {
-      activeNada = DIAM;
-    }
-  }
+  if (!isValid(nada)) return;
+  digitalWrite(relayPins[nada - 1], HIGH);
+  activeMask &= ~(1 << nada);
+  Serial.printf("[OFF] %d\n", nada);
 }

@@ -671,7 +671,7 @@ class _ComposerScreenState extends State<ComposerScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                isDiam ? '-' : '${item.nada}',
+                                isDiam ? '-' : item.angka,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,

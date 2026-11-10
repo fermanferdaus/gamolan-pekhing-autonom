@@ -125,7 +125,7 @@ bool loadSongNotes(int songId, Nada* outNotes, int& outCount, int& outTempo) {
 }
 
 bool saveSong(int& id, const String& name, const String& cat, int tempo, JsonArrayConst notes) {
-  if (notes.size() == 0 || notes.size() > MAX_NOTES) return false;
+  if (notes.size() == 0 || notes.size() > MAX_CUSTOM_NOTES) return false;
 
   int targetId = id;
   if (targetId < NUM_DEFAULT_SONGS) {
