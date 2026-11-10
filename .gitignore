@@ -1,3 +1,8 @@
 .playwright-mcp/
 plan.md
 simulator-plan.md
+simulator/
+test_simulator/
+*.exe
+__pycache__/
+*.pyc

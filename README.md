@@ -1,231 +1,205 @@
-# 🎋 Gamolan Pekhing - Autonomous Robotic Musical Instrument & Mobile Controller
+# Gamolan Pekhing - Robotic Instrument Controller
 
-[![Platform](https://img.shields.io/badge/Platform-ESP32%20%7C%20Flutter-blue.svg)](https://flutter.dev)
-[![Architecture](https://img.shields.io/badge/Architecture-FreeRTOS%20%7C%20LittleFS-orange.svg)](https://freertos.org)
-[![Communication](https://img.shields.io/badge/Protocol-WebSocket%20Channel-success.svg)](https://websockets.spec.whatwg.org)
-[![Culture](https://img.shields.io/badge/Culture-Lampung%20Sekala%20Berak-red.svg)](https://id.wikipedia.org/wiki/Gamolan_pekhing)
+Sistem aktuator mekanik dan kontroler nirkabel untuk instrumen bambu tradisional Lampung, Gamolan Pekhing (Cetik). Proyek ini menggabungkan firmware ESP32 berbasis FreeRTOS untuk menggerakkan 8 bilah solenoid dengan aplikasi mobile Flutter via WebSocket.
 
-Sistem otomasi robotik dan kontroler cerdas alat musik tradisional khas Lampung, **Gamolan Pekhing** (sering disebut juga *Cetik*), berbasis mikrokontroler **ESP32** (FreeRTOS) dan aplikasi mobile cross-platform **Flutter**.
+## Spesifikasi Teknis
 
-Sistem ini mereproduksi teknik permainan otentik Gamolan Pekhing menggunakan **dua stik mekanik solenoid** secara sinkron untuk memainkan melodi dan pola ritme ketukan (*interlocking / ostinato*), serta dilengkapi fitur penyusunan lagu kustom dengan pratinjau (*live preview*) sebelum disimpan permanen ke memori flash ESP32.
+| Parameter | Spesifikasi |
+| --- | --- |
+| Mikrokontroler | ESP32-WROOM-32 (Dual Core 240 MHz) |
+| RTOS / Task Core | FreeRTOS, task pemutaran berjalan di Core 1 (Prioritas 5) |
+| Aktuator | 8 unit solenoid push-pull 12V DC |
+| Modul Driver | 8-Channel Relay Module (Active-LOW, isolasi optocoupler) |
+| Durasi Pulsa Solenoid | 40 ms aktif, jeda minimum antar-ketuk 25 ms |
+| Protokol Kontrol | WebSocket Server (`ws://192.168.4.1:81`), mode SoftAP tanpa internet |
+| Format Penyimpanan | LittleFS (partisi Flash internal ESP32) |
+| Aplikasi Kontroler | Flutter (Android & Web) |
 
----
+## Skema Pinout & Wiring
 
-## 🏛️ Latar Belakang Budaya
+Hubungkan pin GPIO ESP32 ke pin masukan modul relay (IN1 - IN8):
 
-Gamolan Pekhing adalah instrumen perkusi bambu purba asal Sekala Berak, Lampung Barat. Memiliki tangga nada pentatonis 8 bilah (*Laras Pelog Enam Nada*):
-`1 (Do) · 2 (Re) · 3 (Mi) · 4 (Fa) · 5 (Sol) · 6 (La) · 7 (Si) · 8 (Do')`.
+| Nada | Bilah | Frekuensi Relatif | GPIO ESP32 | Relay |
+| --- | --- | --- | --- | --- |
+| 1 | Do | Rendah | GPIO 26 | IN 1 |
+| 2 | Re | | GPIO 25 | IN 2 |
+| 3 | Mi | | GPIO 19 | IN 3 |
+| 4 | Fa | | GPIO 18 | IN 4 |
+| 5 | Sol | | GPIO 17 | IN 5 |
+| 6 | La | | GPIO 16 | IN 6 |
+| 7 | Si | | GPIO 14 | IN 7 |
+| 8 | Do' | Tinggi | GPIO 13 | IN 8 |
 
-Dalam tradisi aslinya, gamolan dimainkan menggunakan dua buah stik pemukul:
-- **Tangan Kanan (*Ka*)**: Memainkan kontur melodi utama.
-- **Tangan Kiri (*Ki*)**: Menjaga ritme aksen atau pola ketukan konstan (*gelitak / ostinato*).
+### Kebutuhan Catu Daya & Proteksi
+- **ESP32**: 5V DC via kabel USB atau modul step-down LM2596.
+- **Solenoid**: 12V DC terpisah dengan kapasitas arus minimal 3A - 5A. Saat dua stik memukul bersamaan, penarikan arus sesaat mencapai ~2A.
+- **Common Ground**: Terminal GND ESP32 wajib dihubungkan ke GND catu daya 12V dan modul relay.
+- **Dioda Flyback**: Pasang dioda 1N4007 secara antiparalel di setiap koil solenoid jika modul driver belum memiliki proteksi snubber induktif.
 
----
+## Arsitektur Perangkat Lunak
 
-## 📐 Arsitektur Sistem
-
-```mermaid
-flowchart TD
-    subgraph Controller ["📱 Mobile App (Flutter)"]
-        UI["UI / Lampung Theme"]
-        WSClient["GamolanService (WebSocket Client)"]
-        Composer["Komposer Musik & Live Preview"]
-        VirtualBilah["Mode Bilah Manual (Not Angka)"]
-    end
-
-    subgraph Hardware ["⚡ Autonomous ESP32 Unit"]
-        AP["Wi-Fi SoftAP ('GamolanPekhing': 192.168.4.1)"]
-        WSServer["WebSocket Server (Port 81)"]
-        RTOS["FreeRTOS Playback Task (Core 1, Priority 5)"]
-        LFS["LittleFS Flash Storage (Lagu Default & Kustom)"]
-        Driver["Solenoid Driver (Active-LOW Logic)"]
-    end
-
-    subgraph Actuators ["🎋 Instrumen Fisik"]
-        Relay["Modul Relay 8-Channel (Optocoupler)"]
-        Solenoid["8x Push/Pull Solenoid 12V"]
-        Bambu["8 Bilah Bambu Gamolan Pekhing"]
-    end
-
-    UI --> WSClient
-    Composer --> WSClient
-    VirtualBilah --> WSClient
-
-    WSClient <== "Wi-Fi TCP/IP (ws://192.168.4.1:81)" ==> AP
-    AP --> WSServer
-    WSServer --> RTOS
-    WSServer --> LFS
-    RTOS --> Driver
-    Driver --> Relay
-    Relay --> Solenoid
-    Solenoid --> Bambu
 ```
-
----
-
-## 📂 Struktur Direktori
-
-```text
 gamolan-pekhing/
 ├── main/                       # Firmware ESP32 (C++ Modular / Arduino)
-│   ├── main.ino                # Entry point, setup SoftAP, POST test
-│   ├── config.h / config.cpp   # Konfigurasi pinout GPIO, tempo, konstanta nada
-│   ├── solenoid.h / .cpp       # Abstraksi driver relay/solenoid (Active-LOW)
-│   ├── storage.h / .cpp        # Manajemen file LittleFS & metadata JSON
-│   ├── playback.h / .cpp       # Engine FreeRTOS real-time playback & preview
-│   ├── ws_handler.h / .cpp     # WebSocket server event handler & command parser
-│   └── songs.h / songs.cpp     # 20 Repertoar partitur kanonik PROGMEM (2 stik)
-├── app/                        # Aplikasi Mobile Controller (Flutter)
-│   ├── lib/
-│   │   ├── models/             # SongModel, DefaultSongs, NoteItem
-│   │   ├── screens/            # PlaylistScreen, NotAngkaScreen, ComposerScreen
-│   │   ├── services/           # GamolanService (Centralized WebSocket Channel)
-│   │   ├── theme/              # LampungTheme (Palet Biru & Tapis Lampung)
-│   │   └── main.dart           # Inisialisasi aplikasi & navigation
-│   └── test/                   # Unit & Widget Test Suite (13/13 Passed)
-├── plan.md                     # Roadmap implementasi (diabaikan dari git)
-├── simulator-plan.md           # Rencana simulator audio (diabaikan dari git)
-└── README.md                   # Dokumentasi global proyek
+│   ├── main.ino                # Setup SoftAP, LittleFS, task RTOS, dan POST test
+│   ├── config.h / config.cpp   # Konfigurasi pinout, tempo, nada, dan ID pratinjau
+│   ├── solenoid.h / .cpp       # Driver relay Active-LOW dengan serial logging
+│   ├── storage.h / .cpp        # Serialisasi & persistensi lagu LittleFS (JSON)
+│   ├── playback.h / .cpp       # Engine FreeRTOS playback dan live preview di RAM
+│   ├── ws_handler.h / .cpp     # WebSocket server (port 81) dengan mutex rekursif
+│   └── songs.h / songs.cpp     # 20 Repertoar partitur kanonik di PROGMEM
+└── app/                        # Aplikasi Mobile (Flutter)
+    ├── lib/
+    │   ├── models/             # SongModel, DefaultSongs, NoteItem
+    │   ├── screens/            # PlaylistScreen, NotAngkaScreen, ComposerScreen
+    │   ├── services/           # GamolanService (Centralized WebSocket Client)
+    │   └── theme/              # LampungTheme (Tapis Lampung & Navy/Gold)
+    └── test/                   # Test suite unit & widget (13/13 lolos)
 ```
 
----
+### 1. Firmware ESP32 (`/main`)
+Firmware memisahkan beban kerja jaringan dan aktuasi mekanik:
+- Jaringan Wi-Fi SoftAP dan polling WebSocket berjalan di Core 0 (`wsLoop`).
+- Pemutaran nada berjalan secara independen di Core 1 melalui task `playbackTask` dengan prioritas tinggi (Priority 5) untuk menjamin akurasi tempo mikroskopik tanpa terganggu overhead jaringan.
+- Mode `preview` memproses susunan nada kustom langsung di buffer RAM tanpa menulis ke LittleFS flash, mencegah keausan sel memori flash.
 
-## 🔌 Skema Wiring & Pinout GPIO
+### 2. Struktur Data 2 Stik (`duo`)
+Firmware mereproduksi teknik permainan dua tangan Gamolan Pekhing:
+- Tangan Kanan (*Ka*): Melodi utama.
+- Tangan Kiri (*Ki*): Pola aksen atau ketukan ostinato.
 
-Peta sambungan antara pin digital ESP32 dan Modul Relay 8-Channel:
+Setiap elemen nada direpresentasikan dalam struct 2-byte:
+```cpp
+struct Nada {
+  byte nada;     // Nibble bawah (bit 0-3) = Stik Kanan, Nibble atas (bit 4-7) = Stik Kiri
+  byte panjang;  // Durasi dalam kelipatan 1/16 ketuk
+};
+```
+Fungsi `duo(kanan, kiri)` menggabungkan dua bilah nada sehingga solenoid kanan dan kiri dapat dipicu bersamaan pada ketukan yang sama.
 
-| Bilah Nada | Not Angka | Solfege | GPIO ESP32 | Modul Relay (Active-LOW) |
-| :---: | :---: | :---: | :---: | :---: |
-| **Bilah 1** | 1 | DO | **GPIO 26** | IN 1 |
-| **Bilah 2** | 2 | RE | **GPIO 25** | IN 2 |
-| **Bilah 3** | 3 | MI | **GPIO 19** | IN 3 |
-| **Bilah 4** | 4 | FA | **GPIO 18** | IN 4 |
-| **Bilah 5** | 5 | SOL | **GPIO 17** | IN 5 |
-| **Bilah 6** | 6 | LA | **GPIO 16** | IN 6 |
-| **Bilah 7** | 7 | SI | **GPIO 14** | IN 7 |
-| **Bilah 8** | 8 | DO' (Tinggi) | **GPIO 13** | IN 8 |
+### 3. Aplikasi Mobile (`/app`)
+Aplikasi Flutter bertindak sebagai kontroler nirkabel:
+- **Daftar Lagu**: Memuat metadata lagu dari flash ESP32 saat terhubung.
+- **Mode Manual (Bilah)**: Papan ketuk 8 bilah not angka untuk interaksi langsung ke solenoid.
+- **Komposer Musik**: Editor nada visual dengan tombol **Pratinjau Suara** langsung ke solenoid sebelum konfirmasi simpan ke flash.
 
-> [!IMPORTANT]
-> **Pedoman Catu Daya (Power Supply):**
-> - **ESP32**: 5V DC (via port USB atau buck converter step-down).
-> - **Solenoid**: Wajib menggunakan adaptor terpisah **12V DC minimal 3A - 5A**.
-> - **Common Ground**: Hubungkan ground (GND) ESP32 ke ground modul relay/solenoid.
-> - **Proteksi Flyback**: Pasang dioda **1N4007** secara paralel-terbalik di setiap kutub koil solenoid untuk mencegah lonjakan tegangan balik (*back-EMF*) yang dapat merusak mikrokontroler.
+## Daftar Repertoar Bawaan
 
----
+| ID | Judul Lagu | Kategori | Tempo (BPM) | Keterangan |
+| :---: | :--- | :--- | :---: | :--- |
+| 0 | Indonesia Raya | Nasional | 96 | 4/4 |
+| 1 | Tanah Airku | Nasional | 80 | 4/4 |
+| 2 | Bagimu Negeri | Nasional | 80 | 4/4 |
+| 3 | Garuda Pancasila | Nasional | 100 | 4/4 |
+| 4 | Ibu Kita Kartini | Nasional | 88 | 4/4 |
+| 5 | Anak Kambing Saya | Daerah | 112 | 2/4 |
+| 6 | Cublak-Cublak Suweng | Daerah | 140 | 4/4 |
+| 7 | Gundul-Gundul Pacul | Daerah | 112 | 4/4 |
+| 8 | Apuse | Daerah | 96 | 4/4 |
+| 9 | Suwe Ora Jamu | Daerah | 104 | 4/4 |
+| 10 | Tabuh Sambai Agung | Lampung | 100 | Notasi 2 stik, ostinato Do pada stik kiri |
+| 11 | Tabuh Sekeli | Lampung | 100 | Notasi 2 stik, ritem bilah 2 beralih ke bilah 1 |
+| 12 | Tabuh Jakhang | Lampung | 66 | Notasi 2 stik, interlocking ketuk 1/16 |
+| 13 | Tabuh Tari | Lampung | 76 | Melodi pembuka solo kanan, variasi 5-3 interlocking |
+| 14 | Tabuh Alau-Alau Kembahang | Lampung | 132 | Notasi 2 stik, ketukan cepat sinkopasi |
+| 15 | Twinkle Twinkle Little Star | Lainnya | 100 | 4/4 |
+| 16 | Selamat Ulang Tahun | Lainnya | 100 | 3/4 |
+| 17 | Pelangi-Pelangi | Lainnya | 80 | 2/4 |
+| 18 | Balonku Ada Lima | Lainnya | 68 | 2/4 |
+| 19 | Naik Delman | Lainnya | 92 | 2/4 |
 
-## 🎵 Repertoar Lagu (20 Lagu Bawaan)
+*Catatan lagu Lampung:* Ditranskripsi dari riset etnomusikologi Muhammad Yoga Saputra dan Maestro Syapril Yamin (*Teknik Permainan dan Bentuk Notasi Pada Alat Musik Gamolan Pekhing*). Setiap birama 4/4 dihitung tepat 16 unit untuk menjaga aksen sinkopasi gantung.
 
-Firmware dilengkapi 20 lagu terkurasi yang disimpan langsung di memori flash ESP32:
+## Protokol Komunikasi WebSocket
 
-### 1. Tabuh Tradisional Lampung (Gamolan Pekhing Asli - 2 Stik)
-Ditranskripsi secara matematis dari notasi akademik Maestro Syapril Yamin & Muhammad Yoga Saputra (*16 unit per birama 4/4 presisi*):
-1. **Tabuh Sambai Agung** (Sekala Berak, 100 BPM, Ostinato Tangan Kiri di Bilah 1 `| - - 1 - | 1 - 1 1 |`).
-2. **Tabuh Sekeli** (100 BPM, Ritem Tangan Kiri di Bilah 2 beralih ke Bilah 1).
-3. **Tabuh Jakhang** (Tempo Lambat 66 BPM, Interlocking ketuk rapat `| - 1 - - |`).
-4. **Tabuh Tari** (76 BPM, Melodi tari tunggal tangan kanan & transisi interlocking bagian 5 3).
-5. **Tabuh Alau-Alau Kembahang** (Tempo Cepat 132 BPM, Sinkopasi ritmis lincah).
+Komunikasi data menggunakan JSON murni via WebSocket (`ws://192.168.4.1:81`):
 
-### 2. Lagu Nasional Indonesia
-- Indonesia Raya
-- Tanah Airku
-- Bagimu Negeri
-- Garuda Pancasila
-- Ibu Kita Kartini
+### Perintah dari Klien ke ESP32
+```json
+// Mengambil daftar lagu tersimpan
+{"cmd": "list"}
 
-### 3. Lagu Daerah Nusantara
-- Anak Kambing Saya
-- Cublak-Cublak Suweng
-- Gundul-Gundul Pacul
-- Apuse
-- Suwe Ora Jamu
+// Memutar lagu berdasarkan ID
+{"cmd": "play", "id": 10}
 
-### 4. Lagu Anak & Populer
-- Twinkle Twinkle Little Star
-- Selamat Ulang Tahun
-- Pelangi-Pelangi
-- Balonku Ada Lima
-- Naik Delman
+// Menghentikan pemutaran
+{"cmd": "stop"}
 
----
+// Memukul bilah langsung (mode manual, nada 1-8)
+{"cmd": "hit", "n": 1}
 
-## ✨ Fitur Utama
+// Pratinjau susunan nada langsung di solenoid tanpa simpan ke flash
+{"cmd": "preview", "tempo": 120, "notes": [[1, 4], [2, 4], [3, 4]]}
 
-- **Teknik 2 Stik Bersamaan (`duo(kanan, kiri)`)**: Struktur nibble C++ efisien (4-bit kanan, 4-bit kiri) memungkinkan kedua stik memukul bilah yang berbeda secara serentak.
-- **Pratinjau Suara Sebelum Simpan (*Live Preview*)**: Pengguna dapat mendengarkan lagu ciptaannya langsung di alat fisik tanpa perlu menyimpannya terlebih dahulu ke flash, mencegah keausan flash memory (*zero flash-wear*).
-- **Kursor Not Real-Time**: Daftar not bergeser otomatis dan not yang sedang berbunyi disorot tebal di layar HP.
-- **Mode Bilah Manual (*Virtual Keyboard*)**: Mainkan 8 bilah gamolan langsung dari layar HP dengan latensi rendah melalui WebSocket.
-- **Power-On Self Test (POST)**: Setiap kali ESP32 dinyalakan, alat otomatis menguji tangga nada 1 sampai 8 secara berurutan.
+// Menambah lagu baru ke LittleFS
+{"cmd": "add", "name": "Lagu Baru", "tempo": 120, "cat": "lainnya", "notes": [[1, 4], [2, 4]]}
 
----
+// Mengedit lagu
+{"cmd": "edit", "id": 20, "name": "Judul Baru", "tempo": 110, "cat": "lainnya", "notes": [[1, 4]]}
 
-## 🚀 Panduan Memulai
+// Menghapus lagu kustom
+{"cmd": "del", "id": 20}
 
-### 1. Upload Firmware ke ESP32
-
-#### Menggunakan Arduino IDE:
-1. Buka folder [`main/`](file:///D:/Documents/Arduino/gamolan-pekhing/main) di Arduino IDE.
-2. Pasang library: `WebSocketsServer` oleh Markus Sattler dan `ArduinoJson` (v7).
-3. Pilih board **ESP32 Dev Module** dan tentukan port COM yang sesuai.
-4. Klik **Upload**.
-
-#### Menggunakan Arduino CLI:
-```powershell
-& 'C:\aplikasi\Arduino IDE\resources\app\lib\backend\resources\arduino-cli.exe' compile --fqbn esp32:esp32:esp32 main
-& 'C:\aplikasi\Arduino IDE\resources\app\lib\backend\resources\arduino-cli.exe' upload -p COMx --fqbn esp32:esp32:esp32 main
+// Memulihkan lagu bawaan pabrik
+{"cmd": "reset_defaults"}
 ```
 
----
+### Pesan Broadcast dari ESP32
+```json
+// Status pemutaran
+{"t": "state", "state": "playing", "id": 10}
+{"t": "state", "state": "idle"}
 
-### 2. Menjalankan & Build Aplikasi Flutter
+// Event nada aktif saat pemutaran
+{"t": "note", "n": 2, "l": 1, "idx": 0, "total": 272}
 
-Pastikan Flutter SDK (>= 3.13) telah terpasang di sistem.
+// Konfirmasi eksekusi perintah
+{"t": "ack", "ok": true, "msg": "Lagu berhasil disimpan"}
+```
 
-Masuk ke folder `app`:
+## Panduan Instalasi & Build
+
+### 1. Kompilasi & Flash Firmware (ESP32)
+
+Prasyarat:
+- Arduino IDE atau Arduino CLI
+- Core board: `esp32` by Espressif Systems
+- Library: `WebSockets` (Markus Sattler), `ArduinoJson` (v7)
+
+Menggunakan Arduino CLI:
+```bash
+arduino-cli compile --fqbn esp32:esp32:esp32 main
+arduino-cli upload -p COMx --fqbn esp32:esp32:esp32 main
+```
+
+### 2. Build Aplikasi Mobile (Flutter)
+
+Prasyarat:
+- Flutter SDK (Channel stable >= 3.13)
+- Android SDK / Java 17
+
 ```bash
 cd app
-```
 
-#### Menjalankan Test Otomatis:
-```bash
+# Menjalankan unit & widget test
 flutter test
-flutter analyze
-```
 
-#### Menjalankan Langsung ke HP Android:
-Hubungkan HP dengan kabel USB dan aktifkan *USB Debugging*:
-```bash
-flutter run
-```
-
-#### Build File APK Android:
-```bash
-# Debug APK (siap install cepat tanpa signing)
+# Build file APK (Debug)
 flutter build apk --debug
+# Output: app/build/app/outputs/flutter-apk/app-debug.apk
 
-# Output file: app/build/app/outputs/flutter-apk/app-debug.apk
+# Build file APK (Release)
+flutter build apk --release
+# Output: app/build/app/outputs/flutter-apk/app-release.apk
+
+# Build Web
+flutter build web --release
+# Output: app/build/web/
 ```
 
----
+## Pengoperasian Sistem
 
-## 📡 Spesifikasi Protokol WebSocket
-
-Komunikasi antara HP dan ESP32 berjalan di port `81` melalui pesan JSON:
-
-| Perintah (`cmd`) | Parameter | Fungsi |
-| :--- | :--- | :--- |
-| `list` | - | Mengambil seluruh daftar lagu dari memori ESP32 |
-| `play` | `{"id": <int>}` | Memulai pemutaran lagu berdasarkan ID |
-| `stop` | - | Menghentikan pemutaran lagu yang sedang berjalan |
-| `hit` | `{"n": <1-8>}` | Memukul satu bilah nada secara instan (Mode Manual) |
-| `preview` | `{"tempo": <int>, "notes": [[nada, panjang], ...]}` | Memutar pratinjau rangkaian nada tanpa menyimpannya ke flash |
-| `add` | `{"name": "...", "tempo": <int>, "cat": "...", "notes": [...]}` | Menyimpan lagu kustom baru ke flash LittleFS |
-| `edit` | `{"id": <int>, "name": "...", "tempo": <int>, ...}` | Memperbarui lagu kustom di LittleFS |
-| `del` | `{"id": <int>}` | Menghapus lagu kustom dari flash |
-| `reset_defaults` | - | Memulihkan seluruh lagu bawaan pabrik |
-
----
-
-## 📜 Lisensi & Kontribusi
-
-Proyek ini dikembangkan untuk pelestarian budaya tradisional Lampung berbasis teknologi otomasi modern. Terbuka untuk riset, edukasi, dan pengembangan seni pertunjukan karawitan digital.
+1. Berikan daya pada modul solenoid (12V DC) dan ESP32 (5V DC).
+2. ESP32 otomatis menjalankan Power-On Self Test (POST) dengan memicu bilah 1 sampai 8 secara berurutan.
+3. Hubungkan perangkat mobile ke Wi-Fi Access Point `GamolanPekhing` (IP: `192.168.4.1`, tanpa password).
+4. Buka aplikasi Gamolan Pekhing. Koneksi WebSocket akan tersambung secara otomatis dan menampilkan playlist dari flash.
