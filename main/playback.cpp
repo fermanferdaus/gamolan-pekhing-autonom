@@ -42,7 +42,7 @@ static void handleCmdWhilePlaying(const PlaybackCommand& cmd, bool& playing,
       updateState(false, -1);
     }
   } else if (cmd.type == CMD_HIT) {
-    solenoidHit(cmd.nada);
+    solenoidHit(cmd.nada, PULSE_MS);
     vTaskDelay(pdMS_TO_TICKS(PULSE_MS));
     solenoidRelease(cmd.nada);
   }
@@ -68,7 +68,7 @@ static void playbackTask(void* pvParameters) {
           }
         } else if (cmd.type == CMD_HIT) {
           semuaMati();
-          solenoidHit(cmd.nada);
+          solenoidHit(cmd.nada, PULSE_MS);
           vTaskDelay(pdMS_TO_TICKS(PULSE_MS));
           solenoidRelease(cmd.nada);
         }
@@ -93,7 +93,7 @@ static void playbackTask(void* pvParameters) {
           if (noteCallback) {
             noteCallback(item.nada, i, noteCount);
           }
-          solenoidHit(item.nada);
+          solenoidHit(item.nada, nyala);
 
           TickType_t pulseTicks = pdMS_TO_TICKS(nyala);
           if (pulseTicks < 1) pulseTicks = 1;
@@ -146,7 +146,8 @@ void playbackInit() {
       NULL,
       5,
       &playbackTaskHandle,
-      1);
+      1
+    );
   }
 }
 

@@ -1206,5 +1206,3 @@ const int defaultSongTempos[] = {
   96, 100, 92, 88, 92,
   100, 100, 80, 68, 92
 };
-
-const int NUM_DEFAULT_SONGS = 20;

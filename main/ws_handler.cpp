@@ -40,16 +40,16 @@ void wsSendAck(uint8_t num, bool ok, const String& msg) {
   String out;
   serializeJson(doc, out);
 
-  if (wsMutex && xSemaphoreTake(wsMutex, pdMS_TO_TICKS(50)) == pdTRUE) {
+  if (wsMutex && xSemaphoreTakeRecursive(wsMutex, pdMS_TO_TICKS(50)) == pdTRUE) {
     webSocket.sendTXT(num, out.c_str());
-    xSemaphoreGive(wsMutex);
+    xSemaphoreGiveRecursive(wsMutex);
   }
 }
 
 void wsBroadcastStatus(const String& jsonStr) {
-  if (wsMutex && xSemaphoreTake(wsMutex, pdMS_TO_TICKS(50)) == pdTRUE) {
+  if (wsMutex && xSemaphoreTakeRecursive(wsMutex, pdMS_TO_TICKS(50)) == pdTRUE) {
     webSocket.broadcastTXT(jsonStr.c_str());
-    xSemaphoreGive(wsMutex);
+    xSemaphoreGiveRecursive(wsMutex);
   }
 }
 
@@ -70,13 +70,13 @@ void wsSendSongList(uint8_t clientNum) {
   String out;
   serializeJson(doc, out);
 
-  if (wsMutex && xSemaphoreTake(wsMutex, pdMS_TO_TICKS(50)) == pdTRUE) {
+  if (wsMutex && xSemaphoreTakeRecursive(wsMutex, pdMS_TO_TICKS(50)) == pdTRUE) {
     if (clientNum == 255) {
       webSocket.broadcastTXT(out.c_str());
     } else {
       webSocket.sendTXT(clientNum, out.c_str());
     }
-    xSemaphoreGive(wsMutex);
+    xSemaphoreGiveRecursive(wsMutex);
   }
 }
 
@@ -139,9 +139,9 @@ static void handleWebSocketMessage(uint8_t num, uint8_t* payload, size_t length)
       }
       String out;
       serializeJson(resp, out);
-      if (wsMutex && xSemaphoreTake(wsMutex, pdMS_TO_TICKS(50)) == pdTRUE) {
+      if (wsMutex && xSemaphoreTakeRecursive(wsMutex, pdMS_TO_TICKS(50)) == pdTRUE) {
         webSocket.sendTXT(num, out.c_str());
-        xSemaphoreGive(wsMutex);
+        xSemaphoreGiveRecursive(wsMutex);
       }
     } else {
       wsSendAck(num, false, "Lagu tidak ditemukan");
@@ -193,7 +193,7 @@ static void webSocketEvent(uint8_t num, WStype_t type, uint8_t* payload, size_t 
 
 void wsInit() {
   if (wsMutex == NULL) {
-    wsMutex = xSemaphoreCreateMutex();
+    wsMutex = xSemaphoreCreateRecursiveMutex();
   }
   playbackSetCallbacks(onPlaybackState, onPlaybackNote);
   webSocket.begin();
@@ -201,8 +201,8 @@ void wsInit() {
 }
 
 void wsLoop() {
-  if (wsMutex && xSemaphoreTake(wsMutex, pdMS_TO_TICKS(10)) == pdTRUE) {
+  if (wsMutex && xSemaphoreTakeRecursive(wsMutex, pdMS_TO_TICKS(10)) == pdTRUE) {
     webSocket.loop();
-    xSemaphoreGive(wsMutex);
+    xSemaphoreGiveRecursive(wsMutex);
   }
 }

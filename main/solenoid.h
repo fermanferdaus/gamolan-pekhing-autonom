@@ -3,5 +3,5 @@
 
 void solenoidInit();
 void semuaMati();
-void solenoidHit(byte nada);
+void solenoidHit(byte nada, int durasiMs = PULSE_MS);
 void solenoidRelease(byte nada);

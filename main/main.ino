@@ -33,11 +33,9 @@ void setup() {
 
   Serial.println("[INIT] Tes tangga nada (1-8)...");
   for (byte n = DO; n <= DO_T; n++) {
-    solenoidHit(n);
-    Serial.printf("[HIT] %d %s %d\n", n, namaNada[n], PULSE_MS);
+    solenoidHit(n, PULSE_MS);
     delay(PULSE_MS);
     solenoidRelease(n);
-    Serial.printf("[OFF] %d\n", n);
     delay(200);
   }
   Serial.println("[INIT] Siap digunakan!");
