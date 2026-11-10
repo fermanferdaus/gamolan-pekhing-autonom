@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  flutter-ci:
+    name: Flutter Lint, Format & Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Print Flutter & Dart Version
+        run: |
+          flutter --version
+          dart --version
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Check Code Formatting
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyze Static Code
+        run: flutter analyze --fatal-infos --fatal-warnings
+
+      - name: Run Test Suite
+        run: flutter test --coverage
+
+  firmware-ci:
+    name: ESP32 Firmware Format & Compile Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Check C++ Code Formatting (clang-format)
+        run: |
+          clang-format --version
+          clang-format --dry-run --Werror main/*.h main/*.cpp main/*.ino
+
+      - name: Set up Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+
+      - name: Initialize Arduino CLI & ESP32 Core
+        run: |
+          arduino-cli config init
+          arduino-cli config add board_manager.additional_urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+          arduino-cli core update-index
+          arduino-cli core install esp32:esp32
+
+      - name: Install Arduino Libraries
+        run: |
+          arduino-cli lib install "WebSockets"
+          arduino-cli lib install "ArduinoJson"
+
+      - name: Compile ESP32 Sketch
+        run: |
+          arduino-cli compile --fqbn esp32:esp32:esp32 main/

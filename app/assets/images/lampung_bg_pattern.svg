@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" fill="none">
+  <!-- ORNAMEN BUDAYA LAMPUNG & ALAT MUSIK GAMOLAN PEKHING -->
+  <!-- Flat Modern Royal Blue Watermark Motif -->
+
+  <g stroke="#1D4ED8" stroke-width="1.4" opacity="0.10">
+    <!-- 1. BORDER ATAS: MOTIF TAPIS PUCUK REBUNG (BAMBOO SHOOT) -->
+    <path d="M 0 30 L 25 5 L 50 30 L 75 5 L 100 30 L 125 5 L 150 30 L 175 5 L 200 30 L 225 5 L 250 30 L 275 5 L 300 30 L 325 5 L 350 30 L 375 5 L 400 30" fill="none"/>
+    <path d="M 0 40 L 25 15 L 50 40 L 75 15 L 100 40 L 125 15 L 150 40 L 175 15 L 200 40 L 225 15 L 250 40 L 275 15 L 300 40 L 325 15 L 350 40 L 375 15 L 400 40" fill="none"/>
+    <!-- Titik puncak rebung -->
+    <circle cx="25" cy="5" r="2.5" fill="#1D4ED8"/>
+    <circle cx="75" cy="5" r="2.5" fill="#1D4ED8"/>
+    <circle cx="125" cy="5" r="2.5" fill="#1D4ED8"/>
+    <circle cx="175" cy="5" r="2.5" fill="#1D4ED8"/>
+    <circle cx="225" cy="5" r="2.5" fill="#1D4ED8"/>
+    <circle cx="275" cy="5" r="2.5" fill="#1D4ED8"/>
+    <circle cx="325" cy="5" r="2.5" fill="#1D4ED8"/>
+    <circle cx="375" cy="5" r="2.5" fill="#1D4ED8"/>
+
+    <!-- 2. MOTIF WAJIK / SASIBI TAPIS LAMPUNG (DIAMOND GEOMETRICS) -->
+    <!-- Baris Atas -->
+    <polygon points="100,70 120,90 100,110 80,90" fill="none"/>
+    <polygon points="100,78 112,90 100,102 88,90" fill="none"/>
+    <circle cx="100" cy="90" r="2.5" fill="#1D4ED8"/>
+
+    <polygon points="300,70 320,90 300,110 280,90" fill="none"/>
+    <polygon points="300,78 312,90 300,102 288,90" fill="none"/>
+    <circle cx="300" cy="90" r="2.5" fill="#1D4ED8"/>
+
+    <!-- Siger Emblem Centerpiece Accent -->
+    <path d="M 160 90 L 175 75 L 188 85 L 200 65 L 212 85 L 225 75 L 240 90 Z" fill="none" stroke-width="1.8"/>
+    <circle cx="200" cy="62" r="3" fill="#1D4ED8"/>
+
+    <!-- 3. ALAT MUSIK UTAMA: GAMOLAN PEKHING (8 BILAH BAMBU LENGKAP DENGAN RANCAK) -->
+    <!-- Dudukan Kayu Rancak Berukir -->
+    <path d="M 50 250 Q 200 240 350 250 L 360 262 Q 200 252 40 262 Z" fill="none" stroke-width="2"/>
+    <path d="M 55 264 L 345 264" stroke-dasharray="4,4"/>
+    <path d="M 50 330 Q 200 340 350 330 L 365 344 Q 200 355 35 344 Z" fill="none" stroke-width="2"/>
+
+    <!-- Kaki Rancak Ukir Khas Lampung (Lengkung Perahu / Jung Sarat) -->
+    <path d="M 65 344 C 55 365 50 385 70 395 C 85 395 90 375 85 344" fill="none" stroke-width="1.8"/>
+    <path d="M 335 344 C 345 365 350 385 330 395 C 315 395 310 375 315 344" fill="none" stroke-width="1.8"/>
+    <path d="M 70 395 L 330 395" stroke-width="1.5"/>
+
+    <!-- Rel Penyangga Tali Bilah Bambu -->
+    <line x1="60" y1="262" x2="340" y2="262" stroke-width="1.6"/>
+    <line x1="60" y1="332" x2="340" y2="332" stroke-width="1.6"/>
+
+    <!-- 8 Bilah Bambu Gamolan Pekhing (Stepped Diatonic Scale) -->
+    <!-- Bilah 1 (DO) -->
+    <rect x="68" y="240" width="22" height="106" rx="4" fill="none" stroke-width="1.8"/>
+    <circle cx="79" cy="248" r="2" fill="#1D4ED8"/>
+    <circle cx="79" cy="338" r="2" fill="#1D4ED8"/>
+
+    <!-- Bilah 2 (RE) -->
+    <rect x="102" y="244" width="22" height="100" rx="4" fill="none" stroke-width="1.8"/>
+    <circle cx="113" cy="252" r="2" fill="#1D4ED8"/>
+    <circle cx="113" cy="336" r="2" fill="#1D4ED8"/>
+
+    <!-- Bilah 3 (MI) -->
+    <rect x="136" y="248" width="22" height="94" rx="4" fill="none" stroke-width="1.8"/>
+    <circle cx="147" cy="256" r="2" fill="#1D4ED8"/>
+    <circle cx="147" cy="334" r="2" fill="#1D4ED8"/>
+
+    <!-- Bilah 4 (FA) -->
+    <rect x="170" y="252" width="22" height="88" rx="4" fill="none" stroke-width="1.8"/>
+    <circle cx="181" cy="260" r="2" fill="#1D4ED8"/>
+    <circle cx="181" cy="332" r="2" fill="#1D4ED8"/>
+
+    <!-- Bilah 5 (SOL) -->
+    <rect x="204" y="256" width="22" height="82" rx="4" fill="none" stroke-width="1.8"/>
+    <circle cx="215" cy="264" r="2" fill="#1D4ED8"/>
+    <circle cx="215" cy="330" r="2" fill="#1D4ED8"/>
+
+    <!-- Bilah 6 (LA) -->
+    <rect x="238" y="260" width="22" height="76" rx="4" fill="none" stroke-width="1.8"/>
+    <circle cx="249" cy="268" r="2" fill="#1D4ED8"/>
+    <circle cx="249" cy="328" r="2" fill="#1D4ED8"/>
+
+    <!-- Bilah 7 (SI) -->
+    <rect x="272" y="264" width="22" height="70" rx="4" fill="none" stroke-width="1.8"/>
+    <circle cx="283" cy="272" r="2" fill="#1D4ED8"/>
+    <circle cx="283" cy="326" r="2" fill="#1D4ED8"/>
+
+    <!-- Bilah 8 (DO') -->
+    <rect x="306" y="268" width="22" height="64" rx="4" fill="none" stroke-width="1.8"/>
+    <circle cx="317" cy="276" r="2" fill="#1D4ED8"/>
+    <circle cx="317" cy="324" r="2" fill="#1D4ED8"/>
+
+    <!-- Tabuh / Pemukul Gamolan Pekhing (2 Stik Pemukul Khas) -->
+    <path d="M 120 415 L 175 435" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="118" cy="414" r="7" fill="none" stroke-width="2"/>
+    <path d="M 280 415 L 225 435" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="282" cy="414" r="7" fill="none" stroke-width="2"/>
+
+    <!-- 4. ALAT MUSIK PENDAMPING: CANANG & GONG LAMPUNG -->
+    <!-- Canang Kiri -->
+    <circle cx="65" cy="180" r="28" fill="none" stroke-width="1.8"/>
+    <circle cx="65" cy="180" r="16" fill="none" stroke-width="1.2"/>
+    <circle cx="65" cy="180" r="6" fill="#1D4ED8"/>
+
+    <!-- Canang Kanan -->
+    <circle cx="335" cy="180" r="28" fill="none" stroke-width="1.8"/>
+    <circle cx="335" cy="180" r="16" fill="none" stroke-width="1.2"/>
+    <circle cx="335" cy="180" r="6" fill="#1D4ED8"/>
+
+    <!-- 5. MOTIF WAJIK TAPIS BAWAH -->
+    <polygon points="100,470 120,490 100,510 80,490" fill="none"/>
+    <polygon points="100,478 112,490 100,502 88,490" fill="none"/>
+    <circle cx="100" cy="490" r="2.5" fill="#1D4ED8"/>
+
+    <polygon points="200,460 225,485 200,510 175,485" fill="none"/>
+    <polygon points="200,470 215,485 200,500 185,485" fill="none"/>
+    <circle cx="200" cy="485" r="3" fill="#1D4ED8"/>
+
+    <polygon points="300,470 320,490 300,510 280,490" fill="none"/>
+    <polygon points="300,478 312,490 300,502 288,490" fill="none"/>
+    <circle cx="300" cy="490" r="2.5" fill="#1D4ED8"/>
+
+    <!-- 6. BORDER BAWAH: PUCUK REBUNG INVERTED -->
+    <path d="M 0 560 L 25 585 L 50 560 L 75 585 L 100 560 L 125 585 L 150 560 L 175 585 L 200 560 L 225 585 L 250 560 L 275 585 L 300 560 L 325 585 L 350 560 L 375 585 L 400 560" fill="none"/>
+    <path d="M 0 550 L 25 575 L 50 550 L 75 575 L 100 550 L 125 575 L 150 550 L 175 575 L 200 550 L 225 575 L 250 550 L 275 575 L 300 550 L 325 575 L 350 550 L 375 575 L 400 550" fill="none"/>
+    <circle cx="25" cy="585" r="2.5" fill="#1D4ED8"/>
+    <circle cx="75" cy="585" r="2.5" fill="#1D4ED8"/>
+    <circle cx="125" cy="585" r="2.5" fill="#1D4ED8"/>
+    <circle cx="175" cy="585" r="2.5" fill="#1D4ED8"/>
+    <circle cx="225" cy="585" r="2.5" fill="#1D4ED8"/>
+    <circle cx="275" cy="585" r="2.5" fill="#1D4ED8"/>
+    <circle cx="325" cy="585" r="2.5" fill="#1D4ED8"/>
+    <circle cx="375" cy="585" r="2.5" fill="#1D4ED8"/>
+  </g>
+</svg>

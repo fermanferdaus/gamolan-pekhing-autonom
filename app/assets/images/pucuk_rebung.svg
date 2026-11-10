@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+  <!-- Motif Pucuk Rebung - ornamen khas tapis Lampung (single tile) -->
+  <defs>
+    <linearGradient id="rebung_g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#8B6914" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+  <!-- Segitiga luar - pucuk rebung -->
+  <polygon points="30,4 54,50 6,50" fill="none" stroke="#D4AF37" stroke-width="1.2" opacity="0.5"/>
+  <!-- Segitiga dalam -->
+  <polygon points="30,14 46,46 14,46" fill="url(#rebung_g)"/>
+  <!-- Garis tengah -->
+  <line x1="30" y1="14" x2="30" y2="46" stroke="#D4AF37" stroke-width="0.6" opacity="0.3"/>
+  <!-- Garis horizontal -->
+  <line x1="14" y1="46" x2="46" y2="46" stroke="#D4AF37" stroke-width="0.6" opacity="0.3"/>
+  <!-- Titik puncak -->
+  <circle cx="30" cy="4" r="2" fill="#D4AF37" opacity="0.5"/>
+  <!-- Hiasan kecil -->
+  <circle cx="30" cy="30" r="2.5" fill="none" stroke="#D4AF37" stroke-width="0.8" opacity="0.4"/>
+  <circle cx="30" cy="30" r="1" fill="#D4AF37" opacity="0.3"/>
+</svg>

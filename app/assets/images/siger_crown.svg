@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 240" fill="none">
+  <!-- Siger Mahkota Lampung - Flat Modern Design -->
+  <!-- Sabuk Mahkota -->
+  <path d="M 40 215 Q 250 185 460 215 L 452 230 Q 250 200 48 230 Z" fill="#2563EB"/>
+  <path d="M 50 195 Q 250 168 450 195 L 445 208 Q 250 180 55 208 Z" fill="#1E3A8A"/>
+  <path d="M 60 178 Q 250 152 440 178 L 436 188 Q 250 162 64 188 Z" fill="#3B82F6"/>
+
+  <!-- Permata Sabuk Mahkota -->
+  <circle cx="100" cy="201" r="5" fill="#DBEAFE"/>
+  <circle cx="150" cy="195" r="5" fill="#DBEAFE"/>
+  <circle cx="200" cy="191" r="5" fill="#DBEAFE"/>
+  <circle cx="250" cy="189" r="6" fill="#FFFFFF"/>
+  <circle cx="300" cy="191" r="5" fill="#DBEAFE"/>
+  <circle cx="350" cy="195" r="5" fill="#DBEAFE"/>
+  <circle cx="400" cy="201" r="5" fill="#DBEAFE"/>
+
+  <!-- Pucuk 1 & 9 -->
+  <path d="M 60 180 Q 40 145 30 115 Q 55 125 78 155 Z" fill="#1D4ED8"/>
+  <path d="M 440 180 Q 460 145 470 115 Q 445 125 422 155 Z" fill="#1D4ED8"/>
+  <circle cx="30" cy="115" r="4.5" fill="#93C5FD"/>
+  <circle cx="470" cy="115" r="4.5" fill="#93C5FD"/>
+
+  <!-- Pucuk 2 & 8 -->
+  <path d="M 85 168 Q 75 110 80 75 Q 110 105 125 150 Z" fill="#2563EB"/>
+  <path d="M 415 168 Q 425 110 420 75 Q 390 105 375 150 Z" fill="#2563EB"/>
+  <circle cx="80" cy="75" r="5" fill="#DBEAFE"/>
+  <circle cx="420" cy="75" r="5" fill="#DBEAFE"/>
+
+  <!-- Pucuk 3 & 7 -->
+  <path d="M 130 155 Q 128 85 142 45 Q 165 85 180 142 Z" fill="#3B82F6"/>
+  <path d="M 370 155 Q 372 85 358 45 Q 335 85 320 142 Z" fill="#3B82F6"/>
+  <circle cx="142" cy="45" r="5.5" fill="#FFFFFF"/>
+  <circle cx="358" cy="45" r="5.5" fill="#FFFFFF"/>
+
+  <!-- Pucuk 4 & 6 -->
+  <path d="M 185 145 Q 192 65 208 25 Q 225 70 235 140 Z" fill="#2563EB"/>
+  <path d="M 315 145 Q 308 65 292 25 Q 275 70 265 140 Z" fill="#2563EB"/>
+  <circle cx="208" cy="25" r="6" fill="#DBEAFE"/>
+  <circle cx="292" cy="25" r="6" fill="#DBEAFE"/>
+
+  <!-- Pucuk 5 (Pusat Tertinggi Mahkota Siger) -->
+  <path d="M 235 140 Q 242 40 250 8 Q 258 40 265 140 Z" fill="#1D4ED8"/>
+  <path d="M 242 135 Q 248 50 250 18 Q 252 50 258 135 Z" fill="#60A5FA"/>
+  <circle cx="250" cy="8" r="7" fill="#FFFFFF"/>
+</svg>
