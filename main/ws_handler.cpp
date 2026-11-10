@@ -1,10 +1,12 @@
 #include "ws_handler.h"
-#include "storage.h"
-#include "playback.h"
-#include <WebSocketsServer.h>
+
 #include <ArduinoJson.h>
+#include <WebSocketsServer.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/semphr.h>
+
+#include "playback.h"
+#include "storage.h"
 
 static WebSocketsServer webSocket(WS_PORT);
 static SemaphoreHandle_t wsMutex = NULL;
@@ -84,10 +86,12 @@ void wsSendSongList(uint8_t clientNum) {
 static void handleWebSocketMessage(uint8_t num, uint8_t* payload, size_t length) {
   JsonDocument doc;
   DeserializationError err = deserializeJson(doc, payload, length);
-  if (err) return;
+  if (err)
+    return;
 
   const char* cmd = doc["cmd"];
-  if (!cmd) return;
+  if (!cmd)
+    return;
 
   if (strcmp(cmd, "list") == 0) {
     wsSendSongList(num);
@@ -107,10 +111,11 @@ static void handleWebSocketMessage(uint8_t num, uint8_t* payload, size_t length)
     static Nada tempNotes[MAX_NOTES];
     int count = 0;
     for (JsonArrayConst item : notesArr) {
-      if (count >= MAX_NOTES) break;
+      if (count >= MAX_NOTES)
+        break;
       byte nada = item[0] | 0;
       byte panjang = item[1] | 4;
-      tempNotes[count++] = { nada, panjang };
+      tempNotes[count++] = {nada, panjang};
     }
     if (count > 0) {
       playbackPreview(tempNotes, count, tempo);

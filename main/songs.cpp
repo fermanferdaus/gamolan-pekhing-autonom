@@ -1,5 +1,6 @@
 #include "songs.h"
 
+// clang-format off
 // 20 LAGU BAWAAN (PROGMEM)
 
 // --- 1. LAGU NASIONAL ---
@@ -1403,3 +1404,4 @@ const int defaultSongTempos[] = {
   100, 100, 66, 76, 132,
   100, 100, 80, 68, 92
 };
+// clang-format on

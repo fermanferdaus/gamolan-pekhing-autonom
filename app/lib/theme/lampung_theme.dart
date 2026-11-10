@@ -6,17 +6,35 @@ class LampungTheme {
   LampungTheme._();
 
   // --- Palet Utama 1: Biru (Royal Blue Family) ---
-  static const Color primaryBlue = Color(0xFF2563EB); // bg-blue-600 (primer, tombol utama, aksen)
-  static const Color secondaryBlue = Color(0xFF1D4ED8); // bg-blue-700 (band sekunder, ticker/CTA)
-  static const Color darkBlue = Color(0xFF1E40AF); // blue-800 (hard shadow & aksen tebal)
-  static const Color deepBlue = Color(0xFF1E3A8A); // blue-900 (hard shadow tombol primer)
-  static const Color accentBlueLight = Color(0xFFDBEAFE); // blue-100 (aksen latar & border halus)
-  static const Color accentBlueHighlight = Color(0xFFBFDBFE); // blue-200 (highlight teks & border aktif)
-  static const Color blue50 = Color(0xFFEFF6FF); // blue-50 (latar aktif kartu & container)
+  static const Color primaryBlue = Color(
+    0xFF2563EB,
+  ); // bg-blue-600 (primer, tombol utama, aksen)
+  static const Color secondaryBlue = Color(
+    0xFF1D4ED8,
+  ); // bg-blue-700 (band sekunder, ticker/CTA)
+  static const Color darkBlue = Color(
+    0xFF1E40AF,
+  ); // blue-800 (hard shadow & aksen tebal)
+  static const Color deepBlue = Color(
+    0xFF1E3A8A,
+  ); // blue-900 (hard shadow tombol primer)
+  static const Color accentBlueLight = Color(
+    0xFFDBEAFE,
+  ); // blue-100 (aksen latar & border halus)
+  static const Color accentBlueHighlight = Color(
+    0xFFBFDBFE,
+  ); // blue-200 (highlight teks & border aktif)
+  static const Color blue50 = Color(
+    0xFFEFF6FF,
+  ); // blue-50 (latar aktif kartu & container)
 
   // --- Palet Utama 2: Putih & Netral Terang (White & Clean Slate) ---
-  static const Color bgWhite = Color(0xFFFFFFFF); // Putih Murni (Latar utama aplikasi)
-  static const Color slate50 = Color(0xFFF8FAFC); // Putih gading / slate sangat terang
+  static const Color bgWhite = Color(
+    0xFFFFFFFF,
+  ); // Putih Murni (Latar utama aplikasi)
+  static const Color slate50 = Color(
+    0xFFF8FAFC,
+  ); // Putih gading / slate sangat terang
   static const Color slate100 = Color(0xFFF1F5F9); // Slate-100
   static const Color slate200 = Color(0xFFE2E8F0); // Border slate standar
   static const Color slate300 = Color(0xFFCBD5E1); // Border sekunder

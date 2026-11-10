@@ -1,7 +1,9 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import '../services/gamolan_service.dart';
 import '../theme/lampung_theme.dart';
 
@@ -124,10 +126,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
       decoration: const BoxDecoration(
         color: LampungTheme.primaryBlue,
         border: Border(
-          bottom: BorderSide(
-            color: LampungTheme.darkBlue,
-            width: 1.5,
-          ),
+          bottom: BorderSide(color: LampungTheme.darkBlue, width: 1.5),
         ),
       ),
       child: Row(
@@ -237,8 +236,11 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
           ),
           const SizedBox(width: 8),
           IconButton(
-            icon: const Icon(Icons.fullscreen_exit_rounded,
-                color: Colors.white, size: 24),
+            icon: const Icon(
+              Icons.fullscreen_exit_rounded,
+              color: Colors.white,
+              size: 24,
+            ),
             tooltip: 'Tutup Mode Bilah',
             onPressed: () => Navigator.of(context).pop(),
           ),
@@ -259,10 +261,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
       decoration: BoxDecoration(
         color: LampungTheme.darkBlue,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: LampungTheme.primaryBlue,
-          width: 2.5,
-        ),
+        border: Border.all(color: LampungTheme.primaryBlue, width: 2.5),
         boxShadow: const [
           BoxShadow(
             color: LampungTheme.deepBlue,
@@ -414,9 +413,7 @@ class _NotAngkaScreenState extends State<NotAngkaScreen> {
             ),
             boxShadow: [
               BoxShadow(
-                color: isHit
-                    ? LampungTheme.darkBlue
-                    : const Color(0x1F1D4ED8),
+                color: isHit ? LampungTheme.darkBlue : const Color(0x1F1D4ED8),
                 offset: const Offset(1, 1),
                 blurRadius: 0,
               ),

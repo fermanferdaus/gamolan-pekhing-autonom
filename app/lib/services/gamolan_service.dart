@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+
 import '../models/song_model.dart';
 
 enum ConnectionStatus { disconnected, connecting, connected }
@@ -37,8 +39,9 @@ class GamolanService extends ChangeNotifier {
   static const String serverHost = '192.168.4.1';
   static const int serverPort = 81;
   static const int previewSongId = -99;
-  static const _platformChannel =
-      MethodChannel('com.gamolan.gamolan_pekhing/wifi');
+  static const _platformChannel = MethodChannel(
+    'com.gamolan.gamolan_pekhing/wifi',
+  );
 
   WebSocketChannel? _channel;
   StreamSubscription? _subscription;
@@ -294,12 +297,9 @@ class GamolanService extends ChangeNotifier {
   void fetchSongList() => _sendRaw({'cmd': 'list'});
   void playSong(int id) => _sendRaw({'cmd': 'play', 'id': id});
   void previewSong(int tempo, List<List<int>> notes) {
-    _sendRaw({
-      'cmd': 'preview',
-      'tempo': tempo,
-      'notes': notes,
-    });
+    _sendRaw({'cmd': 'preview', 'tempo': tempo, 'notes': notes});
   }
+
   void stopPlayback() => _sendRaw({'cmd': 'stop'});
   void hitNada(int nada) => _sendRaw({'cmd': 'hit', 'n': nada});
 
@@ -327,7 +327,12 @@ class GamolanService extends ChangeNotifier {
   }
 
   void editSong(
-      int id, String name, int tempo, List<List<int>> notes, String category) {
+    int id,
+    String name,
+    int tempo,
+    List<List<int>> notes,
+    String category,
+  ) {
     _sendRaw({
       'cmd': 'edit',
       'id': id,

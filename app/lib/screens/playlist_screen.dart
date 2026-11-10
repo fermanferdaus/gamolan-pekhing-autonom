@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import '../models/song_model.dart';
 import '../services/gamolan_service.dart';
 import '../theme/lampung_theme.dart';
@@ -97,7 +98,9 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                         decoration: BoxDecoration(
                           color: LampungTheme.blue50,
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: LampungTheme.accentBlueLight),
+                          border: Border.all(
+                            color: LampungTheme.accentBlueLight,
+                          ),
                         ),
                         child: SvgPicture.asset(
                           'assets/images/gamolan_logo.svg',
@@ -163,8 +166,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.error_outline,
-                              color: LampungTheme.statusDanger, size: 18),
+                          const Icon(
+                            Icons.error_outline,
+                            color: LampungTheme.statusDanger,
+                            size: 18,
+                          ),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
@@ -190,7 +196,9 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                           style: OutlinedButton.styleFrom(
                             foregroundColor: LampungTheme.primaryBlue,
                             backgroundColor: Colors.white,
-                            side: const BorderSide(color: LampungTheme.accentBlueLight),
+                            side: const BorderSide(
+                              color: LampungTheme.accentBlueLight,
+                            ),
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(999),
@@ -204,7 +212,9 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                         child: Container(
                           decoration: const BoxDecoration(
                             boxShadow: LampungTheme.hardShadowPill,
-                            borderRadius: BorderRadius.all(Radius.circular(999)),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(999),
+                            ),
                           ),
                           child: ElevatedButton.icon(
                             icon: isConnecting
@@ -213,13 +223,15 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                     height: 16,
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
-                                      valueColor:
-                                          AlwaysStoppedAnimation<Color>(Colors.white),
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
+                                      ),
                                     ),
                                   )
                                 : const Icon(Icons.link, size: 18),
                             label: Text(
-                                isConnecting ? 'Mencoba...' : 'Hubungkan'),
+                              isConnecting ? 'Mencoba...' : 'Hubungkan',
+                            ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: LampungTheme.primaryBlue,
                               foregroundColor: Colors.white,
@@ -240,23 +252,26 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                                       isConnecting = true;
                                       errorMessage = null;
                                     });
-                                    final ok = await _service.connectWithResult();
+                                    final ok = await _service
+                                        .connectWithResult();
                                     if (!mounted) return;
                                     if (ok) {
                                       if (ctx.mounted) Navigator.pop(ctx);
                                       if (!mounted) return;
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                          backgroundColor: LampungTheme.statusSuccess,
-                                          content: Text(
-                                              'Berhasil terhubung ke Gamolan Pekhing!'),
-                                        ),
-                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                            const SnackBar(
+                                              backgroundColor:
+                                                  LampungTheme.statusSuccess,
+                                              content: Text(
+                                                'Berhasil terhubung ke Gamolan Pekhing!',
+                                              ),
+                                            ),
+                                          );
                                     } else {
                                       setModalState(() {
                                         isConnecting = false;
-                                        errorMessage =
-                                            'Gagal terhubung. Pastikan HP sudah terhubung ke WiFi "GamolanPekhing".';
+                                        errorMessage = 'Gagal terhubung. Pastikan HP sudah terhubung ke WiFi "GamolanPekhing".';
                                       });
                                     }
                                   },
@@ -280,7 +295,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
         const SnackBar(
           backgroundColor: LampungTheme.statusDanger,
           content: Text(
-              'Hubungkan Wi-Fi Gamolan terlebih dahulu untuk memuat notasi lagu!'),
+            'Hubungkan Wi-Fi Gamolan terlebih dahulu untuk memuat notasi lagu!',
+          ),
         ),
       );
       return;
@@ -339,10 +355,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
 
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => ComposerScreen(
-          editingSong: targetSong,
-          initialNotes: notes,
-        ),
+        builder: (_) =>
+            ComposerScreen(editingSong: targetSong, initialNotes: notes),
       ),
     );
   }
@@ -369,8 +383,10 @@ class _PlaylistScreenState extends State<PlaylistScreen>
         ),
         actions: [
           TextButton(
-            child: const Text('Batal',
-                style: TextStyle(color: LampungTheme.slate500)),
+            child: const Text(
+              'Batal',
+              style: TextStyle(color: LampungTheme.slate500),
+            ),
             onPressed: () => Navigator.pop(ctx),
           ),
           ElevatedButton(
@@ -425,8 +441,10 @@ class _PlaylistScreenState extends State<PlaylistScreen>
         ),
         actions: [
           TextButton(
-            child: const Text('Batal',
-                style: TextStyle(color: LampungTheme.slate500)),
+            child: const Text(
+              'Batal',
+              style: TextStyle(color: LampungTheme.slate500),
+            ),
             onPressed: () => Navigator.pop(ctx),
           ),
           ElevatedButton(
@@ -445,9 +463,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: LampungTheme.statusDanger,
-                  content: Text(isBawaan
-                      ? 'Lagu bawaan disembunyikan'
-                      : 'Lagu "${song.name}" dihapus'),
+                  content: Text(
+                    isBawaan
+                        ? 'Lagu bawaan disembunyikan'
+                        : 'Lagu "${song.name}" dihapus',
+                  ),
                 ),
               );
             },
@@ -501,10 +521,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
       decoration: const BoxDecoration(
         color: LampungTheme.primaryBlue,
         border: Border(
-          bottom: BorderSide(
-            color: LampungTheme.darkBlue,
-            width: 1.5,
-          ),
+          bottom: BorderSide(color: LampungTheme.darkBlue, width: 1.5),
         ),
       ),
       child: Row(
@@ -537,8 +554,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.refresh_rounded,
-                color: Colors.white, size: 22),
+            icon: const Icon(
+              Icons.refresh_rounded,
+              color: Colors.white,
+              size: 22,
+            ),
             tooltip: 'Refresh Daftar Lagu',
             onPressed: () {
               if (_service.isConnected) {
@@ -549,8 +569,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             },
           ),
           PopupMenuButton<String>(
-            icon: const Icon(Icons.more_vert_rounded,
-                color: Colors.white, size: 22),
+            icon: const Icon(
+              Icons.more_vert_rounded,
+              color: Colors.white,
+              size: 22,
+            ),
             color: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -562,8 +585,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                 value: 'restore',
                 child: Row(
                   children: [
-                    Icon(Icons.restore_rounded,
-                        size: 18, color: LampungTheme.primaryBlue),
+                    Icon(
+                      Icons.restore_rounded,
+                      size: 18,
+                      color: LampungTheme.primaryBlue,
+                    ),
                     SizedBox(width: 8),
                     Text(
                       'Pulihkan Lagu Bawaan',
@@ -580,8 +606,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                 value: 'new_song',
                 child: Row(
                   children: [
-                    Icon(Icons.add_circle_outline_rounded,
-                        size: 18, color: LampungTheme.secondaryBlue),
+                    Icon(
+                      Icons.add_circle_outline_rounded,
+                      size: 18,
+                      color: LampungTheme.secondaryBlue,
+                    ),
                     SizedBox(width: 8),
                     Text(
                       'Komposer Lagu Baru',
@@ -600,9 +629,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                 _showRestoreDefaultsDialog();
               } else if (val == 'new_song') {
                 Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const ComposerScreen(),
-                  ),
+                  MaterialPageRoute(builder: (_) => const ComposerScreen()),
                 );
               }
             },
@@ -620,8 +647,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
     final statusText = isConnected
         ? '[ ONLINE ] Terhubung ke Gamolan'
         : (isConnecting
-            ? '[ CONNECTING ] Mencoba koneksi...'
-            : '[ OFFLINE ] Belum terhubung');
+              ? '[ CONNECTING ] Mencoba koneksi...'
+              : '[ OFFLINE ] Belum terhubung');
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -629,15 +656,15 @@ class _PlaylistScreenState extends State<PlaylistScreen>
         color: isConnected
             ? const Color(0xFFF0FDF4)
             : (isConnecting
-                ? const Color(0xFFFEFCE8)
-                : const Color(0xFFF8FAFC)),
+                  ? const Color(0xFFFEFCE8)
+                  : const Color(0xFFF8FAFC)),
         border: Border(
           bottom: BorderSide(
             color: isConnected
                 ? const Color(0xFF86EFAC)
                 : (isConnecting
-                    ? const Color(0xFFFDE047)
-                    : const Color(0xFFE2E8F0)),
+                      ? const Color(0xFFFDE047)
+                      : const Color(0xFFE2E8F0)),
             width: 1.2,
           ),
         ),
@@ -652,8 +679,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
               color: isConnected
                   ? LampungTheme.statusSuccess
                   : (isConnecting
-                      ? const Color(0xFFEAB308)
-                      : LampungTheme.statusDanger),
+                        ? const Color(0xFFEAB308)
+                        : LampungTheme.statusDanger),
             ),
           ),
           const SizedBox(width: 8),
@@ -665,8 +692,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                 color: isConnected
                     ? const Color(0xFF15803D)
                     : (isConnecting
-                        ? const Color(0xFFA16207)
-                        : LampungTheme.slate600),
+                          ? const Color(0xFFA16207)
+                          : LampungTheme.slate600),
                 fontSize: 11,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 0.2,
@@ -677,8 +704,10 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             GestureDetector(
               onTap: () => _service.disconnect(),
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(999),
@@ -705,8 +734,10 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             GestureDetector(
               onTap: _showWifiConnectModal,
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: LampungTheme.primaryBlue,
                   borderRadius: BorderRadius.circular(999),
@@ -769,10 +800,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
         indicatorWeight: 3,
         labelColor: LampungTheme.primaryBlue,
         unselectedLabelColor: LampungTheme.slate400,
-        labelStyle:
-            const TextStyle(fontWeight: FontWeight.w900, fontSize: 12),
-        unselectedLabelStyle:
-            const TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
+        labelStyle: const TextStyle(fontWeight: FontWeight.w900, fontSize: 12),
+        unselectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 12,
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 8),
         tabs: _categories.map((c) {
           final count = _songsForCategory(c).length;
@@ -852,8 +884,10 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                   backgroundColor: LampungTheme.primaryBlue,
                   foregroundColor: Colors.white,
                   elevation: 0,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 12,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -910,8 +944,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
   }
 
   Widget _buildSongCard(SongModel song, int indexNumber) {
-    final isPlaying =
-        _service.isPlaying && _service.playingSongId == song.id;
+    final isPlaying = _service.isPlaying && _service.playingSongId == song.id;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -1019,8 +1052,8 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                               fontFamily: 'monospace',
                               color: song.isDefault
                                   ? (song.category == SongCategory.lampung
-                                      ? LampungTheme.secondaryBlue
-                                      : LampungTheme.slate500)
+                                        ? LampungTheme.secondaryBlue
+                                        : LampungTheme.slate500)
                                   : LampungTheme.statusSuccess,
                               fontSize: 10,
                               fontWeight: FontWeight.bold,
@@ -1050,9 +1083,7 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                       ],
                     ),
                     child: Icon(
-                      isPlaying
-                          ? Icons.stop_rounded
-                          : Icons.play_arrow_rounded,
+                      isPlaying ? Icons.stop_rounded : Icons.play_arrow_rounded,
                       color: Colors.white,
                       size: 20,
                     ),
@@ -1085,8 +1116,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                       value: 'edit',
                       child: Row(
                         children: [
-                          Icon(Icons.edit_rounded,
-                              size: 16, color: LampungTheme.primaryBlue),
+                          Icon(
+                            Icons.edit_rounded,
+                            size: 16,
+                            color: LampungTheme.primaryBlue,
+                          ),
                           SizedBox(width: 8),
                           Text(
                             'Edit Notasi',
@@ -1103,8 +1137,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                       value: 'duplicate',
                       child: Row(
                         children: [
-                          Icon(Icons.copy_rounded,
-                              size: 16, color: LampungTheme.secondaryBlue),
+                          Icon(
+                            Icons.copy_rounded,
+                            size: 16,
+                            color: LampungTheme.secondaryBlue,
+                          ),
                           SizedBox(width: 8),
                           Text(
                             'Duplikat / Salin',
@@ -1121,8 +1158,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                       value: 'delete',
                       child: Row(
                         children: [
-                          Icon(Icons.delete_outline_rounded,
-                              size: 16, color: LampungTheme.statusDanger),
+                          Icon(
+                            Icons.delete_outline_rounded,
+                            size: 16,
+                            color: LampungTheme.statusDanger,
+                          ),
                           SizedBox(width: 8),
                           Text(
                             'Hapus Lagu',
@@ -1162,20 +1202,27 @@ class _PlaylistScreenState extends State<PlaylistScreen>
             ? (_service.currentNote / _service.totalNotes).clamp(0.0, 1.0)
             : 0.0;
 
-        const solfeges = ['-', 'DO', 'RE', 'MI', 'FA', 'SOL', 'LA', 'SI', "DO'"];
+        const solfeges = [
+          '-',
+          'DO',
+          'RE',
+          'MI',
+          'FA',
+          'SOL',
+          'LA',
+          'SI',
+          "DO'",
+        ];
         final nadaText =
             (_service.activeNada >= 0 && _service.activeNada < solfeges.length)
-                ? solfeges[_service.activeNada]
-                : '-';
+            ? solfeges[_service.activeNada]
+            : '-';
 
         return Container(
           decoration: const BoxDecoration(
             color: LampungTheme.primaryBlue,
             border: Border(
-              top: BorderSide(
-                color: LampungTheme.deepBlue,
-                width: 1.5,
-              ),
+              top: BorderSide(color: LampungTheme.deepBlue, width: 1.5),
             ),
           ),
           child: Column(
@@ -1252,8 +1299,11 @@ class _PlaylistScreenState extends State<PlaylistScreen>
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.stop_circle_rounded,
-                          color: Colors.white, size: 32),
+                      icon: const Icon(
+                        Icons.stop_circle_rounded,
+                        color: Colors.white,
+                        size: 32,
+                      ),
                       onPressed: () => _service.stopPlayback(),
                     ),
                   ],

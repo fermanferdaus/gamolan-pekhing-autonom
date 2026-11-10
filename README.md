@@ -1,5 +1,7 @@
 # Gamolan Pekhing - Robotic Instrument Controller
 
+[![CI](https://github.com/fermanferdaus/gamolan-pekhing-autonom/actions/workflows/ci.yml/badge.svg)](https://github.com/fermanferdaus/gamolan-pekhing-autonom/actions/workflows/ci.yml)
+
 Sistem aktuator mekanik dan kontroler nirkabel untuk instrumen bambu tradisional Lampung, Gamolan Pekhing (Cetik). Proyek ini menggabungkan firmware ESP32 berbasis FreeRTOS untuk menggerakkan 8 bilah solenoid dengan aplikasi mobile Flutter via WebSocket.
 
 ## Spesifikasi Teknis
@@ -196,6 +198,41 @@ flutter build apk --release
 flutter build web --release
 # Output: app/build/web/
 ```
+
+## Pengujian & Standarisasi Kode (CI/CD)
+
+Proyek ini dilengkapi dengan konfigurasi code formatter, automated testing, dan GitHub Actions CI workflow (`.github/workflows/ci.yml`) yang berjalan otomatis pada setiap `push` dan `pull_request` ke branch `main` dan `develop`.
+
+### 1. Formatter & Linter
+
+```bash
+# Format kode Flutter / Dart
+cd app
+dart format --output=none --set-exit-if-changed .  # Mode verifikasi (CI)
+dart format .                                     # Format in-place (Lokal)
+flutter analyze --fatal-infos --fatal-warnings    # Analisis statis linter
+
+# Format kode C++ / ESP32 Firmware
+clang-format --dry-run --Werror main/*.h main/*.cpp main/*.ino  # Mode verifikasi (CI)
+clang-format -i main/*.h main/*.cpp main/*.ino                  # Format in-place (Lokal)
+```
+
+Konfigurasi gaya format C++ tersimpan di file root `.clang-format` berbasis standar Google C++ Style Guide (2 spasi, batas kolom 100 karakter).
+
+### 2. Automated Test Suite
+
+```bash
+# Menjalankan seluruh test suite unit & widget Flutter (13 skenario uji)
+cd app
+flutter test --coverage
+```
+
+Test suite mencakup verifikasi:
+- Parsing model data lagu (`SongModel`) dan label notasi durasi (`NoteItem`).
+- Integritas 20 repertoar kanonik bawaan (`DefaultSongs`) sinkron dengan firmware PROGMEM.
+- Rendering UI navigasi dan kanvas penuh (*full-bleed edge-to-edge* dengan safe area notch) pada `NotAngkaScreen`.
+- Mode komposer musik, penyuntingan nada, dan pratinjau suara live (`ComposerScreen`).
+- Siklus hidup state `GamolanService` WebSocket (koneksi, pemutusan, dan sinkronisasi playlist).
 
 ## Pengoperasian Sistem
 

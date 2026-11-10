@@ -1,9 +1,11 @@
 #include "playback.h"
+
+#include <freertos/FreeRTOS.h>
+#include <freertos/queue.h>
+#include <freertos/task.h>
+
 #include "solenoid.h"
 #include "storage.h"
-#include <freertos/FreeRTOS.h>
-#include <freertos/task.h>
-#include <freertos/queue.h>
 
 static QueueHandle_t playbackQueue = NULL;
 static TaskHandle_t playbackTaskHandle = NULL;
@@ -25,9 +27,8 @@ static void updateState(bool playing, int songId) {
   }
 }
 
-static void handleCmdWhilePlaying(const PlaybackCommand& cmd, bool& playing,
-                                  Nada* notes, int& noteCount, int& tempo,
-                                  int& currentId, bool& aborted) {
+static void handleCmdWhilePlaying(const PlaybackCommand& cmd, bool& playing, Nada* notes,
+                                  int& noteCount, int& tempo, int& currentId, bool& aborted) {
   if (cmd.type == CMD_STOP) {
     playing = false;
     currentId = -1;
@@ -62,12 +63,14 @@ static void handleCmdWhilePlaying(const PlaybackCommand& cmd, bool& playing,
 
 static void hitBoth(byte kanan, byte kiri, int nyala) {
   solenoidHit(kanan, nyala);
-  if (kiri != kanan) solenoidHit(kiri, nyala);
+  if (kiri != kanan)
+    solenoidHit(kiri, nyala);
 }
 
 static void releaseBoth(byte kanan, byte kiri) {
   solenoidRelease(kanan);
-  if (kiri != kanan) solenoidRelease(kiri);
+  if (kiri != kanan)
+    solenoidRelease(kiri);
 }
 
 static Nada notes[MAX_NOTES];
@@ -118,10 +121,12 @@ static void playbackTask(void* pvParameters) {
           int nyala = PULSE_MS;
           if (nyala > totalDurasi - JEDA_MIN_MS) {
             nyala = totalDurasi - JEDA_MIN_MS;
-            if (nyala < 15) nyala = 15;
+            if (nyala < 15)
+              nyala = 15;
           }
           int sisa = totalDurasi - nyala;
-          if (sisa < JEDA_MIN_MS) sisa = JEDA_MIN_MS;
+          if (sisa < JEDA_MIN_MS)
+            sisa = JEDA_MIN_MS;
 
           if (noteCallback) {
             noteCallback(item.nada, i, noteCount);
@@ -129,30 +134,36 @@ static void playbackTask(void* pvParameters) {
           hitBoth(kanan, kiri, nyala);
 
           TickType_t pulseTicks = pdMS_TO_TICKS(nyala);
-          if (pulseTicks < 1) pulseTicks = 1;
+          if (pulseTicks < 1)
+            pulseTicks = 1;
           if (xQueueReceive(playbackQueue, &cmd, pulseTicks) == pdTRUE) {
             releaseBoth(kanan, kiri);
             semuaMati();
             handleCmdWhilePlaying(cmd, playing, notes, noteCount, tempo, currentId, aborted);
-            if (aborted) break;
+            if (aborted)
+              break;
           } else {
             releaseBoth(kanan, kiri);
           }
 
           TickType_t gapTicks = pdMS_TO_TICKS(sisa);
-          if (gapTicks < 1) gapTicks = 1;
+          if (gapTicks < 1)
+            gapTicks = 1;
           if (xQueueReceive(playbackQueue, &cmd, gapTicks) == pdTRUE) {
             semuaMati();
             handleCmdWhilePlaying(cmd, playing, notes, noteCount, tempo, currentId, aborted);
-            if (aborted) break;
+            if (aborted)
+              break;
           }
         } else {
           TickType_t restTicks = pdMS_TO_TICKS(totalDurasi);
-          if (restTicks < 1) restTicks = 1;
+          if (restTicks < 1)
+            restTicks = 1;
           if (xQueueReceive(playbackQueue, &cmd, restTicks) == pdTRUE) {
             semuaMati();
             handleCmdWhilePlaying(cmd, playing, notes, noteCount, tempo, currentId, aborted);
-            if (aborted) break;
+            if (aborted)
+              break;
           }
         }
       }
@@ -172,15 +183,7 @@ void playbackInit() {
     playbackQueue = xQueueCreate(10, sizeof(PlaybackCommand));
   }
   if (playbackTaskHandle == NULL) {
-    xTaskCreatePinnedToCore(
-      playbackTask,
-      "playback",
-      4096,
-      NULL,
-      5,
-      &playbackTaskHandle,
-      1
-    );
+    xTaskCreatePinnedToCore(playbackTask, "playback", 4096, NULL, 5, &playbackTaskHandle, 1);
   }
 }
 
@@ -190,31 +193,36 @@ void playbackSetCallbacks(PlaybackStateCallback stateCb, PlaybackNoteCallback no
 }
 
 void playbackPlay(int songId) {
-  if (!playbackQueue) return;
-  PlaybackCommand cmd = { CMD_PLAY, songId, 0 };
+  if (!playbackQueue)
+    return;
+  PlaybackCommand cmd = {CMD_PLAY, songId, 0};
   xQueueSend(playbackQueue, &cmd, 0);
 }
 
 void playbackPreview(const Nada* customNotes, int count, int tempo) {
-  if (!playbackQueue || count <= 0 || customNotes == NULL) return;
-  if (count > MAX_NOTES) count = MAX_NOTES;
+  if (!playbackQueue || count <= 0 || customNotes == NULL)
+    return;
+  if (count > MAX_NOTES)
+    count = MAX_NOTES;
   memcpy(previewNotes, customNotes, count * sizeof(Nada));
   previewNoteCount = count;
   previewTempo = tempo;
 
-  PlaybackCommand cmd = { CMD_PREVIEW, PREVIEW_SONG_ID, 0 };
+  PlaybackCommand cmd = {CMD_PREVIEW, PREVIEW_SONG_ID, 0};
   xQueueSend(playbackQueue, &cmd, 0);
 }
 
 void playbackStop() {
-  if (!playbackQueue) return;
-  PlaybackCommand cmd = { CMD_STOP, 0, 0 };
+  if (!playbackQueue)
+    return;
+  PlaybackCommand cmd = {CMD_STOP, 0, 0};
   xQueueSend(playbackQueue, &cmd, 0);
 }
 
 void playbackHit(byte nada) {
-  if (!playbackQueue) return;
-  PlaybackCommand cmd = { CMD_HIT, 0, nada };
+  if (!playbackQueue)
+    return;
+  PlaybackCommand cmd = {CMD_HIT, 0, nada};
   xQueueSend(playbackQueue, &cmd, 0);
 }
 

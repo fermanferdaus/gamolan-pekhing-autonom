@@ -1,8 +1,9 @@
 #include <WiFi.h>
+
 #include "config.h"
+#include "playback.h"
 #include "solenoid.h"
 #include "storage.h"
-#include "playback.h"
 #include "ws_handler.h"
 
 void setup() {

@@ -24,14 +24,16 @@ void semuaMati() {
 }
 
 void solenoidHit(byte nada, int durasiMs) {
-  if (!isValid(nada)) return;
+  if (!isValid(nada))
+    return;
   digitalWrite(relayPins[nada - 1], LOW);
   activeMask |= (1 << nada);
   Serial.printf("[HIT] %d %s %d\n", nada, namaNada[nada], durasiMs);
 }
 
 void solenoidRelease(byte nada) {
-  if (!isValid(nada)) return;
+  if (!isValid(nada))
+    return;
   digitalWrite(relayPins[nada - 1], HIGH);
   activeMask &= ~(1 << nada);
   Serial.printf("[OFF] %d\n", nada);

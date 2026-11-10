@@ -1,6 +1,7 @@
 #pragma once
-#include "config.h"
 #include <ArduinoJson.h>
+
+#include "config.h"
 
 extern SongHeader songList[MAX_SONGS];
 extern int totalSongs;

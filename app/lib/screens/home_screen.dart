@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'playlist_screen.dart';
 import 'composer_screen.dart';
 import 'not_angka_screen.dart';
@@ -14,25 +15,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [
-    const PlaylistScreen(),
-    const ComposerScreen(),
-  ];
+  final List<Widget> _pages = [const PlaylistScreen(), const ComposerScreen()];
 
   void _openNotAngka() {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const NotAngkaScreen()),
-    );
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const NotAngkaScreen()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
+      body: IndexedStack(index: _currentIndex, children: _pages),
       bottomNavigationBar: SafeArea(
         top: false,
         child: Container(
@@ -42,10 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(999),
-            border: Border.all(
-              color: LampungTheme.slate200,
-              width: 1.5,
-            ),
+            border: Border.all(color: LampungTheme.slate200, width: 1.5),
             boxShadow: const [
               BoxShadow(
                 color: Color(0x1F1D4ED8),
@@ -162,11 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: const Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                Icons.piano_rounded,
-                size: 17,
-                color: Colors.white,
-              ),
+              Icon(Icons.piano_rounded, size: 17, color: Colors.white),
               SizedBox(width: 5),
               Text(
                 'BILAH',

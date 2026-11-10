@@ -78,16 +78,19 @@ void main() {
     });
   });
 
-  testWidgets('GamolanApp builds and renders HomeScreen without assertion errors',
-      (tester) async {
-    await tester.pumpWidget(const GamolanApp());
-    await tester.pump();
-    expect(find.text('GAMOLAN PEKHING'), findsWidgets);
-    GamolanService.resetForTest();
-  });
+  testWidgets(
+    'GamolanApp builds and renders HomeScreen without assertion errors',
+    (tester) async {
+      await tester.pumpWidget(const GamolanApp());
+      await tester.pump();
+      expect(find.text('GAMOLAN PEKHING'), findsWidgets);
+      GamolanService.resetForTest();
+    },
+  );
 
-  testWidgets('ComposerScreen renders in edit mode with pre-filled notes',
-      (tester) async {
+  testWidgets('ComposerScreen renders in edit mode with pre-filled notes', (
+    tester,
+  ) async {
     final sampleSong = SongModel(
       id: 5,
       name: 'Bubuy Bulan',
@@ -118,8 +121,9 @@ void main() {
     expect(find.textContaining('Pratinjau Suara'), findsOneWidget);
   });
 
-  testWidgets('ComposerScreen supports previewing custom song before saving',
-      (tester) async {
+  testWidgets('ComposerScreen supports previewing custom song before saving', (
+    tester,
+  ) async {
     tester.view.physicalSize = const Size(800, 1200);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
@@ -130,11 +134,7 @@ void main() {
     ];
 
     await tester.pumpWidget(
-      MaterialApp(
-        home: ComposerScreen(
-          initialNotes: sampleNotes,
-        ),
-      ),
+      MaterialApp(home: ComposerScreen(initialNotes: sampleNotes)),
     );
     await tester.pump();
 
@@ -155,46 +155,52 @@ void main() {
   });
 
   testWidgets(
-      'HomeScreen floating island navbar switches tabs and renders on narrow screen',
-      (tester) async {
-    tester.view.physicalSize = const Size(320, 640);
-    tester.view.devicePixelRatio = 1.0;
-    addTearDown(tester.view.resetPhysicalSize);
+    'HomeScreen floating island navbar switches tabs and renders on narrow screen',
+    (tester) async {
+      tester.view.physicalSize = const Size(320, 640);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
 
-    await tester.pumpWidget(const GamolanApp());
-    await tester.pump();
-    expect(tester.takeException(), isNull, reason: 'Initial load should have no exception');
+      await tester.pumpWidget(const GamolanApp());
+      await tester.pump();
+      expect(
+        tester.takeException(),
+        isNull,
+        reason: 'Initial load should have no exception',
+      );
 
-    expect(find.text('Daftar Lagu'), findsOneWidget);
-    expect(find.text('BILAH'), findsOneWidget);
-    expect(find.text('Komposer'), findsOneWidget);
+      expect(find.text('Daftar Lagu'), findsOneWidget);
+      expect(find.text('BILAH'), findsOneWidget);
+      expect(find.text('Komposer'), findsOneWidget);
 
-    // Switch to Komposer
-    await tester.tap(find.text('Komposer'));
-    await tester.pumpAndSettle();
-    expect(tester.takeException(), isNull, reason: 'Switch to komposer should have no exception');
-    expect(find.text('BUAT LAGU GAMOLAN'), findsOneWidget);
+      // Switch to Komposer
+      await tester.tap(find.text('Komposer'));
+      await tester.pumpAndSettle();
+      expect(
+        tester.takeException(),
+        isNull,
+        reason: 'Switch to komposer should have no exception',
+      );
+      expect(find.text('BUAT LAGU GAMOLAN'), findsOneWidget);
 
-    // Switch back to Daftar Lagu
-    await tester.tap(find.text('Daftar Lagu'));
-    await tester.pumpAndSettle();
-    expect(find.text('GAMOLAN PEKHING'), findsWidgets);
+      // Switch back to Daftar Lagu
+      await tester.tap(find.text('Daftar Lagu'));
+      await tester.pumpAndSettle();
+      expect(find.text('GAMOLAN PEKHING'), findsWidgets);
 
-    expect(tester.takeException(), isNull);
-    GamolanService.resetForTest();
-  });
+      expect(tester.takeException(), isNull);
+      GamolanService.resetForTest();
+    },
+  );
 
-  testWidgets('NotAngkaScreen renders 8 bilah keys and handles tap',
-      (tester) async {
+  testWidgets('NotAngkaScreen renders 8 bilah keys and handles tap', (
+    tester,
+  ) async {
     tester.view.physicalSize = const Size(800, 400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
 
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: NotAngkaScreen(),
-      ),
-    );
+    await tester.pumpWidget(const MaterialApp(home: NotAngkaScreen()));
     await tester.pump();
 
     expect(find.text('DO'), findsOneWidget);
@@ -208,21 +214,23 @@ void main() {
     GamolanService.resetForTest();
   });
 
-  testWidgets('NotAngkaScreen renders full-bleed with display notch insets',
-      (tester) async {
+  testWidgets('NotAngkaScreen renders full-bleed with display notch insets', (
+    tester,
+  ) async {
     tester.view.physicalSize = const Size(840, 390);
     tester.view.devicePixelRatio = 1.0;
-    tester.view.padding = const FakeViewPadding(left: 48, top: 24, right: 32, bottom: 16);
+    tester.view.padding = const FakeViewPadding(
+      left: 48,
+      top: 24,
+      right: 32,
+      bottom: 16,
+    );
     addTearDown(() {
       tester.view.resetPhysicalSize();
       tester.view.resetPadding();
     });
 
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: NotAngkaScreen(),
-      ),
-    );
+    await tester.pumpWidget(const MaterialApp(home: NotAngkaScreen()));
     await tester.pump();
 
     expect(find.text('DO'), findsOneWidget);
@@ -247,7 +255,7 @@ void main() {
       '{"t":"list","songs":['
       '{"id":0,"name":"Indonesia Raya","cat":"nasional","tempo":96,"len":45},'
       '{"id":17,"name":"Pelangi-Pelangi","cat":"lainnya","tempo":80,"len":49}'
-      ']}'
+      ']}',
     );
     expect(service.songs.length, 2);
     expect(service.songs[0].name, 'Indonesia Raya');
@@ -260,8 +268,9 @@ void main() {
     GamolanService.resetForTest();
   });
 
-  testWidgets('PlaylistScreen displays disconnected message when offline',
-      (tester) async {
+  testWidgets('PlaylistScreen displays disconnected message when offline', (
+    tester,
+  ) async {
     GamolanService.resetForTest();
     await tester.pumpWidget(const GamolanApp());
     await tester.pump();
@@ -269,7 +278,8 @@ void main() {
     expect(find.text('Belum Terhubung ke Gamolan'), findsOneWidget);
     expect(
       find.text(
-          'Lagu tersimpan di memori flash ESP32.\nSambungkan aplikasi ke alat untuk memuat daftar lagu.'),
+        'Lagu tersimpan di memori flash ESP32.\nSambungkan aplikasi ke alat untuk memuat daftar lagu.',
+      ),
       findsOneWidget,
     );
     expect(find.text('Sambungkan ke Gamolan'), findsOneWidget);
