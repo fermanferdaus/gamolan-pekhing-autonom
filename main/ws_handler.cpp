@@ -101,6 +101,23 @@ static void handleWebSocketMessage(uint8_t num, uint8_t* payload, size_t length)
   } else if (strcmp(cmd, "hit") == 0) {
     byte n = doc["n"] | 0;
     playbackHit(n);
+  } else if (strcmp(cmd, "preview") == 0) {
+    int tempo = doc["tempo"] | 120;
+    JsonArrayConst notesArr = doc["notes"].as<JsonArrayConst>();
+    static Nada tempNotes[MAX_NOTES];
+    int count = 0;
+    for (JsonArrayConst item : notesArr) {
+      if (count >= MAX_NOTES) break;
+      byte nada = item[0] | 0;
+      byte panjang = item[1] | 4;
+      tempNotes[count++] = { nada, panjang };
+    }
+    if (count > 0) {
+      playbackPreview(tempNotes, count, tempo);
+      wsSendAck(num, true, "Pratinjau lagu dimulai");
+    } else {
+      wsSendAck(num, false, "Notasi lagu kosong");
+    }
   } else if (strcmp(cmd, "add") == 0) {
     const char* name = doc["name"] | "Lagu Baru";
     const char* cat = doc["cat"] | "lainnya";

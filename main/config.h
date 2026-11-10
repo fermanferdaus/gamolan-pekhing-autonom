@@ -44,11 +44,14 @@ struct SongHeader {
   int noteCount;
 };
 
+constexpr int PREVIEW_SONG_ID = -99;
+
 enum PlaybackCmdType {
   CMD_NONE,
   CMD_PLAY,
   CMD_STOP,
-  CMD_HIT
+  CMD_HIT,
+  CMD_PREVIEW
 };
 
 struct PlaybackCommand {

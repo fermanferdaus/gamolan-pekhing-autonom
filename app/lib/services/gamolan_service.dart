@@ -36,6 +36,7 @@ class GamolanService extends ChangeNotifier {
 
   static const String serverHost = '192.168.4.1';
   static const int serverPort = 81;
+  static const int previewSongId = -99;
   static const _platformChannel =
       MethodChannel('com.gamolan.gamolan_pekhing/wifi');
 
@@ -59,8 +60,10 @@ class GamolanService extends ChangeNotifier {
 
   int _playingSongId = -1;
   int get playingSongId => _playingSongId;
+  bool get isPreviewing => _isPlaying && _playingSongId == previewSongId;
 
   String get playingSongName {
+    if (_playingSongId == previewSongId) return 'Pratinjau Lagu';
     final s = _songs.where((e) => e.id == _playingSongId);
     return s.isNotEmpty ? s.first.name : '';
   }
@@ -290,6 +293,13 @@ class GamolanService extends ChangeNotifier {
 
   void fetchSongList() => _sendRaw({'cmd': 'list'});
   void playSong(int id) => _sendRaw({'cmd': 'play', 'id': id});
+  void previewSong(int tempo, List<List<int>> notes) {
+    _sendRaw({
+      'cmd': 'preview',
+      'tempo': tempo,
+      'notes': notes,
+    });
+  }
   void stopPlayback() => _sendRaw({'cmd': 'stop'});
   void hitNada(int nada) => _sendRaw({'cmd': 'hit', 'n': nada});
 

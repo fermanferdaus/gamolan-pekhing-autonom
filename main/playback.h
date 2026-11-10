@@ -7,6 +7,7 @@ typedef void (*PlaybackNoteCallback)(byte nada, int noteIndex, int totalNotes);
 void playbackInit();
 void playbackSetCallbacks(PlaybackStateCallback stateCb, PlaybackNoteCallback noteCb);
 void playbackPlay(int songId);
+void playbackPreview(const Nada* customNotes, int count, int tempo);
 void playbackStop();
 void playbackHit(byte nada);
 bool playbackIsPlaying();

@@ -13,6 +13,10 @@ static PlaybackNoteCallback noteCallback = NULL;
 static volatile bool playingState = false;
 static volatile int activeSongIdVal = -1;
 
+static Nada previewNotes[MAX_NOTES];
+static int previewNoteCount = 0;
+static int previewTempo = 120;
+
 static void updateState(bool playing, int songId) {
   playingState = playing;
   activeSongIdVal = songId;
@@ -41,6 +45,14 @@ static void handleCmdWhilePlaying(const PlaybackCommand& cmd, bool& playing,
       aborted = true;
       updateState(false, -1);
     }
+  } else if (cmd.type == CMD_PREVIEW) {
+    memcpy(notes, previewNotes, previewNoteCount * sizeof(Nada));
+    noteCount = previewNoteCount;
+    tempo = previewTempo;
+    currentId = PREVIEW_SONG_ID;
+    playing = true;
+    aborted = true;
+    updateState(true, currentId);
   } else if (cmd.type == CMD_HIT) {
     solenoidHit(cmd.nada, PULSE_MS);
     vTaskDelay(pdMS_TO_TICKS(PULSE_MS));
@@ -77,6 +89,14 @@ static void playbackTask(void* pvParameters) {
             semuaMati();
             updateState(true, currentId);
           }
+        } else if (cmd.type == CMD_PREVIEW) {
+          memcpy(notes, previewNotes, previewNoteCount * sizeof(Nada));
+          noteCount = previewNoteCount;
+          tempo = previewTempo;
+          currentId = PREVIEW_SONG_ID;
+          playing = true;
+          semuaMati();
+          updateState(true, currentId);
         } else if (cmd.type == CMD_HIT) {
           semuaMati();
           solenoidHit(cmd.nada, PULSE_MS);
@@ -172,6 +192,17 @@ void playbackSetCallbacks(PlaybackStateCallback stateCb, PlaybackNoteCallback no
 void playbackPlay(int songId) {
   if (!playbackQueue) return;
   PlaybackCommand cmd = { CMD_PLAY, songId, 0 };
+  xQueueSend(playbackQueue, &cmd, 0);
+}
+
+void playbackPreview(const Nada* customNotes, int count, int tempo) {
+  if (!playbackQueue || count <= 0 || customNotes == NULL) return;
+  if (count > MAX_NOTES) count = MAX_NOTES;
+  memcpy(previewNotes, customNotes, count * sizeof(Nada));
+  previewNoteCount = count;
+  previewTempo = tempo;
+
+  PlaybackCommand cmd = { CMD_PREVIEW, PREVIEW_SONG_ID, 0 };
   xQueueSend(playbackQueue, &cmd, 0);
 }
 

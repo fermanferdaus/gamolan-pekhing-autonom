@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../models/song_model.dart';
@@ -44,9 +45,21 @@ class _ComposerScreenState extends State<ComposerScreen> {
     {'val': 16, 'label': '4 Ketuk', 'short': '4'},
   ];
 
+  int? _activePreviewNoteIndex;
+  Timer? _localPreviewTimer;
+  bool _isLocalPreviewing = false;
+
+  bool get _isPreviewActive => _service.isPreviewing || _isLocalPreviewing;
+
+  double _calculateDuration() {
+    final totalUnits = _notes.fold<int>(0, (sum, n) => sum + n.panjang);
+    return totalUnits * (60.0 / _tempo / 4.0);
+  }
+
   @override
   void initState() {
     super.initState();
+    _service.addListener(_onServiceUpdate);
     if (widget.editingSong != null) {
       _nameController.text = widget.editingSong!.name;
       _tempo = widget.editingSong!.tempo;
@@ -59,9 +72,112 @@ class _ComposerScreenState extends State<ComposerScreen> {
 
   @override
   void dispose() {
+    _service.removeListener(_onServiceUpdate);
+    _localPreviewTimer?.cancel();
+    _localPreviewTimer = null;
     _nameController.dispose();
     _scrollController.dispose();
     super.dispose();
+  }
+
+  void _onServiceUpdate() {
+    if (!mounted) return;
+    if (_service.isPreviewing) {
+      setState(() {
+        _activePreviewNoteIndex = _service.currentNote;
+      });
+      _scrollToActiveNote(_service.currentNote);
+    } else if (_activePreviewNoteIndex != null && !_isLocalPreviewing) {
+      setState(() {
+        _activePreviewNoteIndex = null;
+      });
+    }
+  }
+
+  void _scrollToActiveNote(int index) {
+    if (!_scrollController.hasClients || index < 0 || index >= _notes.length) {
+      return;
+    }
+    const noteWidth = 64.0;
+    final targetOffset = (index * noteWidth) - 100.0;
+    _scrollController.animateTo(
+      targetOffset.clamp(0.0, _scrollController.position.maxScrollExtent),
+      duration: const Duration(milliseconds: 150),
+      curve: Curves.easeOut,
+    );
+  }
+
+  void _togglePreview() {
+    if (_notes.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: LampungTheme.statusDanger,
+          content: Text('Tambahkan nada terlebih dahulu untuk pratinjau!'),
+        ),
+      );
+      return;
+    }
+
+    if (_isPreviewActive) {
+      _stopPreview();
+    } else {
+      _startPreview();
+    }
+  }
+
+  void _stopPreview() {
+    if (_service.isConnected) {
+      _service.stopPlayback();
+    }
+    _stopLocalPreview();
+  }
+
+  void _startPreview() {
+    if (_service.isConnected) {
+      final rawNotes = _notes.map((e) => e.toList()).toList();
+      _service.previewSong(_tempo, rawNotes);
+    } else {
+      _startLocalPreview();
+    }
+  }
+
+  void _startLocalPreview() {
+    _localPreviewTimer?.cancel();
+    setState(() {
+      _isLocalPreviewing = true;
+      _activePreviewNoteIndex = 0;
+    });
+
+    void playNext(int index) {
+      if (!mounted || !_isLocalPreviewing) return;
+      if (index >= _notes.length) {
+        _stopLocalPreview();
+        return;
+      }
+
+      setState(() {
+        _activePreviewNoteIndex = index;
+      });
+      _scrollToActiveNote(index);
+
+      final note = _notes[index];
+      final durMs = (note.panjang * 60000 / (_tempo * 4)).round();
+      _localPreviewTimer = Timer(Duration(milliseconds: durMs), () {
+        playNext(index + 1);
+      });
+    }
+
+    playNext(0);
+  }
+
+  void _stopLocalPreview() {
+    _localPreviewTimer?.cancel();
+    _localPreviewTimer = null;
+    _isLocalPreviewing = false;
+    _activePreviewNoteIndex = null;
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void _addNote(int nada) {
@@ -164,6 +280,11 @@ class _ComposerScreenState extends State<ComposerScreen> {
       return;
     }
 
+    _showPreviewAndConfirmDialog(saveAsNew: saveAsNew);
+  }
+
+  void _executeSave({bool saveAsNew = false}) {
+    final name = _nameController.text.trim();
     final rawNotes = _notes.map((e) => e.toList()).toList();
     final isEditing = widget.editingSong != null && !saveAsNew;
 
@@ -200,6 +321,205 @@ class _ComposerScreenState extends State<ComposerScreen> {
         _notes.clear();
       });
     }
+  }
+
+  void _showPreviewAndConfirmDialog({required bool saveAsNew}) {
+    final name = _nameController.text.trim();
+    final isEditing = widget.editingSong != null && !saveAsNew;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (sheetCtx) {
+        return StatefulBuilder(
+          builder: (ctx, setSheetState) {
+            final isPreviewingNow = _isPreviewActive;
+            final durationSec = _calculateDuration();
+
+            return Container(
+              padding: const EdgeInsets.all(20),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x33000000),
+                    offset: Offset(0, -4),
+                    blurRadius: 16,
+                  ),
+                ],
+              ),
+              child: SafeArea(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 40,
+                        height: 4,
+                        margin: const EdgeInsets.only(bottom: 16),
+                        decoration: BoxDecoration(
+                          color: LampungTheme.slate300,
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      '[ PRATINJAU SEBELUM MENYIMPAN ]',
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                        color: LampungTheme.primaryBlue,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      name,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                        color: LampungTheme.slate900,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: LampungTheme.slate50,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: LampungTheme.slate200),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          _buildMetaItem('Kategori', _selectedCategory.name.toUpperCase()),
+                          _buildMetaDivider(),
+                          _buildMetaItem('Tempo', '$_tempo BPM'),
+                          _buildMetaDivider(),
+                          _buildMetaItem('Jumlah', '${_notes.length} Nada'),
+                          _buildMetaDivider(),
+                          _buildMetaItem('Durasi', '~${durationSec.toStringAsFixed(1)}s'),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 44,
+                      child: ElevatedButton.icon(
+                        icon: Icon(
+                          isPreviewingNow ? Icons.stop_rounded : Icons.play_arrow_rounded,
+                        ),
+                        label: Text(
+                          isPreviewingNow ? 'Hentikan Pratinjau' : 'Dengarkan Pratinjau di Gamolan',
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              isPreviewingNow ? LampungTheme.statusDanger : LampungTheme.primaryBlue,
+                          foregroundColor: Colors.white,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(999),
+                          ),
+                        ),
+                        onPressed: () {
+                          _togglePreview();
+                          setSheetState(() {});
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 44,
+                            child: OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: LampungTheme.slate600,
+                                side: const BorderSide(color: LampungTheme.slate300),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(999),
+                                ),
+                              ),
+                              child: const Text('Kembali Edit'),
+                              onPressed: () {
+                                _stopPreview();
+                                Navigator.pop(sheetCtx);
+                              },
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: SizedBox(
+                            height: 44,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: LampungTheme.statusSuccess,
+                                foregroundColor: Colors.white,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(999),
+                                ),
+                              ),
+                              child: Text(isEditing ? 'Simpan Sekarang' : 'Konfirmasi Simpan'),
+                              onPressed: () {
+                                _stopPreview();
+                                Navigator.pop(sheetCtx);
+                                _executeSave(saveAsNew: saveAsNew);
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildMetaItem(String label, String value) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 10,
+            color: LampungTheme.slate500,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 12,
+            color: LampungTheme.slate900,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMetaDivider() {
+    return Container(
+      width: 1,
+      height: 24,
+      color: LampungTheme.slate200,
+    );
   }
 
   @override
@@ -652,19 +972,25 @@ class _ComposerScreenState extends State<ComposerScreen> {
                       itemBuilder: (context, index) {
                         final item = _notes[index];
                         final isDiam = item.nada == 0;
+                        final isActive = index == _activePreviewNoteIndex;
                         return Container(
                           margin: const EdgeInsets.only(right: 6),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 9, vertical: 3),
                           decoration: BoxDecoration(
-                            color: isDiam
-                                ? LampungTheme.slate100
-                                : LampungTheme.blue50,
+                            color: isActive
+                                ? LampungTheme.accentBlueLight.withValues(alpha: 0.35)
+                                : isDiam
+                                    ? LampungTheme.slate100
+                                    : LampungTheme.blue50,
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: isDiam
-                                  ? LampungTheme.slate300
-                                  : LampungTheme.primaryBlue,
+                              color: isActive
+                                  ? LampungTheme.primaryBlue
+                                  : isDiam
+                                      ? LampungTheme.slate300
+                                      : LampungTheme.primaryBlue,
+                              width: isActive ? 2.5 : 1.0,
                             ),
                           ),
                           child: Column(
@@ -699,7 +1025,52 @@ class _ComposerScreenState extends State<ComposerScreen> {
                       },
                     ),
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: 16),
+            Container(
+              width: double.infinity,
+              height: 44,
+              decoration: const BoxDecoration(
+                boxShadow: LampungTheme.hardShadowPill,
+                borderRadius: BorderRadius.all(Radius.circular(999)),
+              ),
+              child: OutlinedButton.icon(
+                icon: Icon(
+                  _isPreviewActive ? Icons.stop_rounded : Icons.play_arrow_rounded,
+                  color: _isPreviewActive
+                      ? LampungTheme.statusDanger
+                      : LampungTheme.primaryBlue,
+                ),
+                label: Text(
+                  _isPreviewActive
+                      ? 'Hentikan Pratinjau'
+                      : 'Pratinjau Suara (~${_calculateDuration().toStringAsFixed(1)}s)',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    color: _isPreviewActive
+                        ? LampungTheme.statusDanger
+                        : LampungTheme.primaryBlue,
+                  ),
+                ),
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: _isPreviewActive
+                      ? LampungTheme.statusDanger.withValues(alpha: 0.08)
+                      : Colors.white,
+                  side: BorderSide(
+                    color: _isPreviewActive
+                        ? LampungTheme.statusDanger
+                        : LampungTheme.primaryBlue,
+                    width: 1.5,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                ),
+                onPressed: _notes.isEmpty ? null : _togglePreview,
+              ),
+            ),
+            const SizedBox(height: 10),
             Container(
               width: double.infinity,
               height: 48,

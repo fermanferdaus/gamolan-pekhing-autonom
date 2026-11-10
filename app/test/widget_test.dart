@@ -115,6 +115,43 @@ void main() {
     expect(find.text('Simpan Perubahan'), findsOneWidget);
     expect(find.text('Simpan Sebagai Lagu Baru (Salinan)'), findsOneWidget);
     expect(find.text('[ SUSUNAN: 2 NADA ]'), findsOneWidget);
+    expect(find.textContaining('Pratinjau Suara'), findsOneWidget);
+  });
+
+  testWidgets('ComposerScreen supports previewing custom song before saving',
+      (tester) async {
+    tester.view.physicalSize = const Size(800, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+
+    final sampleNotes = [
+      NoteItem(nada: 1, panjang: 4),
+      NoteItem(nada: 2, panjang: 4),
+    ];
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: ComposerScreen(
+          initialNotes: sampleNotes,
+        ),
+      ),
+    );
+    await tester.pump();
+
+    final previewBtn = find.textContaining('Pratinjau Suara');
+    expect(previewBtn, findsOneWidget);
+
+    await tester.ensureVisible(previewBtn);
+    await tester.tap(previewBtn);
+    await tester.pump();
+    expect(find.text('Hentikan Pratinjau'), findsOneWidget);
+
+    // Stop preview
+    await tester.tap(find.text('Hentikan Pratinjau'));
+    await tester.pump();
+    expect(find.textContaining('Pratinjau Suara'), findsOneWidget);
+
+    GamolanService.resetForTest();
   });
 
   testWidgets(
