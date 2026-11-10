@@ -837,223 +837,224 @@ const Nada song_9[] PROGMEM = {
 };
 
 // --- 3. TRADISIONAL LAMPUNG (Tabuh Gamolan Pekhing, notasi Muhammad Yoga Saputra, narasumber Syapril Yamin) ---
-// Dua stik: duo(kanan, kiri) memukul dua bilah serentak. Tanda '-' pada notasi = jeda, digabung ke durasi nada sebelumnya.
+// Dua stik: duo(kanan, kiri) memukul dua bilah serentak. Tiap birama 4/4 = 16 unit tepat, sinkopasi dan istirahat birama presisi.
 
-// Tabuh Sambai Agung (Sekala Berak, tempo sedang, ketukan 1/8 = 2 unit, 100 BPM).
-// Kanan: melodi. Kiri: ketukan bilah 1 pola | - - 1 - | 1 - 1 1 | tiap birama.
+// Tabuh Sambai Agung (Sekala Berak, tempo sedang, 100 BPM, 1/8 = 2 unit).
+// Kanan: melodi. Kiri: pola ostinato | - - 1 - | 1 - 1 1 | tiap birama.
 const Nada song_10[] PROGMEM = {
-  // Melodi buka (kanan saja): | 2 2 3 3 5 5 6 6 |
-  { RE, 2 }, { RE, 2 }, { MI, 2 }, { MI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { LA, 4 },
-  // | - 6 6 6 | 6 6 6 (6) |
-  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
-  // | - 6 6 6 | 6 6 6 6 |
-  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
-  // | - 6 6 6 | 6 6 6 (6) |
-  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
-  // | - 6 6 6 | 6 6 7 7 |
-  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(SI, DO), 2 }, { duo(SI, DO), 4 },
-  // | - 6 7 5 | 6 7 6 (7) |
-  { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SI, 2 }, { duo(LA, DO), 2 }, { duo(SI, DO), 4 },
-  // | - 6 7 5 | 6 7 6 7 |
-  { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SI, 2 }, { duo(LA, DO), 2 }, { duo(SI, DO), 4 },
-  // | - 6 7 5 | 6 6 6 (6) |
-  { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
-  // | - 6 6 6 | 6 6 7 7 |
-  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(SI, DO), 2 }, { duo(SI, DO), 4 },
-  // | - 6 7 5 | 6 7 6 (7) |
-  { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SI, 2 }, { duo(LA, DO), 2 }, { duo(SI, DO), 4 },
-  // | - 6 7 5 | 6 7 6 7 |
-  { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SI, 2 }, { duo(LA, DO), 2 }, { duo(SI, DO), 4 },
-  // | - 6 7 5 | 6 6 6 (6) |
-  { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
-  // | - 6 6 6 | 6 6 6 6 |
-  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
-  // | - 6 6 6 | 6 6 6 (6) |
-  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
-  // | - 6 6 6 | 6 6 6 5 |
-  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(SOL, DO), 2 },
-  // | 6 6 6 3 | 5 6 6 (5) |
+  // Melodi Buka: | 2 2 3 3 | 5 5 6 6 |
+  { RE, 2 }, { RE, 2 }, { MI, 2 }, { MI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { LA, 2 },
+  // Bar 1: | - 6 6 6 | 6 6 6 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 2 },
+  // Bar 2: | - 6 6 6 | 6 6 6 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 2 },
+  // Bar 3: | - 6 6 6 | 6 6 6 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 2 },
+  // Bar 4: | - 6 6 6 | 6 6 7 7 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(SI, DO), 2 }, { duo(SI, DO), 2 },
+  // Bar 5: | - 6 7 5 | 6 7 6 7 |
+  { DIAM, 2 }, { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SI, 2 }, { duo(LA, DO), 2 }, { duo(SI, DO), 2 },
+  // Bar 6: | - 6 7 5 | 6 7 6 7 |
+  { DIAM, 2 }, { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SI, 2 }, { duo(LA, DO), 2 }, { duo(SI, DO), 2 },
+  // Bar 7: | - 6 7 5 | 6 6 6 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 2 },
+  // Bar 8: | - 6 6 6 | 6 6 7 7 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(SI, DO), 2 }, { duo(SI, DO), 2 },
+  // Bar 9: | - 6 7 5 | 6 7 6 7 |
+  { DIAM, 2 }, { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SI, 2 }, { duo(LA, DO), 2 }, { duo(SI, DO), 2 },
+  // Bar 10: | - 6 7 5 | 6 7 6 7 |
+  { DIAM, 2 }, { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SI, 2 }, { duo(LA, DO), 2 }, { duo(SI, DO), 2 },
+  // Bar 11: | - 6 7 5 | 6 6 6 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(SI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 2 },
+  // Bar 12: | - 6 6 6 | 6 6 6 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 2 },
+  // Bar 13: | - 6 6 6 | 6 6 6 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 2 },
+  // Bar 14: | - 6 6 6 | 6 6 6 5 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(SOL, DO), 2 },
+  // Bar 15: | 6 6 6 3 | 5 6 6 5 |
   { LA, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(SOL, DO), 2 },
-  // | 6 6 6 5 | 5 3 5 5 |
+  // Bar 16: | 6 6 6 5 | 5 3 5 5 |
   { LA, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(SOL, DO), 2 },
-  // | 3 3 2 1 | 2 3 5 (3) |
+  // Bar 17: | 3 3 2 1 | 2 3 5 3 |
   { MI, 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(MI, DO), 2 },
-  // | 5 3 2 1 | 2 2 2 2 |
-  { SOL, 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 4 },
-  // | - 2 2 2 | 2 2 2 (2) |
-  { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 4 },
-  // | - 2 2 2 | 2 2 2 3 |
-  { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
-  // | - 2 3 1 | 2 3 2 (3) |
-  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
-  // | - 2 3 1 | 2 2 2 2 |
-  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 4 },
-  // | - 2 2 2 | 2 2 2 (3) |
-  { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
-  // | - 2 3 1 | 2 2 2 2 |
-  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 4 },
-  // | - 2 2 2 | 2 2 2 (3) |
-  { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
-  // | - 2 3 1 | 2 3 5 3 |
-  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(MI, DO), 4 },
-  // | - 2 3 1 | 2 3 5 (3) |
-  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(MI, DO), 4 },
-  // | - 2 3 1 | 2 3 5 3 |
-  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(MI, DO), 4 },
-  // | - 5 3 5 | 3 5 5 (5) |
-  { SOL, 2 }, { duo(MI, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { SOL, 2 }, { duo(SOL, DO), 2 }, { duo(SOL, DO), 4 },
-  // | - 2 3 1 | 2 3 2 3 |
-  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
-  // | - 2 3 1 | 2 2 2 (2) |
-  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 4 },
-  // | - 2 3 1 | 2 3 2 3 |
-  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
-  // | - 2 3 1 | 2 3 5 (5) |
-  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(SOL, DO), 2 }
+  // Bar 18: | 5 3 2 1 | 2 2 2 2 |
+  { SOL, 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 2 },
+  // Bar 19: | - 2 2 2 | 2 2 2 2 |
+  { DIAM, 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 2 },
+  // Bar 20: | - 2 2 2 | 2 2 2 3 |
+  { DIAM, 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 21: | - 2 3 1 | 2 3 2 3 |
+  { DIAM, 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 22: | - 2 3 1 | 2 2 2 2 |
+  { DIAM, 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 2 },
+  // Bar 23: | - 2 2 2 | 2 2 2 3 |
+  { DIAM, 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 24: | - 2 3 1 | 2 2 2 2 |
+  { DIAM, 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 2 },
+  // Bar 25: | - 2 2 2 | 2 2 2 3 |
+  { DIAM, 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 26: | - 2 3 1 | 2 3 5 3 |
+  { DIAM, 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 27: | - 2 3 1 | 2 3 5 3 |
+  { DIAM, 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 28: | - 2 3 1 | 2 3 5 3 |
+  { DIAM, 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 29: | - 5 3 5 | 3 5 5 5 |
+  { DIAM, 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { SOL, 2 }, { duo(SOL, DO), 2 }, { duo(SOL, DO), 2 },
+  // Bar 30: | - 2 3 1 | 2 3 2 3 |
+  { DIAM, 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 31: | - 2 3 1 | 2 2 2 2 |
+  { DIAM, 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 2 },
+  // Bar 32: | - 2 3 1 | 2 3 2 3 |
+  { DIAM, 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 33: | - 2 3 1 | 2 3 5 5 |
+  { DIAM, 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(SOL, DO), 2 }
 };
 
-// Tabuh Sekeli (tempo sedang, ketukan 1/8 = 2 unit, 100 BPM).
-// Kanan: melodi. Kiri: ritem | - - 2 - | 2 - 2 2 | lalu | - - 1 - | 1 - 1 1 | mulai bagian 7 7 7 6.
+// Tabuh Sekeli (tempo sedang, 100 BPM, 1/8 = 2 unit).
+// Kanan: melodi. Kiri: ritem bilah 2 | - - 2 - | 2 - 2 2 | lalu bilah 1 | - - 1 - | 1 - 1 1 | mulai Bar 8.
 const Nada song_11[] PROGMEM = {
-  // Melodi buka (kanan saja): | 2 2 3 3 | 5 5 6 6 |
-  { RE, 2 }, { RE, 2 }, { MI, 2 }, { MI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { LA, 4 },
-  // | - 6 6 6 | 6 6 6 (6) |
-  { LA, 2 }, { duo(LA, RE), 2 }, { LA, 2 }, { duo(LA, RE), 2 }, { LA, 2 }, { duo(LA, RE), 2 }, { duo(LA, RE), 4 },
-  // | - 6 6 5 | 6 5 3 6 |
-  { LA, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(MI, RE), 2 }, { duo(LA, RE), 4 },
-  // | - 6 6 5 | 6 5 3 (6) |
-  { LA, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(MI, RE), 2 }, { duo(LA, RE), 2 },
-  // | 5 3 5 6 | 5 6 5 6 |
+  // Melodi Buka: | 2 2 3 3 | 5 5 6 6 |
+  { RE, 2 }, { RE, 2 }, { MI, 2 }, { MI, 2 }, { SOL, 2 }, { SOL, 2 }, { LA, 2 }, { LA, 2 },
+  // Bar 1: | - 6 6 6 | 6 6 6 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, RE), 2 }, { LA, 2 }, { duo(LA, RE), 2 }, { LA, 2 }, { duo(LA, RE), 2 }, { duo(LA, RE), 2 },
+  // Bar 2: | - 6 6 5 | 6 5 3 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(MI, RE), 2 }, { duo(LA, RE), 2 },
+  // Bar 3: | - 6 6 5 | 6 5 3 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(MI, RE), 2 }, { duo(LA, RE), 2 },
+  // Bar 4: | 5 3 5 6 | 5 6 5 6 |
   { SOL, 2 }, { MI, 2 }, { duo(SOL, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { duo(LA, RE), 2 },
-  // | 7 7 7 6 | 5 6 5 (6) |
+  // Bar 5: | 7 7 7 6 | 5 6 5 6 |
   { SI, 2 }, { SI, 2 }, { duo(SI, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { duo(LA, RE), 2 },
-  // | 7 7 7 6 | 5 6 5 6 |
-  { SI, 2 }, { SI, 2 }, { duo(SI, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { duo(LA, RE), 4 },
-  // | - 6 6 6 | 6 5 3 (6) |
-  { LA, 2 }, { duo(LA, RE), 2 }, { LA, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(MI, RE), 2 }, { duo(LA, RE), 2 },
-  // | 7 7 7 6 | 5 6 5 6 |
+  // Bar 6: | 7 7 7 6 | 5 6 5 6 |
+  { SI, 2 }, { SI, 2 }, { duo(SI, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { LA, 2 }, { duo(SOL, RE), 2 }, { duo(LA, RE), 2 },
+  // Bar 7: | - 6 6 6 | 6 5 3 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, RE), 2 }, { LA, 2 }, { duo(LA, RE), 2 }, { SOL, 2 }, { duo(MI, RE), 2 }, { duo(LA, RE), 2 },
+  // Bar 8: | 7 7 7 6 | 5 6 5 6 |
   { SI, 2 }, { SI, 2 }, { duo(SI, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { duo(LA, DO), 2 },
-  // | 7 7 7 6 | 5 6 5 (6) |
-  { SI, 2 }, { SI, 2 }, { duo(SI, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { duo(LA, DO), 4 },
-  // | - 6 6 6 | 6 6 6 6 |
-  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 4 },
-  // | - 6 6 6 | 6 5 3 (6) |
-  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { duo(LA, DO), 4 },
-  // | - 6 6 6 | 6 5 3 6 |
-  { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { duo(LA, DO), 2 },
-  // | 5 3 5 3 | 5 3 2 (1) |
+  // Bar 9: | 7 7 7 6 | 5 6 5 6 |
+  { SI, 2 }, { SI, 2 }, { duo(SI, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { duo(LA, DO), 2 },
+  // Bar 10: | - 6 6 6 | 6 6 6 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { duo(LA, DO), 2 },
+  // Bar 11: | - 6 6 6 | 6 5 3 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { duo(LA, DO), 2 },
+  // Bar 12: | - 6 6 6 | 6 5 3 6 |
+  { DIAM, 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { duo(LA, DO), 2 },
+  // Bar 13: | 5 3 5 3 | 5 3 2 1 |
   { SOL, 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 },
-  // | 2 2 2 3 | 5 3 2 3 |
+  // Bar 14: | 2 2 2 3 | 5 3 2 3 |
   { RE, 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 2 },
-  // | 2 1 2 3 | 5 3 5 (5) |
+  // Bar 15: | 2 1 2 3 | 5 3 5 5 |
   { RE, 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(SOL, DO), 2 },
-  // | 6 6 3 5 | 5 3 2 1 |
+  // Bar 16: | 6 6 3 5 | 5 3 2 1 |
   { LA, 2 }, { LA, 2 }, { duo(MI, DO), 2 }, { SOL, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 },
-  // | 6 6 3 5 | 5 3 5 (3) |
+  // Bar 17: | 6 6 3 5 | 5 3 5 3 |
   { LA, 2 }, { LA, 2 }, { duo(MI, DO), 2 }, { SOL, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(MI, DO), 2 },
-  // | 5 3 5 5 | 5 3 2 1 |
+  // Bar 18: | 5 3 5 5 | 5 3 2 1 |
   { SOL, 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { SOL, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 },
-  // | 2 2 2 2 | 2 2 2 (2) |
-  { RE, 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 4 },
-  // | - 2 2 2 | 2 2 3 3 |
-  { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { duo(MI, DO), 4 },
-  // | - 2 3 1 | 2 3 2 (3) |
-  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 4 },
-  // | - 2 3 1 | 2 3 5 5 |
-  { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(SOL, DO), 2 }
+  // Bar 19: | 2 2 2 2 | 2 2 2 2 |
+  { RE, 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { duo(RE, DO), 2 },
+  // Bar 20: | - 2 2 2 | 2 2 3 3 |
+  { DIAM, 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(RE, DO), 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 21: | - 2 3 1 | 2 3 2 3 |
+  { DIAM, 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 22: | - 2 3 1 | 2 3 5 5 |
+  { DIAM, 2 }, { RE, 2 }, { duo(MI, DO), 2 }, { DO, 2 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { duo(SOL, DO), 2 }
 };
 
-// Tabuh Jakhang (tempo lambat, ketukan 1/16 = 1 unit, 66 BPM).
-// Susunan: Melodi I - Peralihan I - Melodi I - Peralihan II - Melodi II - Peralihan III.
-// Kanan: melodi. Kiri: | - 1 - - | per ketuk.
+// Tabuh Jakhang (tempo lambat, 66 BPM, 1/16 = 1 unit).
+// Struktur: Melodi I - Peralihan I - Melodi I - Peralihan II - Melodi II - Peralihan III.
+// Kanan: melodi. Kiri: interlocking ketuk | - 1 - - | per ketuk.
 const Nada song_12[] PROGMEM = {
-  // Melodi I (rendah) | - - - 2 | - 2 2 2 | - 2 2 3 | 3 1 1 2 |
-  { DIAM, 1 }, { duo(DIAM, DO), 2 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { MI, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 2 },
-  // Melodi I (rendah) | - - - 2 | - 2 2 2 | - 2 2 3 | 3 1 1 (2) |
-  { duo(DIAM, DO), 2 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { MI, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 2 },
-  // Melodi I (rendah) | - - 3 3 | 2 1 2 2 | 3 3 3 3 | 2 1 2 2 |
-  { duo(DIAM, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 },
-  // Melodi I (rendah) | 3 3 3 3 | 2 1 2 2 | 3 3 3 3 | 2 2 2 (2) |
-  { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 2 },
-  // Peralihan I | - - 2 3 | 5 5 3 3 | 5 3 5 6 | 6 5 5 3 |
-  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(MI, DO), 1 }, { SOL, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { MI, 1 },
-  // Peralihan I | 2 1 2 3 | 5 5 3 3 | 2 1 1 2 | 3 1 1 (2) |
-  { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 2 },
-  // Melodi I (rendah) | - - - 2 | - 2 2 2 | - 2 2 3 | 3 1 1 2 |
-  { duo(DIAM, DO), 2 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { MI, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 2 },
-  // Melodi I (rendah) | - - - 2 | - 2 2 2 | - 2 2 3 | 3 1 1 (2) |
-  { duo(DIAM, DO), 2 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 2 }, { duo(RE, DO), 1 }, { RE, 1 }, { MI, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 2 },
-  // Melodi I (rendah) | - - 3 3 | 2 1 2 2 | 3 3 3 3 | 2 1 2 2 |
-  { duo(DIAM, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 },
-  // Melodi I (rendah) | 3 3 3 3 | 2 1 2 2 | 3 3 3 3 | 2 2 2 (2) |
-  { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 2 },
-  // Peralihan II | - - 2 3 | 5 5 6 6 | 6 5 6 6 | 6 6 1 2 |
-  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(LA, DO), 1 }, { DO, 1 }, { RE, 2 },
-  // Peralihan II | - - 2 3 | 5 5 6 6 | 6 5 6 6 | 6 5 6 (6) |
-  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 2 },
-  // Melodi II (tinggi) | - - 7 7 | 6 5 5 6 | 7 7 7 7 | 6 5 5 6 |
-  { duo(DIAM, DO), 1 }, { SI, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { LA, 1 }, { SI, 1 }, { duo(SI, DO), 1 }, { SI, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { LA, 1 },
-  // Melodi II (tinggi) | 7 7 7 7 | 6 5 5 6 | 7 7 7 7 | 6 5 5 (6) |
-  { SI, 1 }, { duo(SI, DO), 1 }, { SI, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { LA, 1 }, { SI, 1 }, { duo(SI, DO), 1 }, { SI, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { LA, 2 },
-  // Melodi II (tinggi) | - - - 3 | 5 5 6 6 | 6 5 6 6 | 6 5 6 6 |
-  { duo(DIAM, DO), 2 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 2 },
-  // Peralihan III | - - 6 6 | 6 5 5 3 | 5 5 3 3 | 5 5 3 3 |
-  { duo(DIAM, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 },
-  // Peralihan III | 2 1 2 3 | 5 5 3 3 | 2 1 1 2 | 3 1 1 (2) |
-  { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 2 },
-  // Peralihan III | - - 2 3 | 5 5 3 3 | 5 5 3 3 | 5 5 3 3 |
-  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 },
-  // Peralihan III | 2 1 2 3 | 5 5 3 3 | 2 1 1 2 | 3 1 1 (2) |
+  // Melodi I-1: | - - - 2 | - 2 2 2 | - 2 2 3 | 3 1 1 2 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { DIAM, 1 }, { RE, 1 }, { DIAM, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 1 }, { DIAM, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { MI, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 },
+  // Melodi I-2: | - - - 2 | - 2 2 2 | - 2 2 3 | 3 1 1 2 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { DIAM, 1 }, { RE, 1 }, { DIAM, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 1 }, { DIAM, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { MI, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 },
+  // Melodi I-3: | - - 3 3 | 2 1 2 2 | 3 3 3 3 | 2 1 2 2 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 },
+  // Melodi I-4: | 3 3 3 3 | 2 1 2 2 | 3 3 3 3 | 2 2 2 2 |
+  { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 1 },
+  // Peralihan I-1: | - - 2 3 | 5 5 3 3 | 5 3 5 6 | 6 5 5 3 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(MI, DO), 1 }, { SOL, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { MI, 1 },
+  // Peralihan I-2: | 2 1 2 3 | 5 5 3 3 | 2 1 1 2 | 3 1 1 2 |
+  { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 },
+  // Melodi I-1: | - - - 2 | - 2 2 2 | - 2 2 3 | 3 1 1 2 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { DIAM, 1 }, { RE, 1 }, { DIAM, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 1 }, { DIAM, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { MI, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 },
+  // Melodi I-2: | - - - 2 | - 2 2 2 | - 2 2 3 | 3 1 1 2 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { DIAM, 1 }, { RE, 1 }, { DIAM, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 1 }, { DIAM, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { MI, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 },
+  // Melodi I-3: | - - 3 3 | 2 1 2 2 | 3 3 3 3 | 2 1 2 2 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 },
+  // Melodi I-4: | 3 3 3 3 | 2 1 2 2 | 3 3 3 3 | 2 2 2 2 |
+  { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(MI, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { duo(RE, DO), 1 }, { RE, 1 }, { RE, 1 },
+  // Peralihan II-1: | - - 2 3 | 5 5 6 6 | 6 5 6 6 | 6 6 1 2 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(LA, DO), 1 }, { DO, 1 }, { RE, 1 },
+  // Peralihan II-2: | - - 2 3 | 5 5 6 6 | 6 5 6 6 | 6 5 6 6 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 },
+  // Melodi II-1: | - - 7 7 | 6 5 5 6 | 7 7 7 7 | 6 5 5 6 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { SI, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { LA, 1 }, { SI, 1 }, { duo(SI, DO), 1 }, { SI, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { LA, 1 },
+  // Melodi II-2: | 7 7 7 7 | 6 5 5 6 | 7 7 7 7 | 6 5 5 6 |
+  { SI, 1 }, { duo(SI, DO), 1 }, { SI, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { LA, 1 }, { SI, 1 }, { duo(SI, DO), 1 }, { SI, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { LA, 1 },
+  // Melodi II-3: | - - - 3 | 5 5 6 6 | 6 5 6 6 | 6 5 6 6 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { DIAM, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 },
+  // Peralihan III-1: | - - 6 6 | 6 5 5 3 | 5 5 3 3 | 5 5 3 3 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { SOL, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 },
+  // Peralihan III-2: | 2 1 2 3 | 5 5 3 3 | 2 1 1 2 | 3 1 1 2 |
+  { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 },
+  // Peralihan III-3: | - - 2 3 | 5 5 3 3 | 5 5 3 3 | 5 5 3 3 |
+  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 },
+  // Peralihan III-4: | 2 1 2 3 | 5 5 3 3 | 2 1 1 2 | 3 1 1 2 |
   { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { DO, 1 }, { DO, 1 }, { RE, 1 }
 };
 
-// Tabuh Tari (tempo sedang, ketukan 1/16 = 1 unit, 76 BPM).
-// Kanan: melodi. Kiri: | - 1 - - | per ketuk (bagian 5 3 sesuai notasi Ka/Ki).
+// Tabuh Tari (tempo sedang, 76 BPM, 1/16 = 1 unit).
+// Bar 1-6: Melodi tari solo (tangan kanan). Bar 7-10: Bagian 5 3 interlocking dua stik.
 const Nada song_13[] PROGMEM = {
-  // | - - 2 3 | 2 1 2 3 | 2 1 2 3 | 2 1 2 2 |
-  { DIAM, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 2 },
-  // | - - 2 3 | 2 1 2 3 | 2 1 2 3 | 2 1 2 (2) |
-  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 2 },
-  // | - - 2 3 | 5 5 6 6 | 6 5 6 6 | 6 6 1 2 |
-  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(LA, DO), 1 }, { DO, 1 }, { RE, 2 },
-  // | - - 2 3 | 5 5 6 6 | 6 5 6 6 | 6 5 6 (6) |
-  { duo(DIAM, DO), 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 2 },
-  // | - - 6 7 | 6 5 6 7 | 6 5 6 7 | 6 5 6 6 |
-  { duo(DIAM, DO), 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 2 },
-  // | - - 6 7 | 6 5 6 7 | 6 5 6 7 | 6 5 6 (6) |
-  { duo(DIAM, DO), 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { duo(SOL, DO), 1 }, { LA, 1 }, { LA, 3 },
-  // | - - 5 3 | 5 5 3 3 | 5 5 3 3 | 5 5 3 3 |
-  { SOL, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 },
-  // | 2 - 2 3 | 5 5 3 3 | 2 - 2 2 | 3 - 2 (2) |
-  { RE, 2 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { RE, 3 },
-  // | - - 5 3 | 5 5 3 3 | 5 5 3 3 | 5 5 3 3 |
-  { SOL, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 },
-  // | 2 - 2 3 | 5 5 3 3 | 2 - 2 2 | 3 - 2 (2) |
-  { RE, 2 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { RE, 1 }
+  // Melodi Awal 1: | - - 2 3 | 2 1 2 3 | 2 1 2 3 | 2 1 2 2 |
+  { DIAM, 2 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 },
+  // Melodi Awal 2: | - - 2 3 | 2 1 2 3 | 2 1 2 3 | 2 1 2 2 |
+  { DIAM, 2 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { MI, 1 }, { RE, 1 }, { DO, 1 }, { RE, 1 }, { RE, 1 },
+  // Melodi Awal 3: | - - 2 3 | 5 5 6 6 | 6 5 6 6 | 6 6 1 2 |
+  { DIAM, 2 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { SOL, 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { SOL, 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { DO, 1 }, { RE, 1 },
+  // Melodi Awal 4: | - - 2 3 | 5 5 6 6 | 6 5 6 6 | 6 5 6 6 |
+  { DIAM, 2 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { SOL, 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { SOL, 1 }, { LA, 1 }, { LA, 1 }, { LA, 1 }, { SOL, 1 }, { LA, 1 }, { LA, 1 },
+  // Melodi Awal 5: | - - 6 7 | 6 5 6 7 | 6 5 6 7 | 6 5 6 6 |
+  { DIAM, 2 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { SOL, 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { SOL, 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { SOL, 1 }, { LA, 1 }, { LA, 1 },
+  // Melodi Awal 6: | - - 6 7 | 6 5 6 7 | 6 5 6 7 | 6 5 6 6 |
+  { DIAM, 2 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { SOL, 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { SOL, 1 }, { LA, 1 }, { SI, 1 }, { LA, 1 }, { SOL, 1 }, { LA, 1 }, { LA, 1 },
+  // Bagian 5 3 - 1: | - - 5 3 | 5 5 3 3 | 5 5 3 3 | 5 5 3 3 |
+  { DIAM, 2 }, { SOL, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 },
+  // Bagian 5 3 - 2: | 2 - 2 3 | 5 5 3 3 | 2 - 2 2 | 3 - 2 2 |
+  { RE, 1 }, { DIAM, 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { RE, 1 },
+  // Bagian 5 3 - 3: | - - 5 3 | 5 5 3 3 | 5 5 3 3 | 5 5 3 3 |
+  { DIAM, 2 }, { SOL, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 },
+  // Bagian 5 3 - 4: | 2 - 2 3 | 5 5 3 3 | 2 - 2 2 | 3 - 2 2 |
+  { RE, 1 }, { DIAM, 1 }, { RE, 1 }, { MI, 1 }, { SOL, 1 }, { duo(SOL, DO), 1 }, { MI, 1 }, { MI, 1 }, { RE, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { RE, 1 }, { MI, 1 }, { duo(DIAM, DO), 1 }, { RE, 1 }, { RE, 1 }
 };
 
-// Tabuh Alau-Alau Kembahang (tempo cepat, ketukan 1/8 = 2 unit, 132 BPM).
-// Kanan: melodi. Kiri: ketukan bilah 1 pola | - - 1 - | 1 - 1 1 |.
+// Tabuh Alau-Alau Kembahang (tempo cepat, 132 BPM, 1/8 = 2 unit).
+// Kanan: melodi tradisi lincah. Kiri: ketukan bilah 1 pola | - - 1 - | 1 - 1 1 |.
 const Nada song_14[] PROGMEM = {
-  // | - - 2 6 | 6 6 5 6 |
-  { DIAM, 4 }, { duo(RE, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { duo(LA, DO), 6 },
-  // | - - 6 5 | 3 3 2 (3) |
-  { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 6 },
-  // | - - 3 6 | 6 6 5 6 |
-  { duo(MI, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { duo(LA, DO), 6 },
-  // | - - 6 5 | 3 3 2 (3) |
-  { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 6 },
-  // | - - 3 5 | 6 5 3 2 |
-  { duo(MI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { duo(RE, DO), 6 },
-  // | - - 2 3 | 5 3 2 (3) |
-  { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 6 },
-  // | - - 3 5 | 6 5 3 2 |
-  { duo(MI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { duo(RE, DO), 6 },
-  // | - - 2 3 | 5 3 2 (1) |
-  { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 }
+  // Bar 1: | - - 2 6 | 6 6 5 6 |
+  { DIAM, 4 }, { duo(RE, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { duo(LA, DO), 2 },
+  // Bar 2: | - - 6 5 | 3 3 2 3 |
+  { DIAM, 4 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 3: | - - 3 6 | 6 6 5 6 |
+  { DIAM, 4 }, { duo(MI, DO), 2 }, { LA, 2 }, { duo(LA, DO), 2 }, { LA, 2 }, { duo(SOL, DO), 2 }, { duo(LA, DO), 2 },
+  // Bar 4: | - - 6 5 | 3 3 2 3 |
+  { DIAM, 4 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 5: | - - 3 5 | 6 5 3 2 |
+  { DIAM, 4 }, { duo(MI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { duo(RE, DO), 2 },
+  // Bar 6: | - - 2 3 | 5 3 2 3 |
+  { DIAM, 4 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { duo(MI, DO), 2 },
+  // Bar 7: | - - 3 5 | 6 5 3 2 |
+  { DIAM, 4 }, { duo(MI, DO), 2 }, { SOL, 2 }, { duo(LA, DO), 2 }, { SOL, 2 }, { duo(MI, DO), 2 }, { duo(RE, DO), 2 },
+  // Bar 8: | - - 2 3 | 5 3 2 1 |
+  { DIAM, 4 }, { duo(RE, DO), 2 }, { MI, 2 }, { duo(SOL, DO), 2 }, { MI, 2 }, { duo(RE, DO), 2 }, { DO, 2 }
 };
 
-// --- 4. LAINNYA ---
+
+  // --- 4. LAINNYA ---
 const Nada song_15[] PROGMEM = {
   { DO, 4 }, { DO, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { LA, 4 }, { SOL, 8 }, { FA, 4 }, { FA, 4 }, { MI, 4 }, { MI, 4 }, { RE, 4 }, { RE, 4 }, { DO, 8 }, { SOL, 4 }, { SOL, 4 }, { FA, 4 }, { FA, 4 }, { MI, 4 }, { MI, 4 }, { RE, 8 }, { SOL, 4 }, { SOL, 4 }, { FA, 4 }, { FA, 4 }, { MI, 4 }, { MI, 4 }, { RE, 8 }, { DO, 4 }, { DO, 4 }, { SOL, 4 }, { SOL, 4 }, { LA, 4 }, { LA, 4 }, { SOL, 8 }, { FA, 4 }, { FA, 4 }, { MI, 4 }, { MI, 4 }, { RE, 4 }, { RE, 4 }, { DO, 8 }
 };
